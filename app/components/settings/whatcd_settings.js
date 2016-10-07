@@ -19,18 +19,23 @@ class AppSettings extends Component {
     super(props);
 
     this.state = {
-      usernameText: this.props.whatcd.username,
-      passwordText: this.props.whatcd.password
+      usernameText: props.whatcd.username,
+      passwordText: props.whatcd.password
     };
   }
 
   login() {
-    this.props.whatcd.whatcd.login();
+    this.props.login();
   }
 
   render() {
     console.log("Props");
     console.log(this.props);
+
+    if(this.props.whatcd.userData) {
+      console.log("WhatCD Userdata:");
+      console.log(this.props.whatcd.userData);
+    }
 
     return(
       <View>
@@ -46,6 +51,7 @@ class AppSettings extends Component {
           <Text style={styles.labelText}>Password</Text>
           <TextInput
             style={styles.searchBox}
+            secureTextEntry={true}
             onChangeText={(passwordText) => this.props.setPassword(passwordText)}
             value={this.props.whatcd.password}
             />
@@ -56,6 +62,10 @@ class AppSettings extends Component {
         <View>
           <Text style={styles.labelText}>{this.props.whatcd.username}</Text>
           <Text style={styles.labelText}>{this.props.whatcd.password}</Text>
+        </View>
+        <View>
+          <Text>Username: {this.props.whatcd.userData.username} </Text>
+          <Text>ID: {this.props.whatcd.userData.id} </Text>
         </View>
       </View>
     )
