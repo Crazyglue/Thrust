@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import styles from '../stylesheets/default';
-import WhatCDRequest from '../utils/whatcd_request';
+import WhatCDRequest from '../api/whatcd_request';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Button from 'apsl-react-native-button';
 import store from 'react-native-simple-store';
@@ -34,7 +34,7 @@ export default class WhatCDPage extends Component {
   }
 
   getUser() {
-    this.props.whatcd.getUser();
+    this.props.whatcd.whatcd.getUser();
   }
 
   printUserData() {

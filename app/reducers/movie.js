@@ -5,7 +5,7 @@ import {
   SET_RECENT_RESULT,
   SET_SEARCH_STATUS
 } from '../actions/movie';
-import TheMovieDBRequest from '../utils/the_movie_db_request';
+import TheMovieDBRequest from '../api/the_movie_db_request';
 
 const initialState = {
   recentResult: {},

@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import Home from '../components/home';
 import WhatCDPage from '../components/whatcdpage';
 import MoviePage from '../components/movie_page';
-import AppSettings from '../components/app_settings';
+import AppSettings from '../components/settings';
 import configureStore from '../stores/configure_store';
 
 const store = configureStore();

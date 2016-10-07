@@ -3,7 +3,7 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Root from './Root';
-import * as LoginActions from '../actions/login';
+import * as WhatCDActions from '../actions/whatcd';
 
 function mapStateToProps(state) {
   return {
@@ -15,7 +15,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(Object.assign({}, LoginActions), dispatch);
+  return bindActionCreators(Object.assign({}, WhatCDActions), dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Root);

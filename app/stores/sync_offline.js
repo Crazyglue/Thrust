@@ -11,19 +11,19 @@ export default function(store) {
 
   store.subscribe(() => {
     const state = store.getState();
-    if(state.login.password || state.login.username || state.movie.recentResult != recentResult)
+    if(state.whatcd.password || state.whatcd.username || state.movie.recentResult != recentResult)
       console.log("Syncing offline...");
 
-    if(state.login.username) {
-      console.log("Syncing username: " + state.login.username);
-      console.log(state.login.username);
-      offline.save("username", state.login.username);
+    if(state.whatcd.username) {
+      console.log("Syncing username: " + state.whatcd.username);
+      console.log(state.whatcd.username);
+      offline.save("username", state.whatcd.username);
     }
 
-    if(state.login.password) {
-      console.log("Syncing password: " + state.login.password);
-      console.log(state.login.password);
-      offline.save("password", state.login.password);
+    if(state.whatcd.password) {
+      console.log("Syncing password: " + state.whatcd.password);
+      console.log(state.whatcd.password);
+      offline.save("password", state.whatcd.password);
     }
 
 

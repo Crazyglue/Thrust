@@ -6,10 +6,10 @@ import {
   TextInput
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import styles from '../stylesheets/default';
+import styles from '../../stylesheets/default';
 import { connect } from 'react-redux';
-import * as actionCreators from '../actions/login';
-import WhatCDRequest from '../utils/whatcd_request';
+import * as actionCreators from '../../actions/whatcd';
+import WhatCDRequest from '../../api/whatcd_request';
 import Button from 'apsl-react-native-button';
 
 import offline from 'react-native-simple-store';
@@ -19,13 +19,13 @@ class AppSettings extends Component {
     super(props);
 
     this.state = {
-      usernameText: this.props.login.username,
-      passwordText: this.props.login.password
+      usernameText: this.props.whatcd.username,
+      passwordText: this.props.whatcd.password
     };
   }
 
   login() {
-    this.props.login.whatcd.login();
+    this.props.whatcd.whatcd.login();
   }
 
   render() {
@@ -33,13 +33,13 @@ class AppSettings extends Component {
     console.log(this.props);
 
     return(
-      <View style={styles.container}>
+      <View>
         <View style={styles.inlineSearch}>
           <Text style={styles.labelText}>Username</Text>
           <TextInput
             style={styles.searchBox}
             onChangeText={(usernameText) => this.props.setUsername(usernameText)}
-            value={this.props.login.username}
+            value={this.props.whatcd.username}
             />
         </View>
         <View style={styles.inlineSearch}>
@@ -47,15 +47,15 @@ class AppSettings extends Component {
           <TextInput
             style={styles.searchBox}
             onChangeText={(passwordText) => this.props.setPassword(passwordText)}
-            value={this.props.login.password}
+            value={this.props.whatcd.password}
             />
         </View>
         <View>
           <Button onPress={this.login.bind(this)}>Login</Button>
         </View>
         <View>
-          <Text style={styles.labelText}>{this.props.login.username}</Text>
-          <Text style={styles.labelText}>{this.props.login.password}</Text>
+          <Text style={styles.labelText}>{this.props.whatcd.username}</Text>
+          <Text style={styles.labelText}>{this.props.whatcd.password}</Text>
         </View>
       </View>
     )
@@ -65,7 +65,7 @@ class AppSettings extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    login: state.login
+    whatcd: state.whatcd
   }
 }
 

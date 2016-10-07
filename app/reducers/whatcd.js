@@ -5,8 +5,8 @@ import {
   SET_PASSWORD,
   OFFLINE_USERNAME_LOADED,
   OFFLINE_PASSWORD_LOADED
-} from '../actions/login';
-import WhatCDRequest from '../utils/whatcd_request';
+} from '../actions/whatcd';
+import WhatCDRequest from '../api/whatcd_request';
 
 const initialState = {
   username: "",
