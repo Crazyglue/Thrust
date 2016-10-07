@@ -4,7 +4,7 @@ import store from 'react-native-simple-store';
 
 export default class TheMovieDBRequest {
   constructor() {
-    console.log("Constructing WhatCDRequest...");
+    console.log("Constructing The Movie DB Request...");
 
     this.apiKey = "f907bcb4d2c2acc471f7ea8b7ab6b764";
     this.baseEndpoint = "https://api.themoviedb.org/3";
@@ -15,32 +15,29 @@ export default class TheMovieDBRequest {
   }
 
   search(movieString) {
-    form = new FormData();
-
-    form.append("query", movieString);
-
+    console.log("Searching movie: " + movieString);
     params = {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
-      },
-      body: form,
-      credentials: 'same-origin'
+      }
     };
 
-    fetch(this.movieSearchEndpoint, params)
+    queryString = "&query=" + movieString;
+
+    fetch(this.movieSearchEndpoint + queryString, params)
       .then((response) => {
         return response.json();
-      })
-      .then((responseData) => {
-        console.log("Movie search results:");
-        console.log(responseData);
       })
       .catch((error) => {
         console.warn(error);
       })
-      .done();
+      .done((data) => {
+        console.log("Movie search done():");
+        console.log(data);
+        store.save('recent_result', data);
+      });
   }
 
 }

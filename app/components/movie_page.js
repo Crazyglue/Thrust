@@ -8,34 +8,46 @@ import {
 import { Actions } from 'react-native-router-flux';
 import styles from '../stylesheets/default';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { connect } from 'react-redux';
+import * as actionCreators from '../actions/movie';
 
-
-export default class MoviePage extends Component {
+class MoviePage extends Component {
   constructor(props) {
     super(props);
 
     const movieEndpoint = "";
 
-    this.state = { text: "" };
+    this.state = { searchText: "" };
   }
 
-  login() {
-
+  search(searchText) {
+    this.props.searchMovie(searchText);
   }
 
   render() {
+    console.log("Props:");
+    console.log(this.props);
 
     return (
       <View style={{margin: 128}}>
         <TextInput
           style={styles.searchBox}
           onChangeText={(searchText) => this.setState({searchText})}
-          value={this.state.text}
+          value={this.state.searchText}
           />
-        <Icon name="search" />
+        <Icon onPress={this.search.bind(this, this.state.searchText)} name="search" />
 
-        <Text >This is PageOne!</Text>
+        <Text>This is PageOne!</Text>
       </View>
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    movie: state.movie
+  }
+}
+
+// upgrade our component to become Redux-aware
+export default connect(mapStateToProps, actionCreators)(MoviePage);

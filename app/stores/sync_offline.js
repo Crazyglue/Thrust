@@ -7,6 +7,8 @@ export default function(store) {
   let syncedUsername;
   let syncedPassword;
 
+  let recentResult;
+
   store.subscribe(() => {
     const state = store.getState();
     console.log("Syncing offline...");
@@ -19,5 +21,12 @@ export default function(store) {
 
     offline.save("username", state.login.username);
     offline.save("password", state.login.password);
+
+    if(state.movie.recentResult != recentResult) {
+      console.log("Syncing recent result:");
+      console.log(state.movie.recentResult);
+      recentResult = state.movie.recentResult;
+      offline.save('recent_result', recentResult);
+    }
   });
 }

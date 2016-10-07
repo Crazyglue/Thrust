@@ -4,9 +4,6 @@ import offline from 'react-native-simple-store';
 
 export const SET_USERNAME = 'SET_USERNAME';
 export const SET_PASSWORD = 'SET_PASSWORD';
-export const OFFLINE_USERNAME_LOADED = 'OFFLINE_USERNAME_LOADED';
-export const OFFLINE_PASSWORD_LOADED = 'OFFLINE_PASSWORD_LOADED';
-
 
 export function setUsername(username) {
   console.log("Setting username: " + username);
