@@ -27,6 +27,21 @@ class MoviePage extends Component {
   render() {
     console.log("Props:");
     console.log(this.props);
+    let results;
+
+    if(this.props.movie.lastSearchResult) {
+      console.log("Movies:");
+      results = [];
+      this.props.movie.lastSearchResult.results.forEach((movie) => {
+        console.log(movie.title);
+        // <Text>{movie.title}</Text>
+        // return React.createElement(Text, null, movie.title);
+
+        //return React.createFactory(Text)({}, movie.title);
+        results.push(movie.title);
+      });
+      console.log(results);
+    }
 
     return (
       <View style={{margin: 128}}>
@@ -37,7 +52,7 @@ class MoviePage extends Component {
           />
         <Icon onPress={this.search.bind(this, this.state.searchText)} name="search" />
 
-        <Text>This is PageOne!</Text>
+        <Text>{results}</Text>
       </View>
     );
   }

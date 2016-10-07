@@ -26,18 +26,7 @@ export default class TheMovieDBRequest {
 
     queryString = "&query=" + movieString;
 
-    fetch(this.movieSearchEndpoint + queryString, params)
-      .then((response) => {
-        return response.json();
-      })
-      .catch((error) => {
-        console.warn(error);
-      })
-      .done((data) => {
-        console.log("Movie search done():");
-        console.log(data);
-        store.save('recent_result', data);
-      });
+    return fetch(this.movieSearchEndpoint + queryString, params);
   }
 
 }

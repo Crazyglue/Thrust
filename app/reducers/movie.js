@@ -8,24 +8,22 @@ import TheMovieDBRequest from '../utils/the_movie_db_request';
 
 const initialState = {
   recentResult: {},
-  lastMovieSearch: '',
+  lastSearchResult: '',
   movieDB: new TheMovieDBRequest()
 };
 
 export default function reducer(state = initialState, action) {
   let recentResult;
-  let lastMovieSearch;
+  let lastSearchResult;
 
   console.log(action);
   switch (action.type) {
 
     case SEARCH_MOVIE:
-      searchString = action.movie;
-
-      state.movieDB.search(searchString);
+      searchResult = action.payload.movie;
       return {
         ...state,
-        lastMovieSearch: searchString
+        lastSearchResult: searchResult
       }
 
     case SET_RECENT_RESULT:

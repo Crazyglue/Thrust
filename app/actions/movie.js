@@ -7,9 +7,32 @@ export const SET_RECENT_RESULT = 'SET_RECENT_RESULT';
 
 export function searchMovie(movie) {
   console.log("Searching movie: " + movie);
-  return {
-    type: SEARCH_MOVIE,
-    movie: movie
+  return (dispatch, getState) => {
+    console.log("searchMovie getState():");
+    console.log(getState());
+    console.log("searchMovie dispatch:");
+    console.log(dispatch);
+
+    getState().movie.movieDB.search(movie)
+      .then((response) => {
+        console.log("searchMovie.result:");
+        console.log(response);
+
+        return response.json()
+      })
+      .then((response) => {
+        console.log("Response data:");
+        console.log(response);
+        dispatch({
+          type: SEARCH_MOVIE,
+          payload: {
+            movie: response
+          }
+        });
+      })
+      .done(() => {
+        console.log("Finished fetching movie!");
+      });
   };
 }
 
