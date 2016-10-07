@@ -46,75 +46,21 @@ export default class WhatCDRequest {
     console.log(params);
 
     return fetch(endpoint, params);
-      // .catch((error) => {
-      //   console.log("Login error!");
-      //   console.log(error);
-      //   console.warn(error);
-      // })
-      // .then((response) => {
-      //   if(response) {
-      //     console.log("Login successful!");
-      //     store.save("login_data", response)
-      //     .catch((error) => {
-      //       console.warn(error);
-      //     });
-      //     this.getIndex();
-      //   }
-      //   else
-      //     console.log("Login failed!");
-      // })
-      // .done();
   }
 
   getTorrent(searchString) {
     return fetch(this.baseEndpoint + this.torrentEndpoint + searchString);
-      // .then((response) => {
-      //   return response.json();
-      // })
-      // .then((responseJson) => {
-      //   data = responseJson.response;
-      //   console.log("TORRENT RESULT: ");
-      //   console.log(data);
-      //   store.save('torrent_result', data);
-      // })
-      // .catch((error) => {
-      //   console.log(error);
-      //   console.log("FOUND AN ERROR:");
-      //   console.warn(error);
-      // })
-      // .done();
   }
 
   getUser() {
     url = this.baseEndpoint + this.userEndpoint;
 
     return fetch(url, {credentials: 'same-origin'});
-      // .then((response) => {
-      //   return response.json();
-      // })
-      // .then((responseJson) => {
-      //   data = responseJson.response;
-      //   store.save('user_info', data);
-      //   console.log("USER RESPONSE");
-      //   console.log(data);
-      //   return(data);
-      // })
-      // .done();
   }
 
   getIndex() {
     url = this.baseEndpoint + this.indexEndpoint;
 
     return fetch(url, {credentials: 'same-origin'});
-      // .then((response) => {
-      //   return response.json();
-      // })
-      // .then((responseJson) => {
-      //   data = responseJson.response;
-      //   console.log("Saving index data...");
-      //   console.log(data);
-      //   store.save('index_data', data);
-      // })
-      // .done();
   }
 }
