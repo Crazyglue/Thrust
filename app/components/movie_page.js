@@ -10,6 +10,7 @@ import styles from '../stylesheets/default';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
 import * as actionCreators from '../actions/movie';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 class MoviePage extends Component {
   constructor(props) {
@@ -53,6 +54,7 @@ class MoviePage extends Component {
         <Icon onPress={this.search.bind(this, this.state.searchText)} name="search" />
 
         <Text>{results}</Text>
+        <Spinner visible={this.props.movie.isSearching} />
       </View>
     );
   }

@@ -4,6 +4,7 @@ import offline from 'react-native-simple-store';
 
 export const SEARCH_MOVIE = 'SEARCH_MOVIE';
 export const SET_RECENT_RESULT = 'SET_RECENT_RESULT';
+export const SET_SEARCH_STATUS = 'SET_SEARCH_STATUS';
 
 export function searchMovie(movie) {
   console.log("Searching movie: " + movie);
@@ -12,6 +13,13 @@ export function searchMovie(movie) {
     console.log(getState());
     console.log("searchMovie dispatch:");
     console.log(dispatch);
+
+    dispatch({
+      type: SET_SEARCH_STATUS,
+      payload: {
+        isSearching: true
+      }
+    });
 
     getState().movie.movieDB.search(movie)
       .then((response) => {
@@ -27,6 +35,12 @@ export function searchMovie(movie) {
           type: SEARCH_MOVIE,
           payload: {
             movie: response
+          }
+        });
+        dispatch({
+          type: SET_SEARCH_STATUS,
+          payload: {
+            isSearching: false
           }
         });
       })

@@ -2,19 +2,22 @@
 
 import {
   SEARCH_MOVIE,
-  SET_RECENT_RESULT
+  SET_RECENT_RESULT,
+  SET_SEARCH_STATUS
 } from '../actions/movie';
 import TheMovieDBRequest from '../utils/the_movie_db_request';
 
 const initialState = {
   recentResult: {},
   lastSearchResult: '',
+  isSearching: false,
   movieDB: new TheMovieDBRequest()
 };
 
 export default function reducer(state = initialState, action) {
   let recentResult;
   let lastSearchResult;
+  let isSearching;
 
   console.log(action);
   switch (action.type) {
@@ -30,6 +33,12 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         recentResult: action.result
+      }
+
+    case SET_SEARCH_STATUS:
+      return {
+        ...state,
+        isSearching: action.payload.isSearching
       }
 
     default:
