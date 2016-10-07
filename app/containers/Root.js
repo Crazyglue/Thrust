@@ -2,15 +2,13 @@
 
 import React, { Component } from 'react';
 import { Router, Scene } from 'react-native-router-flux';
-import { Provider, connect } from 'react-redux';
+import { Provider } from 'react-redux';
 import Home from '../components/home';
 import WhatCDPage from '../components/whatcdpage';
 import MoviePage from '../components/movie_page';
 import AppSettings from '../components/app_settings';
-import styles from '../stylesheets/default';
 import configureStore from '../stores/configure_store';
 
-const RouterWithRedux = connect()(Router);
 const store = configureStore();
 
 class Root extends Component {

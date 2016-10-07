@@ -7,7 +7,6 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import styles from '../stylesheets/default';
-import config from '../../config/config';
 import { connect } from 'react-redux';
 import * as actionCreators from '../actions/login';
 import WhatCDRequest from '../utils/whatcd_request';
@@ -19,33 +18,19 @@ class AppSettings extends Component {
   constructor(props) {
     super(props);
 
-    this.whatcd = new WhatCDRequest();
-
     this.state = {
-      usernameText: '',
-      passwordText: ''
+      usernameText: this.props.login.username,
+      passwordText: this.props.login.password
     };
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    if (nextState.passwordText != this.state.passwordText) {
-      this.props.setPassword(nextState.passwordText);
-    }
-    if (nextState.usernameText != this.state.usernameText) {
-      this.props.setUsername(nextState.usernameText);
-    }
+  login() {
+    this.props.login.whatcd.login();
   }
 
   render() {
-    console.log("State")
-    console.log(this.props.login);
-
-    offline.get("username").then((username) => {
-      console.log("AppSettings username: " + username);
-    });
-    offline.get("password").then((password) => {
-      console.log("AppSettings password: " + password);
-    });
+    console.log("Props");
+    console.log(this.props);
 
     return(
       <View style={styles.container}>
@@ -53,20 +38,20 @@ class AppSettings extends Component {
           <Text style={styles.labelText}>Username</Text>
           <TextInput
             style={styles.searchBox}
-            onChangeText={(usernameText) => this.setState({usernameText})}
-            value={this.state.usernameText}
+            onChangeText={(usernameText) => this.props.setUsername(usernameText)}
+            value={this.props.login.username}
             />
         </View>
         <View style={styles.inlineSearch}>
           <Text style={styles.labelText}>Password</Text>
           <TextInput
             style={styles.searchBox}
-            onChangeText={(passwordText) => this.setState({passwordText})}
-            value={this.state.passwordText}
+            onChangeText={(passwordText) => this.props.setPassword(passwordText)}
+            value={this.props.login.password}
             />
         </View>
         <View>
-          <Button onPress={this.whatcd.login}>Login</Button>
+          <Button onPress={this.login.bind(this)}>Login</Button>
         </View>
         <View>
           <Text style={styles.labelText}>{this.props.login.username}</Text>

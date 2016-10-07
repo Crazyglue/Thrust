@@ -3,28 +3,21 @@
 import offline from 'react-native-simple-store';
 
 export default function(store) {
-  let username;
-  let password;
+  console.log("Creating store...");
+  let syncedUsername;
+  let syncedPassword;
 
   store.subscribe(() => {
     const state = store.getState();
-    const offlineUsernameLoaded = state.offlineUsernameLoaded;
-    const offlinePasswordLoaded = state.offlineUsernameLoaded;
-    const offlineUsername = state.username;
-    const offlinePassword = state.password;
+    console.log("Syncing offline...");
 
-    if (offlineUsernameLoaded && username != offlineUsername) {
-      console.log("LOADING OFFLINE USERNAME: ");
-      console.log(offlineUsername);
-      offline.save('username', offlineUsername);
-      username = offlineUsername;
-    }
+    console.log("Syncing username: " + state.login.username);
+    console.log(state.login.username);
 
-    if (offlinePasswordLoaded && password != offlinePassword) {
-      console.log("LOADING OFFLINE PASSWORD: ");
-      console.log(offlinePassword);
-      offline.save('password', offlinePassword);
-      password = offlinePassword;
-    }
+    console.log("Syncing password: " + state.login.password);
+    console.log(state.login.password);
+
+    offline.save("username", state.login.username);
+    offline.save("password", state.login.password);
   });
 }

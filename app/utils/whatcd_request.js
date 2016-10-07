@@ -3,7 +3,7 @@
 import store from 'react-native-simple-store';
 
 export default class WhatCDRequest {
-  constructor(appState) {
+  constructor() {
     console.log("Constructing WhatCDRequest...");
     this.baseEndpoint = "https://what.cd";
     this.loginEndpoint = "/login.php";
@@ -12,29 +12,24 @@ export default class WhatCDRequest {
     this.userEndpoint = "/ajax.php?action=user&id=";
     this.userSearchEndpoint = "/ajax.php?action=usersearch";
 
-    this.lastResult = null;
-
-    this.login();
+    console.log("Endpoint: " + this.baseEndpoint + this.loginEndpoint);
   }
 
   login() {
+    let endpoint = this.baseEndpoint + this.loginEndpoint;
+
     console.log("WhatCD Login: ");
 
     form = new FormData();
 
     store.get('username').then((uname) => {
-      console.log("Setting form username: " + uname);
       form.append('username', uname);
     });
     store.get('password').then((pword) => {
-      console.log("Setting form password: " + pword);
       form.append('password', pword);
     });
 
     form.append('keeplogged', true);
-
-    console.log("FormData: ");
-    console.log(form);
 
     params = {
       method: 'POST',
@@ -46,15 +41,25 @@ export default class WhatCDRequest {
       credentials: 'same-origin'
     };
 
-    fetch(this.baseEndpoint + this.loginEndpoint, params)
+    console.log("Login endpoint: " + endpoint);
+    console.log("Logging in using params:");
+    console.log(params);
+
+    fetch(endpoint, params)
       .catch((error) => {
         console.log("Login error!");
         console.log(error);
         console.warn(error);
       })
       .then((response) => {
-        if(response)
+        if(response) {
           console.log("Login successful!");
+          store.save("login_data", response)
+          .catch((error) => {
+            console.warn(error);
+          });
+          this.getIndex();
+        }
         else
           console.log("Login failed!");
       })
@@ -62,8 +67,6 @@ export default class WhatCDRequest {
   }
 
   getTorrent(searchString) {
-    var data = '';
-
     fetch(this.baseEndpoint + this.torrentEndpoint + searchString)
       .then((response) => {
         return response.json();
@@ -80,8 +83,6 @@ export default class WhatCDRequest {
         console.warn(error);
       })
       .done();
-
-    return data;
   }
 
   getUser() {
@@ -101,4 +102,19 @@ export default class WhatCDRequest {
       .done();
   }
 
+  getIndex() {
+    url = this.baseEndpoint + this.indexEndpoint;
+
+    fetch(url, {credentials: 'same-origin'})
+      .then((response) => {
+        return response.json();
+      })
+      .then((responseJson) => {
+        data = responseJson.response;
+        console.log("Saving index data...");
+        console.log(data);
+        store.save('index_data', data);
+      })
+      .done();
+  }
 }

@@ -9,12 +9,7 @@ export const OFFLINE_PASSWORD_LOADED = 'OFFLINE_PASSWORD_LOADED';
 
 
 export function setUsername(username) {
-  offline.save("username", username);
   console.log("Setting username: " + username);
-  offline.get("username").then((user) => {
-    console.log("Getting username: " + user);
-  });
-
   return {
     type: SET_USERNAME,
     username: username
@@ -22,7 +17,6 @@ export function setUsername(username) {
 }
 
 export function setPassword(password) {
-  offline.save("password", password);
   console.log("Setting password: " + password);
   return {
     type: SET_PASSWORD,

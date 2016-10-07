@@ -6,10 +6,12 @@ import {
   OFFLINE_USERNAME_LOADED,
   OFFLINE_PASSWORD_LOADED
 } from '../actions/login';
+import WhatCDRequest from '../utils/whatcd_request';
 
 const initialState = {
   username: "",
-  password: ""
+  password: "",
+  whatcd: new WhatCDRequest()
 };
 
 export default function reducer(state = initialState, action) {
@@ -20,12 +22,14 @@ export default function reducer(state = initialState, action) {
   switch (action.type) {
 
     case SET_USERNAME:
+      console.log("Inside username reducer...");
       return {
         ...state,
         username: action.username
       }
 
     case SET_PASSWORD:
+      console.log("Inside password reducer...");
       return {
         ...state,
         password: action.password
