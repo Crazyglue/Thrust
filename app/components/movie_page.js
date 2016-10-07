@@ -45,15 +45,20 @@ class MoviePage extends Component {
     }
 
     return (
-      <View style={{margin: 128}}>
-        <TextInput
-          style={styles.searchBox}
-          onChangeText={(searchText) => this.setState({searchText})}
-          value={this.state.searchText}
-          />
-        <Icon onPress={this.search.bind(this, this.state.searchText)} name="search" />
+      <View style={styles.container}>
+        <Text style={styles.welcome}>Welcome!</Text>
+        <View style={styles.inlineSearch}>
+          <TextInput
+            style={styles.searchBox}
+            onChangeText={(searchText) => this.setState({searchText})}
+            value={this.state.searchText}
+            />
+          <Icon style={styles.searchIcon} onPress={this.search.bind(this, this.state.searchText)} name="search" />
 
-        <Text>{results}</Text>
+        </View>
+        <View>
+          <Text>{results}</Text>
+        </View>
         <Spinner visible={this.props.movie.isSearching} />
       </View>
     );
