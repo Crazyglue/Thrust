@@ -3,31 +3,75 @@ import React, { Component } from 'react';
 import {
   Text,
   View,
-  TextInput
+  TextInput,
+  TouchableHighlight,
+  ListView
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import styles from '../stylesheets/default';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
 import * as actionCreators from '../actions/movie';
 import Spinner from 'react-native-loading-spinner-overlay';
+import { Fumi } from 'react-native-textinput-effects';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import GiftedListView from 'react-native-gifted-listview';
+import MovieResultList from './movies/result_list';
+
 
 class MoviePage extends Component {
   constructor(props) {
     super(props);
 
     const movieEndpoint = "";
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
-    this.state = { searchText: "" };
+    this.state = {
+      searchText: "",
+      dataSource: ds.cloneWithRows(['row 1', 'row 2'])
+    };
   }
 
   search(searchText) {
     this.props.searchMovie(searchText);
   }
 
+  _renderRowView(rowData) {
+    console.log("_renderRowView");
+    console.log(rowData);
+
+    return (
+      <TouchableHighlight
+        style={styles.row}
+        underlayColor='#c8c7cc'
+        onPress={() => this._onPress(rowData)}
+      >
+        <Text>{rowData}</Text>
+      </TouchableHighlight>
+    );
+  }
+
+  _onFetch(page = 1, callback, options) {
+
+    console.log("_onFetch():")
+    console.log(this.props.movie.lastSearchResult);
+    if (this.props.movie.lastSearchResult.length > 0){
+      var rows = this.props.movie.lastSearchResult.results.map((movie) => {
+        return movie.title;
+      });
+      callback(rows);
+    }
+  }
+
+  _onPress(rowData) {
+    console.log(rowData+' pressed');
+  }
+
   render() {
     console.log("Props:");
     console.log(this.props);
+    console.log("Store:");
+    console.log(this.props.component);
+
     let results;
 
     if(this.props.movie.lastSearchResult) {
@@ -35,10 +79,6 @@ class MoviePage extends Component {
       results = [];
       this.props.movie.lastSearchResult.results.forEach((movie) => {
         console.log(movie.title);
-        // <Text>{movie.title}</Text>
-        // return React.createElement(Text, null, movie.title);
-
-        //return React.createFactory(Text)({}, movie.title);
         results.push(movie.title + "\n");
       });
       console.log(results);
@@ -47,17 +87,24 @@ class MoviePage extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>Welcome!</Text>
-        <View style={styles.inlineSearch}>
-          <TextInput
-            style={styles.searchBox}
-            onChangeText={(searchText) => this.setState({searchText})}
-            value={this.state.searchText}
-            />
-          <Icon style={styles.searchIcon} onPress={this.search.bind(this, this.state.searchText)} name="search" />
+          <Fumi
+            style={{alignSelf: 'stretch'}}
+            label={'Search'}
+            iconClass={FontAwesomeIcon}
+            iconName={'search'}
+            iconColor={'blue'}
+            autoCorrect={false}
+            inputStyle={{ color: '#db786d' }}
 
-        </View>
+
+            blurOnSubmit={true}
+            onSubmitEditing={(event) => this.search(event.nativeEvent.text)}
+            />
+
+        <MovieResultList data={this.props.movie.lastSearchResult.results} />
+
         <View>
-          <Text>{results}</Text>
+          <Text style={{ color: "grey" }}>{results}</Text>
         </View>
         <Spinner visible={this.props.movie.isSearching} />
       </View>

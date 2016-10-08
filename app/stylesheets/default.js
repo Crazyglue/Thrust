@@ -8,12 +8,15 @@ const styles = StyleSheet.create({
     marginTop: 80,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
   },
   welcome: {
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
+  },
+  listView: {
+    alignItems: "center",
+    justifyContent: "space-between"
   },
   instructions: {
     textAlign: 'center',

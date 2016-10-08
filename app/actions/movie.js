@@ -43,8 +43,18 @@ export function searchMovie(movie) {
             isSearching: false
           }
         });
+        dispatch({
+          type: SET_RECENT_RESULT,
+          result: response.results
+        });
       })
       .done(() => {
+        dispatch({
+          type: SET_SEARCH_STATUS,
+          payload: {
+            isSearching: false
+          }
+        });
         console.log("Finished fetching movie!");
       });
   };
