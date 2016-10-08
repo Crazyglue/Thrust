@@ -14,13 +14,13 @@ import Button from 'apsl-react-native-button';
 
 import offline from 'react-native-simple-store';
 
-class AppSettings extends Component {
+class WhatCDSettings extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      usernameText: props.whatcd.username,
-      passwordText: props.whatcd.password
+      usernameText: '',
+      passwordText: ''
     };
   }
 
@@ -31,11 +31,15 @@ class AppSettings extends Component {
   render() {
     console.log("Props");
     console.log(this.props);
+    let userData = [];
 
     if(this.props.whatcd.userData) {
       console.log("WhatCD Userdata:");
       console.log(this.props.whatcd.userData);
+      userData.push(this.props.whatcd.userData.username);
+      userData.push(this.props.whatcd.userData.id);
     }
+
 
     return(
       <View>
@@ -64,8 +68,7 @@ class AppSettings extends Component {
           <Text style={styles.labelText}>{this.props.whatcd.password}</Text>
         </View>
         <View>
-          <Text>Username: {this.props.whatcd.userData.username} </Text>
-          <Text>ID: {this.props.whatcd.userData.id} </Text>
+          <Text>{userData}</Text>
         </View>
       </View>
     )
@@ -80,4 +83,4 @@ const mapStateToProps = (state) => {
 }
 
 // upgrade our component to become Redux-aware
-export default connect(mapStateToProps, actionCreators)(AppSettings);
+export default connect(mapStateToProps, actionCreators)(WhatCDSettings);
