@@ -39,7 +39,7 @@ class MoviePage extends Component {
         // return React.createElement(Text, null, movie.title);
 
         //return React.createFactory(Text)({}, movie.title);
-        results.push(movie.title);
+        results.push(movie.title + "\n");
       });
       console.log(results);
     }

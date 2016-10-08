@@ -26,7 +26,7 @@ export function searchMovie(movie) {
         console.log("searchMovie.result:");
         console.log(response);
 
-        return response.json()
+        return response.json();
       })
       .then((response) => {
         console.log("Response data:");

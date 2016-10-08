@@ -16,6 +16,10 @@ class Root extends Component {
     super(props);
   }
 
+  componentDidMount() {
+    this.props.login();
+  }
+
   componentWillMount() {
     this.props.loadOfflineCredentials();
   }
