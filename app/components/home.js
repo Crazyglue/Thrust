@@ -6,9 +6,18 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import styles from '../stylesheets/default';
+import { connect } from 'react-redux';
+import * as actionCreators from '../actions/whatcd';
 
+class Home extends Component {
+  componentDidMount() {
+    this.props.login();
+  }
 
-export default class Home extends Component {
+  componentWillMount() {
+    this.props.loadOfflineCredentials();
+  }
+
   render() {
     const goToWhatCD = () => Actions.whatcdpage();
     const goToMoviePage = () => Actions.moviepage();
@@ -24,3 +33,14 @@ export default class Home extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    whatcd: state.whatcd,
+    username: state.whatcd.username,
+    password: state.whatcd.password,
+  }
+}
+
+// upgrade our component to become Redux-aware
+export default connect(mapStateToProps, actionCreators)(Home);

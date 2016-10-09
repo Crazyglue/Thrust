@@ -11,8 +11,8 @@ import {
 import WhatCDRequest from '../api/whatcd_request';
 
 const initialState = {
-  username: "",
-  password: "",
+  username: "Bill",
+  password: "Nye",
   userData: {},
   isLoggedIn: false,
   whatcd: new WhatCDRequest()
@@ -32,14 +32,14 @@ export default function reducer(state = initialState, action) {
       console.log("Inside username reducer...");
       return {
         ...state,
-        username: action.username
+        username: action.payload.username
       }
 
     case SET_PASSWORD:
       console.log("Inside password reducer...");
       return {
         ...state,
-        password: action.password
+        password: action.payload.password
       }
 
     case SET_USER_DATA:

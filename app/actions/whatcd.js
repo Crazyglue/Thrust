@@ -11,7 +11,7 @@ export function setUsername(username) {
   console.log("Setting username: " + username);
   return {
     type: SET_USERNAME,
-    username: username
+    payload: { username: username }
   };
 }
 
@@ -19,7 +19,7 @@ export function setPassword(password) {
   console.log("Setting password: " + password);
   return {
     type: SET_PASSWORD,
-    password: password
+    payload: { password: password }
   };
 }
 
