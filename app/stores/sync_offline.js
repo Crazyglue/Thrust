@@ -13,6 +13,7 @@ export default function(store) {
     const state = store.getState();
     if(state.whatcd.password || state.whatcd.username || state.movie.recentResult != recentResult)
       console.log("Syncing offline...");
+      console.log(state);
 
     if(state.whatcd.username) {
       console.log("Syncing username: " + state.whatcd.username);

@@ -6,6 +6,7 @@ export const SET_USERNAME = 'SET_USERNAME';
 export const SET_PASSWORD = 'SET_PASSWORD';
 export const SET_USER_DATA = 'SET_USER_DATA';
 export const SET_LOGGED_IN = 'SET_LOGGED_IN';
+export const SET_LOGIN_PENDING = 'SET_LOGIN_PENDING';
 
 export function setUsername(username) {
   console.log("Setting username: " + username);
@@ -39,15 +40,24 @@ export function login() {
   console.log("Logging into WhatCD");
 
   return(dispatch, getState) => {
+    dispatch({
+      type: SET_LOGIN_PENDING,
+      payload: { isLoggingIn: true }
+    });
+
     getState().whatcd.whatcd.login()
       .then((response) => {
         console.log("WhatCD Login response:");
         console.log(response);
-        if (response.url === "https://what.cd/index.php")
+        if (response.url === "https://what.cd/index.php") {
           console.log("WhatCD login successful!");
           dispatch({
             type: SET_LOGGED_IN,
             payload: {isLoggedIn: true}
+          });
+          dispatch({
+            type: SET_LOGIN_PENDING,
+            payload: { isLoggingIn: false }
           });
 
           getState().whatcd.whatcd.getIndex()
@@ -61,6 +71,17 @@ export function login() {
               });
             })
             .done();
+        }
+        else {
+          dispatch({
+            type: SET_LOGGED_IN,
+            payload: {isLoggedIn: false}
+          });
+          dispatch({
+            type: SET_LOGIN_PENDING,
+            payload: { isLoggingIn: false }
+          });
+        }
 
       })
       .catch((error) => {
@@ -69,6 +90,10 @@ export function login() {
         dispatch({
           type: SET_LOGGED_IN,
           payload: {isLoggedIn: false}
+        });
+        dispatch({
+          type: SET_LOGIN_PENDING,
+          payload: { isLoggingIn: false }
         });
       })
       .done();
