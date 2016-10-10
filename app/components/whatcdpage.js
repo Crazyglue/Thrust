@@ -6,6 +6,7 @@ import {
   View,
   TextInput,
   ListView,
+  ScrollView,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import styles from '../stylesheets/default';
@@ -35,9 +36,11 @@ class WhatCDPage extends Component {
   componentWillReceiveProps(nextProps) {
     let data;
 
-    this.setState({
-      dataSource: this.state.dataSource.cloneWithRows(nextProps.searchResult.results)
-    });
+    if(nextProps.searchResult.results) {
+      this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(nextProps.searchResult.results)
+      });
+    }
   }
 
   getArtist() {
@@ -67,19 +70,8 @@ class WhatCDPage extends Component {
     console.log("WhatCDPage Props:");
     console.log(this.props);
 
-    let resultsText = [];
-
     console.log("searchResult:");
     console.log(this.props.searchResult);
-
-    if(this.props.searchResult.results) {
-      this.props.searchResult.results.forEach((result) => {
-        resultsText.push(result.artist + " - " + result.groupName + "\n");
-      });
-    }
-
-    console.log("resultsText:");
-    console.log(resultsText);
 
     return(
       <View style={styles.container}>
@@ -97,14 +89,16 @@ class WhatCDPage extends Component {
             blurOnSubmit={true}
             onSubmitEditing={this.getTorrent.bind(this, this.state.searchText)}
             />
-        <View>
+        <ScrollView
+          scrollEventThrottle={200}
+          style={{ border: 1, borderWidth: 2, backgroundColor: '#6A85B1', height: 400, alignSelf: 'stretch' }}
+          >
           <ListView
             dataSource={this.state.dataSource}
             enableEmptySections={true}
-            renderRow={(rowData) => <Text>{rowData.artist}</Text>}
+            renderRow={(rowData) => <Text>{rowData.artist} - {rowData.groupName}</Text>}
           />
-          <Text>{resultsText}</Text>
-        </View>
+        </ScrollView>
       </View>
     )
   }
