@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 import * as actionCreators from '../actions/whatcd';
 import Button from 'apsl-react-native-button';
 import WhatCDSettings from './settings/whatcd_settings';
+import TransmissionSettings from './settings/transmission_settings';
 
 import offline from 'react-native-simple-store';
 
@@ -34,6 +35,7 @@ class AppSettings extends Component {
     return(
       <View style={styles.container}>
         <WhatCDSettings />
+        <TransmissionSettings />
       </View>
     )
   }
