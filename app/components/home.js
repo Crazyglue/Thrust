@@ -10,10 +10,6 @@ import { connect } from 'react-redux';
 import * as actionCreators from '../actions/whatcd';
 
 class Home extends Component {
-  componentDidMount() {
-    this.props.login();
-  }
-
   componentWillMount() {
     this.props.loadOfflineCredentials();
   }

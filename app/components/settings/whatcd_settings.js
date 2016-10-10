@@ -34,12 +34,12 @@ class WhatCDSettings extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    buttonState = 'idle';
+    let buttonState = 'idle';
     if(nextProps.isLoggedIn)
       buttonState = 'success';
     if(nextProps.isLoggingIn)
       buttonState = "busy";
-    this.setState({buttonState: buttonState});
+    this.setState({ buttonState: buttonState });
   }
 
   render() {

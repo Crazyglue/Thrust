@@ -27,12 +27,14 @@ export function setPassword(password) {
 export function loadOfflineCredentials() {
   console.log("Loading offline credentials...");
   return dispatch => {
-    offline.get('username').then(username => {
-      dispatch(setUsername(username || ""));
-    });
-    offline.get('password').then(password => {
-      dispatch(setPassword(password || ""));
-    });
+    Promise.all([
+      offline.get('username').then(username => {
+        dispatch(setUsername(username || ""));
+      }),
+      offline.get('password').then(password => {
+        dispatch(setPassword(password || ""));
+      })
+    ]).then(() => dispatch(login()));
   };
 }
 
@@ -98,18 +100,4 @@ export function login() {
       })
       .done();
     };
-}
-
-function offlineUsernameLoaded(username) {
-  return {
-    type: OFFLINE_USERNAME_LOADED,
-    username: username
-  };
-}
-
-function offlinePasswordLoaded(password) {
-  return {
-    type: OFFLINE_PASSWORD_LOADED,
-    password: password
-  };
 }

@@ -41,8 +41,7 @@ export default class WhatCDRequest {
       credentials: 'same-origin'
     };
 
-    console.log("Login endpoint: " + endpoint);
-    console.log("Logging in using params:");
+    console.log("Logging into whatcd using params:");
     console.log(params);
 
     return fetch(endpoint, params);

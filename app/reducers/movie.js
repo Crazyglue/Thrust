@@ -19,7 +19,6 @@ export default function reducer(state = initialState, action) {
   let lastSearchResult;
   let isSearching;
 
-  console.log(action);
   switch (action.type) {
 
     case SEARCH_MOVIE:
