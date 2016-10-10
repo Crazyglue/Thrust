@@ -61,6 +61,27 @@ export function getTorrent(searchText) {
   };
 }
 
+export function downloadTorrent(torrentResult) {
+  return (dispatch, getState) => {
+    id = torrentResult.torrents[0].torrentId;
+    authkey = getState().whatcd.userData.authkey;
+    passkey = getState().whatcd.userData.passkey;
+    getState().whatcd.whatcd.downloadTorrent(id, authkey, passkey)
+      .then((response) => {
+        console.log("Torrent Download response");
+        console.log(response);
+        return response.blob();
+      })
+      .then((blob) => {
+        console.log("Downloaded blob: ");
+        console.log(blob);
+      })
+      .done(() => console.log("Done with download"));
+
+
+  };
+}
+
 export function login() {
   console.log("Logging into WhatCD");
 

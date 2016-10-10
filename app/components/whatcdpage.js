@@ -51,6 +51,12 @@ class WhatCDPage extends Component {
     this.props.getTorrent(this.state.searchText);
   }
 
+  downloadTorrent(rowData) {
+    console.log("Passing rowData: ");
+    console.log(rowData);
+    this.props.downloadTorrent(rowData);
+  }
+
   getUser() {
     this.props.whatcd.whatcd.getUser();
   }
@@ -91,12 +97,12 @@ class WhatCDPage extends Component {
             />
         <ScrollView
           scrollEventThrottle={200}
-          style={{ border: 1, borderWidth: 2, backgroundColor: '#6A85B1', height: 400, alignSelf: 'stretch' }}
+          style={{ borderWidth: 2, backgroundColor: '#6A85B1', height: 400, alignSelf: 'stretch' }}
           >
           <ListView
             dataSource={this.state.dataSource}
             enableEmptySections={true}
-            renderRow={(rowData) => <Text>{rowData.artist} - {rowData.groupName}</Text>}
+            renderRow={(rowData) => <Text onPress={this.downloadTorrent.bind(this, rowData)} >{rowData.artist} - {rowData.groupName}</Text>}
           />
         </ScrollView>
       </View>

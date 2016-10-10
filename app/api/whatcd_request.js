@@ -12,6 +12,11 @@ export default class WhatCDRequest {
     this.userEndpoint = "/ajax.php?action=user&id=";
     this.userSearchEndpoint = "/ajax.php?action=usersearch";
 
+    this.downloadEndpoint = '/torrents.php?action=download';
+    this.downloadId = '&id=';
+    this.authKey = '&authkey=';
+    this.passKey = '&torrent_pass=';
+
     console.log("Endpoint: " + this.baseEndpoint + this.loginEndpoint);
   }
 
@@ -61,5 +66,23 @@ export default class WhatCDRequest {
     url = this.baseEndpoint + this.indexEndpoint;
 
     return fetch(url, {credentials: 'same-origin'});
+  }
+
+  downloadTorrent(torrentId, authKey, passKey) {
+    url = this.baseEndpoint + this.downloadEndpoint + this.downloadId + torrentId + this.authKey + authkey + this.passKey + passkey;
+    params = {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      credentials: 'same-origin'
+    };
+
+    console.log("Downloading torrent using the following params:");
+    console.log(url);
+    console.log(params);
+
+    return fetch(url, params);
   }
 }
