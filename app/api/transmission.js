@@ -2,8 +2,12 @@
 
 export default class TransmissionAPI {
   constructor() {
-    this.baseEndpoint = "http://127.0.0.1:9091/transmission/rpc";
+    this.baseEndpoint = "/transmission/rpc";
     this.sessionId = null;
+    this.localUrl = '127.0.0.1';
+    this.localPort = '9091';
+    this.webUrl = '';
+    this.webPort = '';
 
     this.getSessionId();
   }
@@ -12,7 +16,7 @@ export default class TransmissionAPI {
 
     this.sessionId = null;
 
-    fetch(this.baseEndpoint)
+    fetch(this.getBaseUrl())
       .then((response) => {
           console.log("constructor response");
           console.log(response);
@@ -28,7 +32,7 @@ export default class TransmissionAPI {
   getTransmissionStats() {
     console.log("Getting transmission stats...");
 
-    url = this.baseEndpoint;
+    url = this.getBaseUrl();
 
     body = JSON.stringify({
       method: "session-get"
@@ -52,7 +56,7 @@ export default class TransmissionAPI {
 
   addTorrent(torrentBlob) {
 
-    url = this.baseEndpoint;
+    url = this.getBaseUrl();
 
     body = JSON.stringify({
       method: "torrent-add",
@@ -78,4 +82,12 @@ export default class TransmissionAPI {
 
     return fetch(url, params);
   }
+
+  setLocalUrl(url) { this.localUrl = url; }
+  setLocalPort(port) { this.localPort = port; }
+  setWebUrl(url) { this.webUrl = url; }
+  setWebPort(port) { this.webPort = port; }
+
+  getBaseUrl() { return("http://" + this.localUrl + ":" + this.localPort + this.baseEndpoint); e}
+
 }
