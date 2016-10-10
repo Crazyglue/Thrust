@@ -7,6 +7,7 @@ export const SET_PASSWORD = 'SET_PASSWORD';
 export const SET_USER_DATA = 'SET_USER_DATA';
 export const SET_LOGGED_IN = 'SET_LOGGED_IN';
 export const SET_LOGIN_PENDING = 'SET_LOGIN_PENDING';
+export const SET_WHATCD_SEARCH_RESULT = 'SET_WHATCD_SEARCH_RESULT';
 
 export function setUsername(username) {
   console.log("Setting username: " + username);
@@ -35,6 +36,28 @@ export function loadOfflineCredentials() {
         dispatch(setPassword(password || ""));
       })
     ]).then(() => dispatch(login()));
+  };
+}
+
+export function getTorrent(searchText) {
+  return(dispatch, getState) => {
+    getState().whatcd.whatcd.getTorrent(searchText)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        if(data.status === "success") {
+          console.log("WhatCD getTorrent result:");
+          console.log(data.response);
+
+          dispatch({
+            type: SET_WHATCD_SEARCH_RESULT,
+            payload: {
+              result: data.response
+            }
+          });
+        }
+      });
   };
 }
 

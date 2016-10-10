@@ -8,6 +8,7 @@ import {
   OFFLINE_USERNAME_LOADED,
   OFFLINE_PASSWORD_LOADED,
   SET_LOGIN_PENDING,
+  SET_WHATCD_SEARCH_RESULT,
 } from '../actions/whatcd';
 import WhatCDRequest from '../api/whatcd_request';
 
@@ -17,7 +18,8 @@ const initialState = {
   userData: {},
   isLoggedIn: false,
   isLoggingIn: false,
-  whatcd: new WhatCDRequest()
+  whatcd: new WhatCDRequest(),
+  searchResult: {}
 };
 
 export default function reducer(state = initialState, action) {
@@ -26,6 +28,7 @@ export default function reducer(state = initialState, action) {
   let userData;
   let isLoggedIn;
   let isLoggingIn;
+  let searchResult;
 
   console.log("Dispatching action:");
   console.log(action);
@@ -59,6 +62,12 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         isLoggingIn: action.payload.isLoggingIn
+      }
+
+    case SET_WHATCD_SEARCH_RESULT:
+      return {
+        ...state,
+        searchResult: action.payload.result
       }
 
     case OFFLINE_USERNAME_LOADED:
