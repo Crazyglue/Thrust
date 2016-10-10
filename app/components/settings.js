@@ -11,7 +11,6 @@ import { Actions } from 'react-native-router-flux';
 import styles from '../stylesheets/default';
 import { connect } from 'react-redux';
 import * as actionCreators from '../actions/whatcd';
-import WhatCDRequest from '../api/whatcd_request';
 import Button from 'apsl-react-native-button';
 import WhatCDSettings from './settings/whatcd_settings';
 

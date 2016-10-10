@@ -10,7 +10,7 @@ import {
   SET_LOGIN_PENDING,
   SET_WHATCD_SEARCH_RESULT,
 } from '../actions/whatcd';
-import WhatCDRequest from '../api/whatcd_request';
+import WhatCDAPI from '../api/whatcd';
 
 const initialState = {
   username: "",
@@ -18,7 +18,7 @@ const initialState = {
   userData: {},
   isLoggedIn: false,
   isLoggingIn: false,
-  whatcd: new WhatCDRequest(),
+  whatcd: new WhatCDAPI(),
   searchResult: {}
 };
 

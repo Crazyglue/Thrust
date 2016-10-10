@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import styles from '../stylesheets/default';
-import WhatCDRequest from '../api/whatcd_request';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Button from 'apsl-react-native-button';
 import { Fumi } from 'react-native-textinput-effects';
@@ -24,7 +23,6 @@ class WhatCDPage extends Component {
   constructor(params) {
     super(params);
 
-    this.whatcd = new WhatCDRequest();
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
     this.state = {
@@ -86,7 +84,7 @@ class WhatCDPage extends Component {
             style={{alignSelf: 'stretch'}}
             label={'Search WhatCD'}
             iconClass={FontAwesomeIcon}
-            iconName={'key'}
+            iconName={'search'}
             iconColor={'blue'}
             autoCorrect={false}
             inputStyle={{ color: '#db786d' }}

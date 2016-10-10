@@ -2,7 +2,7 @@
 
 import store from 'react-native-simple-store';
 
-export default class TheMovieDBRequest {
+export default class TheMovieDBAPI {
   constructor() {
     console.log("Constructing The Movie DB Request...");
 
@@ -11,7 +11,6 @@ export default class TheMovieDBRequest {
     this.sessionEndpoint = this.baseEndpoint + "/authentication/token/new?api_key=" + this.apiKey;
 
     this.movieSearchEndpoint = this.baseEndpoint + "/search/movie?api_key=" + this.apiKey;
-
   }
 
   search(movieString) {

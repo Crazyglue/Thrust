@@ -15,12 +15,7 @@ import { connect } from 'react-redux';
 
 class WhatCDResultList extends Component {
   constructor(params) {
-
     super(params);
-  }
-
-  downloadTorrent(data) {
-    this.props.downloadTorrent(data);
   }
 
   _renderRow(data) {
@@ -29,7 +24,7 @@ class WhatCDResultList extends Component {
 
     header = (
       <View style={{ flex: 1, flexDirection: 'row', height: 50 }}>
-        <Image style={{width: 50, height: 50}} source={{ uri: data.cover }} /><Text>{data.artist} - {data.groupName}</Text>
+        <Image style={{width: 50, height: 50}} source={data.cover ? { uri: data.cover } : null} /><Text>{data.artist} - {data.groupName}</Text>
       </View>
     );
 
@@ -56,6 +51,7 @@ class WhatCDResultList extends Component {
       <ScrollView style={{ alignSelf: 'stretch' }}>
         <ListView
           dataSource={this.props.data}
+          enableEmptySections={true}
           renderRow={this._renderRow.bind(this)}
           />
       </ScrollView>

@@ -2,9 +2,9 @@
 
 import store from 'react-native-simple-store';
 
-export default class WhatCDRequest {
+export default class WhatCDAPI {
   constructor() {
-    console.log("Constructing WhatCDRequest...");
+    console.log("Constructing WhatCDAPI...");
     this.baseEndpoint = "https://what.cd";
     this.loginEndpoint = "/login.php";
     this.indexEndpoint = "/ajax.php?action=index";
@@ -34,7 +34,7 @@ export default class WhatCDRequest {
       form.append('password', pword);
     });
 
-    form.append('keeplogged', true);
+    // form.append('keeplogged', true);
 
     params = {
       method: 'POST',

@@ -5,13 +5,13 @@ import {
   SET_RECENT_RESULT,
   SET_SEARCH_STATUS
 } from '../actions/movie';
-import TheMovieDBRequest from '../api/the_movie_db_request';
+import TheMovieDBAPI from '../api/the_movie_db';
 
 const initialState = {
   recentResult: {},
   lastSearchResult: '',
   isSearching: false,
-  movieDB: new TheMovieDBRequest()
+  movieDB: new TheMovieDBAPI()
 };
 
 export default function reducer(state = initialState, action) {
