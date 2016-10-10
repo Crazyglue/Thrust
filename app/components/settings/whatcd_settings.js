@@ -44,16 +44,8 @@ class WhatCDSettings extends Component {
   render() {
     console.log("Props");
     console.log(this.props);
-    let userData = [];
     console.log("ButtonState: ");
     console.log(this.state.buttonState);
-
-    if(this.props.whatcd.userData) {
-      console.log("WhatCD Userdata:");
-      console.log(this.props.whatcd.userData);
-      userData.push(this.props.whatcd.userData.username);
-      userData.push(this.props.whatcd.userData.id);
-    }
 
     return(
       <View style={{alignSelf: 'stretch'}}>
@@ -113,13 +105,6 @@ class WhatCDSettings extends Component {
             }}
             buttonState={this.state.buttonState}
             />
-        </View>
-        <View>
-          <Text style={styles.labelText}>{this.props.username}</Text>
-          <Text style={styles.labelText}>{this.props.password}</Text>
-        </View>
-        <View>
-          <Text>{userData}</Text>
         </View>
       </View>
     )
