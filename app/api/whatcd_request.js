@@ -85,4 +85,10 @@ export default class WhatCDRequest {
 
     return fetch(url, params);
   }
+
+  getDownloadUrl(torrentId, authKey, passKey) {
+    url = this.baseEndpoint + this.downloadEndpoint + this.downloadId + torrentId + this.authKey + authkey + this.passKey + passkey;
+
+    return url;
+  }
 }

@@ -8,6 +8,7 @@ export const SET_USER_DATA = 'SET_USER_DATA';
 export const SET_LOGGED_IN = 'SET_LOGGED_IN';
 export const SET_LOGIN_PENDING = 'SET_LOGIN_PENDING';
 export const SET_WHATCD_SEARCH_RESULT = 'SET_WHATCD_SEARCH_RESULT';
+import GET_STATS from './transmission';
 
 export function setUsername(username) {
   console.log("Setting username: " + username);
@@ -66,19 +67,18 @@ export function downloadTorrent(torrentResult) {
     id = torrentResult.torrents[0].torrentId;
     authkey = getState().whatcd.userData.authkey;
     passkey = getState().whatcd.userData.passkey;
-    getState().whatcd.whatcd.downloadTorrent(id, authkey, passkey)
+    url = getState().whatcd.whatcd.getDownloadUrl(id, authkey, passkey);
+    console.log("downloadTorrent URL");
+    console.log(url);
+    getState().transmission.api.addTorrent(url)
       .then((response) => {
-        console.log("Torrent Download response");
+        console.log("Response:");
         console.log(response);
-        return response.blob();
       })
-      .then((blob) => {
-        console.log("Downloaded blob: ");
-        console.log(blob);
+      .catch((error) => {
+        console.warn(error);
       })
-      .done(() => console.log("Done with download"));
-
-
+      .done(() => console.log("DONE!"));
   };
 }
 

@@ -18,6 +18,7 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import * as actionCreators from '../actions/whatcd';
 import { connect } from 'react-redux';
 import store from 'react-native-simple-store';
+import WhatCDResultList from './whatcd/whatcd_result_list';
 
 class WhatCDPage extends Component {
   constructor(params) {
@@ -95,16 +96,11 @@ class WhatCDPage extends Component {
             blurOnSubmit={true}
             onSubmitEditing={this.getTorrent.bind(this, this.state.searchText)}
             />
-        <ScrollView
-          scrollEventThrottle={200}
-          style={{ borderWidth: 2, backgroundColor: '#6A85B1', height: 400, alignSelf: 'stretch' }}
-          >
-          <ListView
-            dataSource={this.state.dataSource}
-            enableEmptySections={true}
-            renderRow={(rowData) => <Text onPress={this.downloadTorrent.bind(this, rowData)} >{rowData.artist} - {rowData.groupName}</Text>}
+
+        <WhatCDResultList
+          data={this.state.dataSource}
           />
-        </ScrollView>
+
       </View>
     )
   }

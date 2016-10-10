@@ -5,6 +5,7 @@ import { Router, Scene } from 'react-native-router-flux';
 import { Provider } from 'react-redux';
 import Home from '../components/home';
 import WhatCDPage from '../components/whatcdpage';
+import TransmissionPage from '../components/transmission/transmission_page';
 import MoviePage from '../components/movie_page';
 import AppSettings from '../components/settings';
 import configureStore from '../stores/configure_store';
@@ -23,6 +24,7 @@ class Root extends Component {
           <Scene key="root">
             <Scene key="home" component={Home} title="Home" initial={true} />
             <Scene key="whatcdpage" component={WhatCDPage} title="WhatCD" />
+            <Scene key="transmissionpage" component={TransmissionPage} title="Transmission" />
             <Scene key="moviepage" component={MoviePage} title="Movie Search" />
             <Scene key="appsettings" component={AppSettings} title="App Settings" />
           </Scene>
