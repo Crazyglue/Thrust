@@ -22,8 +22,8 @@ class TransmissionSettings extends Component {
     super(props);
 
     this.state = {
-      urlLocal: '',
-      portLocal: '',
+      localUrl: '',
+      localPort: '',
       urlWeb: '',
       portWeb: '',
     };
@@ -45,8 +45,8 @@ class TransmissionSettings extends Component {
             iconColor={'blue'}
             autoCorrect={false}
             inputStyle={{ color: '#db786d' }}
-            onChangeText={(usernameText) => this.props.setUsername(usernameText)}
-            defaultValue={this.props.username}
+            onChangeText={(localUrl) => this.props.api.setLocalUrl(localUrl)}
+            defaultValue={this.props.api.localUrl}
 
             blurOnSubmit={true}
             onSubmitEditing={(event) => this.search(event.nativeEvent.text)}
@@ -59,9 +59,9 @@ class TransmissionSettings extends Component {
             iconColor={'blue'}
             autoCorrect={false}
             inputStyle={{ color: '#db786d' }}
-            defaultValue={this.props.password}
+            defaultValue={this.props.api.localPort}
             secureTextEntry={true}
-            onChangeText={(passwordText) => this.props.setPassword(passwordText)}
+            onChangeText={(localPort) => this.props.api.setLocalUrl(localPort)}
 
             blurOnSubmit={true}
             onSubmitEditing={(event) => this.search(event.nativeEvent.text)}
@@ -126,12 +126,10 @@ const buttonStyles = StyleSheet.create({
 })
 
 const mapStateToProps = (state) => {
+  console.log("mapStateToProps:");
+  console.log(state);
   return {
-    whatcd: state.whatcd,
-    username: state.whatcd.username,
-    password: state.whatcd.password,
-    isLoggedIn: state.whatcd.isLoggedIn,
-    isLoggingIn: state.whatcd.isLoggingIn,
+    api: state.tranmission.api,
   }
 }
 

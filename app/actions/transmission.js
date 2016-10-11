@@ -9,21 +9,19 @@ export function getStats() {
     console.log("transmission state object:");
     console.log(getState());
     console.log("Torrent stats: ");
-  getState().transmission.api.getTransmissionStats()
-    .then((response) => {
-      console.log("Transmission response");
-      console.log(response);
-      return response.json();
-    })
-    .catch((error) => {
-      console.warn(error);
-    })
-    .done((responseJson) => {
-      data = responseJson;
-      console.log("Response data:");
-      console.log(data);
-    });
+    getState().transmission.api.getTransmissionStats()
+      .then((response) => {
+        console.log("Transmission response");
+        console.log(response);
+        return response.json();
+      })
+      .catch((error) => {
+        console.warn(error);
+      })
+      .done((responseJson) => {
+        data = responseJson;
+        console.log("Response data:");
+        console.log(data);
+      });
   };
-
-
 }

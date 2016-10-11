@@ -88,6 +88,6 @@ export default class TransmissionAPI {
   setWebUrl(url) { this.webUrl = url; }
   setWebPort(port) { this.webPort = port; }
 
-  getBaseUrl() { return("http://" + this.localUrl + ":" + this.localPort + this.baseEndpoint); e}
+  getBaseUrl() { return("http://" + this.localUrl + ":" + this.localPort + this.baseEndpoint); }
 
 }

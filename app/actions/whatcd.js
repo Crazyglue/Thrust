@@ -58,13 +58,16 @@ export function getTorrent(searchText) {
             }
           });
         }
+      })
+      .done((data) => {
+        return data;
       });
   };
 }
 
 export function downloadTorrent(torrentResult) {
   return (dispatch, getState) => {
-    id = torrentResult.torrents[0].torrentId;
+    id = torrentResult;
     authkey = getState().whatcd.userData.authkey;
     passkey = getState().whatcd.userData.passkey;
     url = getState().whatcd.whatcd.getDownloadUrl(id, authkey, passkey);

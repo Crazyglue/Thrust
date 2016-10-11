@@ -12,6 +12,9 @@ import {
 import Accordion from 'react-native-accordion';
 import * as actionCreators from '../../actions/whatcd';
 import { connect } from 'react-redux';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import TorrentList from './torrent_list';
+import ResultListItem from './torrent_list_item';
 
 class WhatCDResultList extends Component {
   constructor(params) {
@@ -28,9 +31,17 @@ class WhatCDResultList extends Component {
       </View>
     );
 
+    var rows = [];
+
+    if(data.torrents.length > 0) {
+      data.torrents.forEach((result) => {
+        rows.push(<ResultListItem key={result.torrentId} data={result} />);
+      });
+    }
+
     content = (
-      <View style={{ height: 50 }}>
-        <Text onPress={() => this.props.downloadTorrent(data)}>Click here to download!</Text>
+      <View style={{backgroundColor: "#AAAAAA"}}>
+        {rows}
       </View>
     );
 

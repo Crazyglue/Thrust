@@ -11,11 +11,21 @@ export default class WhatCDAPI {
     this.torrentEndpoint = "/ajax.php?action=browse&searchstr=";
     this.userEndpoint = "/ajax.php?action=user&id=";
     this.userSearchEndpoint = "/ajax.php?action=usersearch";
+    this.artistEndpoint = '/ajax.php?action=artist';
 
     this.downloadEndpoint = '/torrents.php?action=download';
     this.downloadId = '&id=';
     this.authKey = '&authkey=';
     this.passKey = '&torrent_pass=';
+
+    this.defaultHeaders = {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      credentials: 'same-origin'
+    };
 
     console.log("Endpoint: " + this.baseEndpoint + this.loginEndpoint);
   }
@@ -53,7 +63,9 @@ export default class WhatCDAPI {
   }
 
   getTorrent(searchString) {
-    return fetch(this.baseEndpoint + this.torrentEndpoint + searchString);
+    url = this.baseEndpoint + this.torrentEndpoint + searchString + '&artistname=' + searchString;
+
+    return fetch(url);
   }
 
   getUser() {
@@ -66,6 +78,16 @@ export default class WhatCDAPI {
     url = this.baseEndpoint + this.indexEndpoint;
 
     return fetch(url, {credentials: 'same-origin'});
+  }
+
+  getArtist(searchTerm) {
+    console.log("Getting artist")
+    url = this.baseEndpoint + this.artistEndpoint + "&artistname=" + searchTerm;
+
+    console.log("URL");
+    console.log(url);
+
+    return fetch(url, this.defaultHeaders);
   }
 
   downloadTorrent(torrentId, authKey, passKey) {
