@@ -9,6 +9,7 @@ import {
   ScrollView,
   Image,
   TouchableHighlight,
+  TouchableOpacity,
 } from 'react-native';
 import Accordion from 'react-native-accordion';
 import * as actionCreators from '../../actions/whatcd';
@@ -48,12 +49,12 @@ class TorrentListItem extends Component {
           <Text>{(this.props.data.size / 1000000).toFixed(2)}MB</Text>
         </View>
         <View style={{ width: 50, marginTop: 3, marginBottom: 3, flexDirection: 'row', alignSelf: 'center' }}>
-          <TouchableHighlight onPress={this.props.downloadTorrent.bind(this, this.props.data.torrentId)}>
+          <TouchableOpacity onPress={this.props.downloadTorrent.bind(this, this.props.data.torrentId)}>
             <FontAwesomeIcon size={24} name="download" />
-          </TouchableHighlight>
-          <TouchableHighlight onPress={this.props.downloadTorrent.bind(this, this.props.data.torrentId)}>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={this.props.downloadTorrent.bind(this, this.props.data.torrentId)}>
             <FontAwesomeIcon size={24} name="cloud-download" />
-          </TouchableHighlight>
+          </TouchableOpacity>
         </View>
       </View>
     )

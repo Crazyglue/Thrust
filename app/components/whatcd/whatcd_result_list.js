@@ -49,7 +49,9 @@ class WhatCDResultList extends Component {
       <Accordion
         header={header}
         content={content}
+        activeOpacity={.1}
         easing="easeOutCubic"
+        underlayColor={'#FFFFFF'}
       />
     );
   }
