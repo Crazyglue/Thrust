@@ -1,6 +1,7 @@
 package com.thrust;
 
 import com.facebook.react.ReactActivity;
+import com.horcrux.svg.RNSvgPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 
 public class MainActivity extends ReactActivity {
