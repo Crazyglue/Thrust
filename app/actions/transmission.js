@@ -25,3 +25,23 @@ export function getStats() {
       });
   };
 }
+
+export function setLocalUrl(url) {
+  return(dispatch, getState) => {
+    console.log("Setting Tranmission Local URL:");
+    console.log(url);
+
+    getState().transmission.api.setLocalUrl(url);
+    offline.save("transmission:localUrl", url);
+  };
+}
+
+export function setLocalPort(port) {
+  return(dispatch, getState) => {
+    console.log("Setting Tranmission Local Port:");
+    console.log(port);
+
+    getState().transmission.api.setLocalPort(port);
+    offline.save("transmission:localPort", port);
+  };
+}

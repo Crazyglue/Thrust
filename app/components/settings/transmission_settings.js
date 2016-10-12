@@ -9,7 +9,7 @@ import {
 import { Actions } from 'react-native-router-flux';
 import styles from '../../stylesheets/default';
 import { connect } from 'react-redux';
-import * as actionCreators from '../../actions/whatcd';
+import * as actionCreators from '../../actions/transmission';
 import Button from 'apsl-react-native-button';
 import { Fumi } from 'react-native-textinput-effects';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
@@ -30,7 +30,7 @@ class TransmissionSettings extends Component {
   }
 
   render() {
-    console.log("Transmission Props");
+    console.log("Transmission Settings Props");
     console.log(this.props);
 
     return(
@@ -45,7 +45,7 @@ class TransmissionSettings extends Component {
             iconColor={'blue'}
             autoCorrect={false}
             inputStyle={{ color: '#db786d' }}
-            onChangeText={(localUrl) => this.props.api.setLocalUrl(localUrl)}
+            onChangeText={(localUrl) => this.props.setLocalUrl(localUrl)}
             defaultValue={this.props.api.localUrl}
 
             blurOnSubmit={true}
@@ -60,45 +60,14 @@ class TransmissionSettings extends Component {
             autoCorrect={false}
             inputStyle={{ color: '#db786d' }}
             defaultValue={this.props.api.localPort}
-            secureTextEntry={true}
-            onChangeText={(localPort) => this.props.api.setLocalUrl(localPort)}
+            onChangeText={(localPort) => this.props.setLocalPort(localPort)}
 
             blurOnSubmit={true}
             onSubmitEditing={(event) => this.search(event.nativeEvent.text)}
             />
         </View>
         <View>
-          <Fumi
-            style={{alignSelf: 'stretch'}}
-            label={'WEB url'}
-            iconClass={FontAwesomeIcon}
-            iconName={'globe'}
-            iconColor={'blue'}
-            autoCorrect={false}
-            inputStyle={{ color: '#db786d' }}
-            onChangeText={(usernameText) => this.props.setUsername(usernameText)}
-            defaultValue={this.props.username}
-
-            blurOnSubmit={true}
-            onSubmitEditing={(event) => this.search(event.nativeEvent.text)}
-            />
-          <Fumi
-            style={{alignSelf: 'stretch'}}
-            label={'WEB port'}
-            iconClass={FontAwesomeIcon}
-            iconName={'globe'}
-            iconColor={'blue'}
-            autoCorrect={false}
-            inputStyle={{ color: '#db786d' }}
-            defaultValue={this.props.password}
-            secureTextEntry={true}
-            onChangeText={(portWeb) => this.props.setPassword(passwordText)}
-
-            blurOnSubmit={true}
-            onSubmitEditing={(event) => this.search(event.nativeEvent.text)}
-            />
-        </View>
-        <View style={buttonStyles.container}>
+          <Button style={{width: 100}}>Test Connection</Button>
         </View>
       </View>
     )
@@ -129,7 +98,7 @@ const mapStateToProps = (state) => {
   console.log("mapStateToProps:");
   console.log(state);
   return {
-    api: state.tranmission.api,
+    api: state.transmission.api,
   }
 }
 
