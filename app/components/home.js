@@ -1,13 +1,10 @@
 /*jshint esversion: 6 */
 import React, { Component } from 'react';
-import {
-  Text,
-  View
-} from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import styles from '../stylesheets/default';
 import { connect } from 'react-redux';
 import * as actionCreators from '../actions/whatcd';
+import { Container, Header, Content, Title, Button, Icon, Text, Card, CardItem, Thumbnail } from 'native-base';
 
 class Home extends Component {
   componentWillMount() {
@@ -21,12 +18,36 @@ class Home extends Component {
     const goToAppSettings = () => Actions.appsettings();
 
     return (
-      <View style={{margin: 128, flex: 1}}>
-        <Text onPress={goToWhatCD}>Go to WhatCD</Text>
-        <Text onPress={goToTransmission}>Go to Transmission!</Text>
-        <Text onPress={goToMoviePage}>Go to movies!</Text>
-        <Text onPress={goToAppSettings}>App Settings</Text>
-      </View>
+      <Container>
+        <Header style={{flexDirection: 'row-reverse'}}>
+          <Title>Header</Title>
+          <Button transparent>
+            <Icon name='ios-menu' />
+          </Button>
+        </Header>
+        <Content>
+
+          <Card>
+            <CardItem onPress={goToWhatCD} style={{ height: 50 }}>
+              <Thumbnail style={{backgroundColor: 'black'}} source={require('../assets/images/whatcd.png')} size={30} square/>
+              <Text>WhatCD</Text>
+            </CardItem>
+            <CardItem onPress={goToTransmission}>
+              <Thumbnail source={require('../assets/images/transmission.png')} size={30} square/>
+              <Text>Transmission</Text>
+            </CardItem>
+            <CardItem onPress={goToMoviePage}>
+              <Thumbnail source={require('../assets/images/moviedb.png')} size={30} square/>
+              <Text>Movies</Text>
+            </CardItem>
+            <CardItem onPress={goToAppSettings}>
+              <Thumbnail style={{backgroundColor: 'black'}} source={require('../assets/images/whatcd.png')} size={30} square/>
+              <Text>App Settings</Text>
+            </CardItem>
+          </Card>
+
+        </Content>
+      </Container>
     );
   }
 }

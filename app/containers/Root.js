@@ -21,7 +21,7 @@ class Root extends Component {
     return(
       <Provider store={store}>
         <Router>
-          <Scene key="root">
+          <Scene key="root" hideNavBar={true} passProps={true}>
             <Scene key="home" component={Home} title="Home" initial={true} />
             <Scene key="whatcdpage" component={WhatCDPage} title="WhatCD" />
             <Scene key="transmissionpage" component={TransmissionPage} title="Transmission" />
