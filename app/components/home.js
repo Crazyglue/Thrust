@@ -20,7 +20,7 @@ class Home extends Component {
     return (
       <Container>
         <Header style={{flexDirection: 'row-reverse'}}>
-          <Title>Header</Title>
+          <Title>Home</Title>
           <Button transparent>
             <Icon name='ios-menu' />
           </Button>

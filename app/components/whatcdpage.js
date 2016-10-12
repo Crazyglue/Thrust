@@ -100,7 +100,7 @@ class WhatCDPage extends Component {
           <Button onPress={Actions.pop} transparent>
             <Icon name="ios-arrow-back" />
           </Button>
-          <Title>Header</Title>
+          <Title>What CD</Title>
           <Button transparent>
             <Icon name='ios-menu' />
           </Button>
