@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react';
 import {
-  Text,
   View,
   TextInput,
   ListView,
@@ -11,8 +10,6 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import styles from '../stylesheets/default';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import Button from 'apsl-react-native-button';
 import { Fumi } from 'react-native-textinput-effects';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import * as actionCreators from '../actions/whatcd';
@@ -20,6 +17,7 @@ import { connect } from 'react-redux';
 import store from 'react-native-simple-store';
 import WhatCDResultList from './whatcd/whatcd_result_list';
 import Accordion from 'react-native-accordion';
+import { Container, Header, Content, Title, Button, Icon, Text, Card, CardItem, Thumbnail, InputGroup, Input } from 'native-base';
 
 class WhatCDPage extends Component {
   constructor(params) {
@@ -96,55 +94,34 @@ class WhatCDPage extends Component {
     console.log("searchResult:");
     console.log(this.props.searchResult);
 
-    var searchHeader = (
-      <View style={{ alignSelf: 'center', height: 35, width: 375, backgroundColor: "#AAAAAA" }}>
-        <FontAwesomeIcon style={{alignSelf: 'center' }} size={30} name="filter" />
-      </View>
-    );
-
-    var searchContent = (
-      <View style={{flexDirection: 'row', justifyContent: "space-around" }} >
-        <TouchableHighlight onPress={() => this.updateFilter("artist")}>
-          <FontAwesomeIcon style={this.state.filter == "artist" ? {backgroundColor: 'red', padding: 5} : {padding: 5}} size={30} name="microphone" />
-        </TouchableHighlight>
-        <TouchableHighlight onPress={() => this.updateFilter("torrents")}>
-          <FontAwesomeIcon  style={this.state.filter == "torrents" ? {backgroundColor: 'red', padding: 5} : {padding: 5}} size={30} name="tasks" />
-        </TouchableHighlight>
-        <TouchableHighlight onPress={() => this.updateFilter("user")}>
-          <FontAwesomeIcon style={this.state.filter == "user" ? {backgroundColor: 'red', padding: 5} : {padding: 5}} size={30} name="user" />
-        </TouchableHighlight>
-      </View>
-    );
-
     return(
-      <View style={styles.container}>
-        <Fumi
-          style={{alignSelf: 'stretch'}}
-          label={'Search WhatCD'}
-          iconClass={FontAwesomeIcon}
-          iconName={'search'}
-          iconColor={'blue'}
-          autoCorrect={false}
-          inputStyle={{ color: '#db786d' }}
-          onChangeText={(searchText) => this.setState({searchText})}
-          value={this.state.searchText}
+      <Container>
+        <Header>
+          <Button onPress={Actions.pop} transparent>
+            <Icon name="ios-arrow-back" />
+          </Button>
+          <Title>Header</Title>
+          <Button transparent>
+            <Icon name='ios-menu' />
+          </Button>
+        </Header>
+        <Content>
+          <InputGroup borderType='underline' >
+            <Icon name='ios-search' style={{color:'#384850'}}/>
+            <Input
+              onSubmitEditing={this.search.bind(this, this.state.searchText)}
+              placeholder='Search WhatCD'
+              value={this.state.searchText}
+              onChangeText={(searchText) => this.setState({searchText})}
+              blurOnSubmit={true}
+              />
+          </InputGroup>
 
-          blurOnSubmit={true}
-          onSubmitEditing={this.search.bind(this, this.state.searchText)}
-          />
-
-        <Accordion
-            header={searchHeader}
-            content={searchContent}
-            easing="easeOutCubic"
-            style={{alignSelf: 'stretch'}}
-          />
-
-        <WhatCDResultList
-          data={this.state.dataSource}
-          />
-
-      </View>
+          <WhatCDResultList
+            data={this.props.searchResult.results}
+            />
+        </Content>
+      </Container>
     )
   }
 }

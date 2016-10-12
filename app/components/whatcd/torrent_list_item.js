@@ -1,20 +1,10 @@
 /*jshint esversion: 6 */
 
 import React, { Component } from 'react';
-import {
-  Text,
-  View,
-  TextInput,
-  ListView,
-  ScrollView,
-  Image,
-  TouchableHighlight,
-  TouchableOpacity,
-} from 'react-native';
-import Accordion from 'react-native-accordion';
 import * as actionCreators from '../../actions/whatcd';
 import { connect } from 'react-redux';
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import { Button, Icon, Text, CardItem } from 'native-base';
+import { Col, Row, Grid } from 'react-native-easy-grid';
 
 class TorrentListItem extends Component {
   constructor(params) {
@@ -30,33 +20,38 @@ class TorrentListItem extends Component {
     }
   }
 
-  render() {
-    console.log("Result List Item props:");
-    console.log(this.props);
+  setNativeProps (nativeProps) {
+    this._root.setNativeProps(nativeProps);
+  }
 
+  render() {
     return(
-      <View style={{ marginRight: 10, marginLeft: 10, height: 40, flexDirection: 'row', justifyContent: 'space-around', borderBottomWidth: 1 }}>
-        <View style={{ width: 108, flexDirection: "column", justifyContent: "space-around" }}>
-          <Text style={{color: 'blue'}}>Format</Text>
-          <Text>{this.props.data.format}</Text>
-        </View>
-        <View style={{ width: 108, flexDirection: "column", justifyContent: "space-around" }}>
-          <Text style={{color: 'blue'}}>Encoding</Text>
-          <Text>{this.transformEncoding(this.props.data.encoding)}</Text>
-        </View>
-        <View style={{ width: 108, flexDirection: "column", justifyContent: "space-around" }}>
-          <Text style={{color: 'blue'}}>Size</Text>
-          <Text>{(this.props.data.size / 1000000).toFixed(2)}MB</Text>
-        </View>
-        <View style={{ width: 50, marginTop: 3, marginBottom: 3, flexDirection: 'row', alignSelf: 'center' }}>
-          <TouchableOpacity onPress={this.props.downloadTorrent.bind(this, this.props.data.torrentId)}>
-            <FontAwesomeIcon size={24} name="download" />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={this.props.downloadTorrent.bind(this, this.props.data.torrentId)}>
-            <FontAwesomeIcon size={24} name="cloud-download" />
-          </TouchableOpacity>
-        </View>
-      </View>
+      <CardItem>
+        <Grid>
+          <Col size={1}>
+            <Text style={{color: 'blue'}}>Format</Text>
+            <Text>{this.props.data.format}</Text>
+          </Col>
+          <Col size={1}>
+            <Text style={{color: 'blue'}}>Encoding</Text>
+            <Text>{this.transformEncoding(this.props.data.encoding)}</Text>
+          </Col>
+          <Col size={1}>
+            <Text style={{color: 'blue'}}>Size</Text>
+            <Text>{(this.props.data.size / 1000000).toFixed(2)}MB</Text>
+          </Col>
+          <Col size={1}>
+            <Row>
+              <Button onPress={this.props.downloadTorrent.bind(this, this.props.data.torrentId)} transparent>
+                <Icon size={24} name="ios-download" />
+              </Button>
+              <Button onPress={this.props.downloadTorrent.bind(this, this.props.data.torrentId)} transparent>
+                <Icon size={24} name="ios-cloud-download" />
+              </Button>
+            </Row>
+          </Col>
+        </Grid>
+      </CardItem>
     )
   }
 }

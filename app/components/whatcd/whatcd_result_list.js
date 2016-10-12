@@ -2,19 +2,16 @@
 
 import React, { Component } from 'react';
 import {
-  Text,
-  View,
-  TextInput,
   ListView,
-  ScrollView,
-  Image,
 } from 'react-native';
 import Accordion from 'react-native-accordion';
 import * as actionCreators from '../../actions/whatcd';
 import { connect } from 'react-redux';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import TorrentList from './torrent_list';
-import ResultListItem from './torrent_list_item';
+import TorrentListItem from './torrent_list_item';
+import { Container, Header, Content, Title, Button, Icon, List, Text, Card, CardItem, Thumbnail, InputGroup, Input } from 'native-base';
+import { Col, Row, Grid } from 'react-native-easy-grid';
 
 class WhatCDResultList extends Component {
   constructor(params) {
@@ -25,34 +22,37 @@ class WhatCDResultList extends Component {
     console.log("Rendering row data...");
     console.log(data);
 
-    header = (
-      <View style={{ flex: 1, flexDirection: 'row', height: 50 }}>
-        <Image style={{width: 50, height: 50}} source={data.cover ? { uri: data.cover } : null} /><Text>{data.artist} - {data.groupName}</Text>
-      </View>
-    );
+    img = data.cover ? { uri: data.cover } : null;
 
     var rows = [];
 
     if(data.torrents.length > 0) {
+      header = (
+        <CardItem style={{height:60}}>
+          <Grid>
+            <Col size={1}>
+              <Thumbnail size={40} source={img} square/>
+            </Col>
+            <Col size={5}>
+              <Title left>{data.artist} - {data.groupName}</Title>
+            </Col>
+          </Grid>
+        </CardItem>
+      );
+      rows.push(header);
       data.torrents.forEach((result) => {
-        rows.push(<ResultListItem key={result.torrentId} data={result} />);
+        rows.push(<TorrentListItem key={result.torrentId} data={result} />);
       });
     }
 
     content = (
-      <View style={{backgroundColor: "#AAAAAA"}}>
+      <Card>
         {rows}
-      </View>
+      </Card>
     );
 
     return (
-      <Accordion
-        header={header}
-        content={content}
-        activeOpacity={.1}
-        easing="easeOutCubic"
-        underlayColor={'#FFFFFF'}
-      />
+      content
     );
   }
 
@@ -61,13 +61,12 @@ class WhatCDResultList extends Component {
     console.log(this.props);
 
     return(
-      <ScrollView style={{ alignSelf: 'stretch' }}>
-        <ListView
-          dataSource={this.props.data}
-          enableEmptySections={true}
+      <Content>
+        <List
+          dataArray={this.props.data}
           renderRow={this._renderRow.bind(this)}
           />
-      </ScrollView>
+      </Content>
     )
   }
 }
