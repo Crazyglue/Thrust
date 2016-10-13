@@ -2,16 +2,10 @@
 
 /*jshint esversion: 6 */
 import React, { Component } from 'react';
-import {
-  Text,
-  View,
-  TextInput
-} from 'react-native';
+import { Container, Header, Content, Title, Button, Icon, Text, Card, CardItem, Thumbnail, InputGroup, Input } from 'native-base';
 import { Actions } from 'react-native-router-flux';
-import styles from '../stylesheets/default';
 import { connect } from 'react-redux';
 import * as actionCreators from '../actions/whatcd';
-import Button from 'apsl-react-native-button';
 import WhatCDSettings from './settings/whatcd_settings';
 import TransmissionSettings from './settings/transmission_settings';
 
@@ -33,10 +27,21 @@ class AppSettings extends Component {
 
   render() {
     return(
-      <View style={styles.container}>
-        <WhatCDSettings />
-        <TransmissionSettings />
-      </View>
+      <Container>
+        <Header>
+          <Button onPress={Actions.pop} transparent>
+            <Icon name="ios-arrow-back" />
+          </Button>
+          <Title>App Settings</Title>
+          <Button transparent>
+            <Icon name='ios-menu' />
+          </Button>
+        </Header>
+        <Content>
+          <WhatCDSettings />
+          <TransmissionSettings />
+        </Content>
+      </Container>
     )
   }
 
