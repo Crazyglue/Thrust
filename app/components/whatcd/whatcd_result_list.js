@@ -1,15 +1,11 @@
 /*jshint esversion: 6 */
 
 import React, { Component } from 'react';
-import {
-  ListView,
-} from 'react-native';
-import Accordion from 'react-native-accordion';
 import * as actionCreators from '../../actions/whatcd';
 import { connect } from 'react-redux';
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import TorrentList from './torrent_list';
 import TorrentListItem from './torrent_list_item';
+import { ListView, } from 'react-native';
 import { Container, Header, Content, Title, Button, Icon, List, Text, Card, CardItem, Thumbnail, InputGroup, Input } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 

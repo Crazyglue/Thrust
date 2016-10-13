@@ -4,20 +4,18 @@ import { Container, Header, Content, Title, Button, Icon, Text, Card, CardItem, 
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import * as actionCreators from '../../actions/transmission';
+import * as actionCreators from '../../actions/index';
 
 import offline from 'react-native-simple-store';
 
 class TransmissionSettings extends Component {
   constructor(props) {
     super(props);
+  }
 
-    this.state = {
-      localUrl: '',
-      localPort: '',
-      urlWeb: '',
-      portWeb: '',
-    };
+  ping(){
+    console.log("pinging...");
+    this.props.ping();
   }
 
   render() {
@@ -50,7 +48,7 @@ class TransmissionSettings extends Component {
               defaultValue={this.props.api.localPort}
               />
           </InputGroup>
-          <Button onClick={this.props.api.getSessionId} transparent>Test Connection</Button>
+          <Button onPress={this.props.pingTransmission} transparent>Test Connection</Button>
         </Col>
       </Row>
     )
