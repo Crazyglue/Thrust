@@ -105,8 +105,8 @@ class WhatCDPage extends Component {
             <Icon name='ios-menu' />
           </Button>
         </Header>
-        <Content>
-          <InputGroup borderType='underline' >
+        <Content style={{width: 350}}>
+          <InputGroup borderType='rounded' style={{margin: 10}}>
             <Icon name='ios-search' style={{color:'#384850'}}/>
             <Input
               onSubmitEditing={this.search.bind(this, this.state.searchText)}

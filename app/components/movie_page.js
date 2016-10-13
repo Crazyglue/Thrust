@@ -31,6 +31,14 @@ class MoviePage extends Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.searchResult.results) {
+      this.setState({
+        dataSource: this.state.dataSource.cloneWithRows(nextProps.searchResult.results)
+      });
+    }
+  }
+
   search(searchText) {
     this.props.searchMovie(searchText);
   }

@@ -28,7 +28,7 @@ class WhatCDResultList extends Component {
 
     if(data.torrents.length > 0) {
       header = (
-        <CardItem style={{height:60}}>
+        <CardItem style={{height:60}} header>
           <Grid>
             <Col size={1}>
               <Thumbnail size={40} source={img} square/>
@@ -41,12 +41,34 @@ class WhatCDResultList extends Component {
       );
       rows.push(header);
       data.torrents.forEach((result) => {
-        rows.push(<TorrentListItem key={result.torrentId} data={result} />);
+        rows.push(
+          <CardItem cardBody>
+            <Grid>
+              <Col size={1}>
+                <Text style={{color: 'blue'}}>Format</Text>
+                <Text>{result.format}</Text>
+              </Col>
+              <Col size={1}>
+                <Text style={{color: 'blue'}}>Encoding</Text>
+                <Text>{result.encoding}</Text>
+              </Col>
+              <Col size={1}>
+                <Text style={{color: 'blue'}}>Size</Text>
+                <Text>{(result.size / 1000000).toFixed(2)}MB</Text>
+              </Col>
+              <Col size={1}>
+                <Button onPress={this.props.downloadTorrent.bind(this, result.torrentId)} transparent>
+                  <Icon size={24} name="ios-download" />
+                </Button>
+              </Col>
+            </Grid>
+          </CardItem>
+        );
       });
     }
 
     content = (
-      <Card>
+      <Card style={{marginRight: 10, marginLeft: 10}}>
         {rows}
       </Card>
     );

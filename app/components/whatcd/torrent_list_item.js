@@ -26,7 +26,7 @@ class TorrentListItem extends Component {
 
   render() {
     return(
-      <CardItem>
+      <CardItem cardBody>
         <Grid>
           <Col size={1}>
             <Text style={{color: 'blue'}}>Format</Text>
@@ -41,14 +41,9 @@ class TorrentListItem extends Component {
             <Text>{(this.props.data.size / 1000000).toFixed(2)}MB</Text>
           </Col>
           <Col size={1}>
-            <Row>
-              <Button onPress={this.props.downloadTorrent.bind(this, this.props.data.torrentId)} transparent>
-                <Icon size={24} name="ios-download" />
-              </Button>
-              <Button onPress={this.props.downloadTorrent.bind(this, this.props.data.torrentId)} transparent>
-                <Icon size={24} name="ios-cloud-download" />
-              </Button>
-            </Row>
+            <Button onPress={this.props.downloadTorrent.bind(this, this.props.data.torrentId)} transparent>
+              <Icon size={24} name="ios-download" />
+            </Button>
           </Col>
         </Grid>
       </CardItem>
