@@ -26,20 +26,6 @@ export function setPassword(password) {
   };
 }
 
-export function loadOfflineCredentials() {
-  console.log("Loading offline credentials...");
-  return dispatch => {
-    Promise.all([
-      offline.get('username').then(username => {
-        dispatch(setUsername(username || ""));
-      }),
-      offline.get('password').then(password => {
-        dispatch(setPassword(password || ""));
-      })
-    ]).then(() => dispatch(login()));
-  };
-}
-
 export function getTorrent(searchText) {
   return(dispatch, getState) => {
     getState().whatcd.whatcd.getTorrent(searchText)

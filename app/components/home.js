@@ -1,17 +1,20 @@
 /*jshint esversion: 6 */
 import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
-import styles from '../stylesheets/default';
 import { connect } from 'react-redux';
-import * as actionCreators from '../actions/whatcd';
+import * as actionCreators from '../actions/startup';
 import { Container, Header, Content, Title, Button, Icon, Text, Card, CardItem, Thumbnail } from 'native-base';
 
 class Home extends Component {
   componentWillMount() {
     this.props.loadOfflineCredentials();
+    this.props.pingTransmission()
   }
 
   render() {
+    console.log("Home props:");
+    console.log(this.props);
+
     const goToWhatCD = () => Actions.whatcdpage();
     const goToTransmission = () => Actions.transmissionpage();
     const goToMoviePage = () => Actions.moviepage();

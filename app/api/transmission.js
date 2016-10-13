@@ -8,25 +8,13 @@ export default class TransmissionAPI {
     this.localPort = '9091';
     this.webUrl = '';
     this.webPort = '';
-
-    this.getSessionId();
   }
 
   getSessionId() {
 
     this.sessionId = null;
 
-    fetch(this.getBaseUrl())
-      .then((response) => {
-          console.log("constructor response");
-          console.log(response);
-          if (response.ok === false && response.status === 409) {
-            console.log("Setting session id: " + response.headers.map['x-transmission-session-id']);
-            this.sessionId = response.headers.map['x-transmission-session-id'][0];
-          }
-        })
-        .catch((error) => console.warn(error))
-        .done(() => console.log(this.sessionId));
+    return fetch(this.getBaseUrl());
   }
 
   getTransmissionStats() {
@@ -87,6 +75,7 @@ export default class TransmissionAPI {
   setLocalPort(port) { this.localPort = port; }
   setWebUrl(url) { this.webUrl = url; }
   setWebPort(port) { this.webPort = port; }
+  setSessionId(id) { this.sessionId = id; }
 
   getBaseUrl() { return("http://" + this.localUrl + ":" + this.localPort + this.baseEndpoint); }
 
