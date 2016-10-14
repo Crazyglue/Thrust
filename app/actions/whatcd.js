@@ -134,3 +134,30 @@ export function login() {
       .done();
     };
 }
+
+export function loadOfflineCredentials() {
+  console.log("Loading offline credentials...");
+  return (dispatch, getState) => {
+    Promise.all([
+      offline.get('username').then(username => {
+        dispatch({
+          type: SET_USERNAME,
+          payload: {
+            username: (username || "")
+          }
+        });
+      }),
+      offline.get('password').then(password => {
+        dispatch({
+          type: SET_PASSWORD,
+          payload: {
+            password: (password || "")
+          }
+        });
+      })
+    ]).then(() => {
+      console.log("Credentials set");
+      login();
+    });
+  };
+}

@@ -44,7 +44,7 @@ export default class WhatCDAPI {
       form.append('password', pword);
     });
 
-    // form.append('keeplogged', true);
+    form.append('keeplogged', true);
 
     params = {
       method: 'POST',

@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import * as actionCreators from '../actions/startup';
+import * as actionCreators from '../actions/index';
 import { Container, Header, Content, Title, Button, Icon, Text, Card, CardItem, Thumbnail } from 'native-base';
 
 class Home extends Component {

@@ -93,6 +93,13 @@ class WhatCDPage extends Component {
 
     console.log("searchResult:");
     console.log(this.props.searchResult);
+    let notLoggedIn;
+
+    if (!this.props.isLoggedIn) {
+      notLoggedIn = (
+        <Icon name="ios-alert" style={{color: "red"}} />
+      )
+    }
 
     return(
       <Container>
@@ -106,7 +113,7 @@ class WhatCDPage extends Component {
           </Button>
         </Header>
         <Content style={{width: 350}}>
-          <InputGroup borderType='rounded' style={{margin: 10}}>
+          <InputGroup borderType='rounded' style={{margin: 10}} disabled={!this.props.isLoggedIn}>
             <Icon name='ios-search' style={{color:'#384850'}}/>
             <Input
               onSubmitEditing={this.search.bind(this, this.state.searchText)}
@@ -115,6 +122,7 @@ class WhatCDPage extends Component {
               onChangeText={(searchText) => this.setState({searchText})}
               blurOnSubmit={true}
               />
+            {notLoggedIn}
           </InputGroup>
 
           <WhatCDResultList

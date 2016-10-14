@@ -2,6 +2,7 @@
 
 import offline from 'react-native-simple-store';
 import { SET_USERNAME, SET_PASSWORD } from './whatcd';
+import login from './whatcd';
 
 export function pingTransmission() {
   return(dispatch, getState) => {
@@ -16,31 +17,5 @@ export function pingTransmission() {
         })
       .catch((error) => console.warn(error))
       .done(() => console.log(getState().transmission.api.sessionId));
-  };
-}
-
-export function loadOfflineCredentials() {
-  console.log("Loading offline credentials...");
-  return (dispatch, getState) => {
-    Promise.all([
-      offline.get('username').then(username => {
-        dispatch({
-          type: SET_USERNAME,
-          payload: {
-            username: (username || "")
-          }
-        });
-      }),
-      offline.get('password').then(password => {
-        dispatch({
-          type: SET_PASSWORD,
-          payload: {
-            password: (password || "")
-          }
-        });
-      })
-    ]).then(() => {
-      getState().whatcd.whatcd.login();
-    });
   };
 }
