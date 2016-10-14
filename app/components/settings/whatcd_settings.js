@@ -31,10 +31,18 @@ class WhatCDSettings extends Component {
   }
 
   render() {
-    console.log("Props");
+    console.log("WhatCD Settings props");
     console.log(this.props);
     console.log("ButtonState: ");
     console.log(this.state.buttonState);
+
+    let loginStatus;
+
+    if (this.props.isLoggedIn) {
+      loginStatus = <Icon name='ios-code-outline' style={{color: 'black'}}/>
+    }
+    else
+      loginStatus = <Icon name="ios-person" />
 
     return(
       <Row>
@@ -63,6 +71,10 @@ class WhatCDSettings extends Component {
               defaultValue={this.props.password}
               />
           </InputGroup>
+          <Row>
+            <Button onPress={this.login.bind(this)}>Login</Button>
+            {loginStatus}
+          </Row>
         </Col>
       </Row>
     )

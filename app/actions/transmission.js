@@ -4,20 +4,20 @@ import offline from 'react-native-simple-store';
 
 export const GET_STATS = 'GET_STATS';
 
-export function ping() {
+export function pingTransmission() {
   return(dispatch, getState) => {
-    getState().transmission.api.getSessionInfo()
+    getState().transmission.api.getSessionId()
       .then((response) => {
           console.log("Ping response:");
           console.log(response);
           if (response.ok === false && response.status === 409) {
             console.log("Setting session id: " + response.headers.map['x-transmission-session-id']);
-            getState().transmission.api.setSessionId = response.headers.map['x-transmission-session-id'][0];
+            getState().transmission.api.setSessionId(response.headers.map['x-transmission-session-id'][0]);
           }
         })
-        .catch((error) => console.warn(error))
-        .done(() => console.log(getState().transmission.api.sessionId));
-  }
+      .catch((error) => console.warn(error))
+      .done(() => console.log(getState().transmission.api.sessionId));
+  };
 }
 
 export function getStats() {

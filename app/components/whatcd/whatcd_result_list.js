@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import TorrentList from './torrent_list';
 import TorrentListItem from './torrent_list_item';
 import { ListView, } from 'react-native';
-import { Container, Header, Content, Title, Button, Icon, List, Text, Card, CardItem, Thumbnail, InputGroup, Input } from 'native-base';
+import { Container, Header, Content, Title, Button, Icon, List, ListItem, Text, Card, CardItem, Thumbnail, InputGroup, Input } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 
 class WhatCDResultList extends Component {
@@ -30,27 +30,38 @@ class WhatCDResultList extends Component {
               <Thumbnail size={40} source={img} square/>
             </Col>
             <Col size={5}>
-              <Title left>{data.artist} - {data.groupName}</Title>
+              <Row>
+                <Title left>{data.artist} - {data.groupName}</Title>
+              </Row>
+              <Row>
+                <Text size={5}>{data.torrents.length} results</Text>
+              </Row>
             </Col>
+
+
           </Grid>
         </CardItem>
       );
       rows.push(header);
       data.torrents.forEach((result) => {
         rows.push(
-          <CardItem cardBody>
+          <CardItem key={result.torrentId} cardBody>
             <Grid>
-              <Col size={1}>
+              <Col size={3}>
                 <Text style={{color: 'blue'}}>Format</Text>
                 <Text>{result.format}</Text>
               </Col>
-              <Col size={1}>
+              <Col size={3}>
                 <Text style={{color: 'blue'}}>Encoding</Text>
                 <Text>{result.encoding}</Text>
               </Col>
-              <Col size={1}>
+              <Col size={3}>
                 <Text style={{color: 'blue'}}>Size</Text>
                 <Text>{(result.size / 1000000).toFixed(2)}MB</Text>
+              </Col>
+              <Col size={3}>
+                <Text style={{color: "green"}}>S: {result.seeders}</Text>
+                <Text style={{color: "red"}}>L: {result.leechers}</Text>
               </Col>
               <Col size={1}>
                 <Button onPress={this.props.downloadTorrent.bind(this, result.torrentId)} transparent>
@@ -64,9 +75,11 @@ class WhatCDResultList extends Component {
     }
 
     content = (
-      <Card style={{marginRight: 10, marginLeft: 10}}>
-        {rows}
-      </Card>
+      <ListItem key={data.groupId}>
+        <Card>
+          {rows}
+        </Card>
+      </ListItem>
     );
 
     return (

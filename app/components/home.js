@@ -9,6 +9,7 @@ class Home extends Component {
   componentWillMount() {
     this.props.loadOfflineCredentials();
     this.props.pingTransmission();
+    this.props.login();
   }
 
   render() {

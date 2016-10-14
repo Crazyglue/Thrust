@@ -112,7 +112,7 @@ class WhatCDPage extends Component {
             <Icon name='ios-menu' />
           </Button>
         </Header>
-        <Content style={{width: 350}}>
+        <Content>
           <InputGroup borderType='rounded' style={{margin: 10}} disabled={!this.props.isLoggedIn}>
             <Icon name='ios-search' style={{color:'#384850'}}/>
             <Input

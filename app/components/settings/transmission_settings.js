@@ -4,7 +4,7 @@ import { Container, Header, Content, Title, Button, Icon, Text, Card, CardItem, 
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import * as actionCreators from '../../actions/index';
+import * as actionCreators from '../../actions/transmission';
 
 import offline from 'react-native-simple-store';
 
