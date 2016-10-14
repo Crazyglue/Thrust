@@ -26,9 +26,9 @@ export function setPassword(password) {
   };
 }
 
-export function getTorrent(searchText) {
+export function getTorrent(searchText, options) {
   return(dispatch, getState) => {
-    getState().whatcd.whatcd.getTorrent(searchText)
+    getState().whatcd.whatcd.getTorrent(searchText, options)
       .then((response) => {
         return response.json();
       })

@@ -22,7 +22,7 @@ class FilterDialog extends Component {
     super(params);
 
     this.state = {
-      activeTags: [],
+      activeTags: params.searchOptions.tags || [],
     };
   }
 
@@ -35,6 +35,7 @@ class FilterDialog extends Component {
     else
       currentTags.push(tag);
     this.setState({activeTags: currentTags});
+    this.props.updateSearchOptions({ tags: currentTags });
   }
 
   render() {
@@ -51,11 +52,10 @@ class FilterDialog extends Component {
         <Button key={tag} onPress={() => this.addRemoveActiveTag(tag)} transparent>
           <Badge style={{margin: 5}} primary={this.state.activeTags.indexOf(tag) > -1}>{tag}</Badge>
         </Button>
-      )
+      );
     })
 
     return(
-      <Content>
         <List>
           <ListItem>
             <Row>
@@ -75,6 +75,10 @@ class FilterDialog extends Component {
             </Col>
             <Col>
               <Radio selected={true} />
+              <Text>Any</Text>
+            </Col>
+            <Col>
+              <Radio selected={false} />
               <Text>MP3 V0</Text>
             </Col>
             <Col>
@@ -86,11 +90,13 @@ class FilterDialog extends Component {
               <Text>MP3 320</Text>
             </Col>
           </ListItem>
-          <ListItem>
+          <ListItem style={{height: 100}}>
             <Text>Tags:</Text>
+            <Content>
             <Row style={{ flexWrap: "wrap" }}>
               {badges}
             </Row>
+            </Content>
           </ListItem>
           <ListItem style={{ flexWrap: "wrap" }}>
             <Text>Search Type:</Text>
@@ -104,7 +110,6 @@ class FilterDialog extends Component {
             </Col>
           </ListItem>
         </List>
-      </Content>
     )
   }
 }

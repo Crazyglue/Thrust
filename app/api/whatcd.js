@@ -1,6 +1,7 @@
 /*jshint esversion: 6 */
 
 import store from 'react-native-simple-store';
+import querystring from 'query-string';
 
 export default class WhatCDAPI {
   constructor() {
@@ -62,8 +63,14 @@ export default class WhatCDAPI {
     return fetch(endpoint, params);
   }
 
-  getTorrent(searchString) {
-    url = this.baseEndpoint + this.torrentEndpoint + searchString + '&artistname=' + searchString;
+  getTorrent(searchString, options) {
+    url = this.baseEndpoint + this.torrentEndpoint + searchString + "&" + querystring.stringify(options);
+
+    console.log("Stringified torrent search options:");
+    console.log(querystring.stringify(options));
+
+    console.log("Searching torrents with url:");
+    console.log(url);
 
     return fetch(url);
   }

@@ -31,7 +31,9 @@ class WhatCDPage extends Component {
     this.state = {
       artistName: "",
       searchText: "",
-      filter: '',
+      searchOptions: {
+        tags: []
+      },
       dataSource: ds.cloneWithRows([]),
     };
   }
@@ -81,21 +83,8 @@ class WhatCDPage extends Component {
     .done();
   }
 
-  search(searchText) {
-
-    if (this.state.filter == "artist")
-      this.props.getArtist(searchText);
-    else if (this.state.filter == "torrents")
-      this.props.getTorrent(searchText);
-    else if (this.state.filter == "user")
-      this.props.getUser(searchText);
-    else
-      this.props.getTorrent(searchText);
-
-  }
-
-  updateFilter(filter) {
-    this.setState({ filter: filter })
+  updateSearchOptions(searchOptions) {
+    this.setState({ searchOptions: searchOptions });
   }
 
   openDialog() {
@@ -128,37 +117,31 @@ class WhatCDPage extends Component {
           </Button>
         </Header>
         <Content>
-          <PopupDialog
-            ref={(popupFilter) => { this.popupFilter = popupFilter; }}
-            >
-            <FilterDialog />
-          </PopupDialog>
+          <InputGroup borderType='rounded' style={{margin: 10}} disabled={!this.props.isLoggedIn  && !this.props.isLoggingIn}>
+            <Icon name='ios-search' style={{color:'#384850'}}/>
+            <Input
+              onSubmitEditing={() => this.props.getTorrent(this.state.searchText, this.state.searchOptions)}
+              placeholder='Search WhatCD'
+              value={this.state.searchText}
+              onChangeText={(searchText) => this.setState({searchText})}
+              blurOnSubmit={true}
+              />
+            {notLoggedIn}
 
-          <Grid>
-            <Row>
-              <Col size={9}>
-                <InputGroup borderType='rounded' style={{margin: 10}} disabled={!this.props.isLoggedIn  && !this.props.isLoggingIn}>
-                  <Icon name='ios-search' style={{color:'#384850'}}/>
-                  <Input
-                    onSubmitEditing={() => this.search(this.state.searchText)}
-                    placeholder='Search WhatCD'
-                    value={this.state.searchText}
-                    onChangeText={(searchText) => this.setState({searchText})}
-                    blurOnSubmit={true}
-                    />
-                  {notLoggedIn}
-
-                  <Button onPress={() => {this.openDialog()}}style={{width: 25, height: 25}} transparent>
-                    <Icon name="ios-funnel-outline" style={{ marginRight: 10, color: "blue"}} />
-                  </Button>
-                </InputGroup>
-              </Col>
-            </Row>
-          </Grid>
+            <Button onPress={() => {this.openDialog()}}style={{width: 25, height: 25}} transparent>
+              <Icon name="ios-funnel-outline" style={{ marginRight: 10, color: "blue"}} />
+            </Button>
+          </InputGroup>
 
           <WhatCDResultList
             data={this.props.searchResult.results}
             />
+
+          <PopupDialog
+            ref={(popupFilter) => { this.popupFilter = popupFilter; }}
+            >
+            <FilterDialog updateSearchOptions={() => this.updateSearchOptions} searchOptions={this.state.searchOptions} />
+          </PopupDialog>
         </Content>
       </Container>
     )
