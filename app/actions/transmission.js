@@ -14,6 +14,8 @@ export function pingTransmission() {
             console.log("Setting session id: " + response.headers.map['x-transmission-session-id']);
             getState().transmission.api.setSessionId(response.headers.map['x-transmission-session-id'][0]);
           }
+          else
+            throw new Error("Failed to ping");
         })
       .catch((error) => console.warn(error))
       .done(() => console.log(getState().transmission.api.sessionId));

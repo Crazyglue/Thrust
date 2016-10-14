@@ -1,6 +1,6 @@
 /*jshint esversion: 6 */
 import React, { Component } from 'react';
-import { Container, Header, Content, Title, Button, Icon, Text, Card, CardItem, Thumbnail, InputGroup, Input } from 'native-base';
+import { Container, Header, Content, Title, Button, Icon, Text, Card, CardItem, Thumbnail, InputGroup, Input, List, ListItem, CheckBox } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
@@ -25,30 +25,38 @@ class TransmissionSettings extends Component {
     return(
       <Row>
         <Col>
-          <Text>Transmission:</Text>
-          <InputGroup borderType='underline' style={{margin: 10}}>
-            <Icon name='ios-wifi' style={{color:'black'}}/>
-            <Input
-              onSubmitEditing={(localUrl) => this.props.setLocalUrl(localUrl)}
-              placeholder='LAN url'
-              onChangeText={(localUrl) => this.props.setLocalUrl(localUrl)}
-              blurOnSubmit={true}
-              autoCorrect={false}
-              defaultValue={this.props.api.localUrl}
-              />
-          </InputGroup>
-          <InputGroup borderType='underline' style={{margin: 10}}>
-            <Icon name='ios-wifi' style={{color:'black'}}/>
-            <Input
-              onSubmitEditing={(localPort) => this.props.setLocalPort(localPort)}
-              placeholder='LAN port'
-              onChangeText={(localPort) => this.props.setLocalPort(localPort)}
-              blurOnSubmit={true}
-              autoCorrect={false}
-              defaultValue={this.props.api.localPort}
-              />
-          </InputGroup>
-          <Button onPress={this.props.pingTransmission} transparent>Test Connection</Button>
+          <List>
+            <ListItem>
+              <Text>Transmission:</Text>
+            </ListItem>
+            <ListItem>
+              <InputGroup borderType='underline' style={{margin: 10}}>
+                <Icon name='ios-wifi' style={{color:'black'}}/>
+                <Input
+                  placeholder='URL/IP'
+                  onChangeText={(localUrl) => this.props.setLocalUrl(localUrl)}
+                  blurOnSubmit={true}
+                  autoCorrect={false}
+                  defaultValue={this.props.api.localUrl}
+                  />
+              </InputGroup>
+            </ListItem>
+            <ListItem>
+              <InputGroup borderType='underline' style={{margin: 10}}>
+                <Icon name='ios-wifi' style={{color:'black'}}/>
+                <Input
+                  placeholder='Port'
+                  onChangeText={(localPort) => this.props.setLocalPort(localPort)}
+                  blurOnSubmit={true}
+                  autoCorrect={false}
+                  defaultValue={this.props.api.localPort}
+                  />
+              </InputGroup>
+            </ListItem>
+            <ListItem>
+              <Button onPress={this.props.pingTransmission} transparent>Test Connection</Button>
+            </ListItem>
+          </List>
         </Col>
       </Row>
     )
