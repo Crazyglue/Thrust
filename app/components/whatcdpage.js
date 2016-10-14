@@ -16,6 +16,7 @@ import * as actionCreators from '../actions/whatcd';
 import { connect } from 'react-redux';
 import store from 'react-native-simple-store';
 import WhatCDResultList from './whatcd/whatcd_result_list';
+import FilterDialog from './whatcd/filter_dialog';
 import Accordion from 'react-native-accordion';
 import { Container, Header, Content, Title, Button, Icon, Text, Card, CardItem, Thumbnail, InputGroup, Input } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
@@ -130,7 +131,7 @@ class WhatCDPage extends Component {
           <PopupDialog
             ref={(popupFilter) => { this.popupFilter = popupFilter; }}
             >
-            <Text> FIlters!!! </Text>
+            <FilterDialog />
           </PopupDialog>
 
           <Grid>
