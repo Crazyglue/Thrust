@@ -67,11 +67,11 @@ class TorrentListItem extends Component {
                 <Text style={{color: 'blue'}}>Format</Text>
                 <Text>{result.format}</Text>
               </Col>
-              <Col size={3}>
+              <Col size={5}>
                 <Text style={{color: 'blue'}}>Encoding</Text>
                 <Text>{result.encoding}</Text>
               </Col>
-              <Col size={3}>
+              <Col size={4}>
                 <Text style={{color: 'blue'}}>Size</Text>
                 <Text>{(result.size / 1000000).toFixed(1)}MB</Text>
               </Col>
