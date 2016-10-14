@@ -12,24 +12,50 @@ import { Actions } from 'react-native-router-flux';
 import * as actionCreators from '../../actions/whatcd';
 import { connect } from 'react-redux';
 import store from 'react-native-simple-store';
-import { Content, Text, Card, CardItem, List, ListItem, Badge, CheckBox, Radio } from 'native-base';
+import { Content, Button, Text, Card, CardItem, List, ListItem, Badge, CheckBox, Radio } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import PopupDialog, { SlideAnimation } from 'react-native-popup-dialog';
+import WhatCDTags from '../../data/whatcd_filters';
 
 class FilterDialog extends Component {
   constructor(params) {
     super(params);
+
+    this.state = {
+      activeTags: [],
+    };
+  }
+
+  addRemoveActiveTag(tag) {
+    currentTags = this.state.activeTags;
+    if (this.state.activeTags.indexOf(tag) > -1){
+      index = this.state.activeTags.indexOf(tag);
+      currentTags.splice(index, 1);
+    }
+    else
+      currentTags.push(tag);
+    this.setState({activeTags: currentTags});
   }
 
   render() {
     console.log("Filter Dialog Props:");
     console.log(this.props);
 
-    // TODO:
-    // - Compile a list of tags that will be programatically rendered as badges.
-    // -
+    console.log("Tag list:");
+    console.log(WhatCDTags.tags);
+
+    badges = [];
+
+    WhatCDTags.tags.forEach((tag) => {
+      badges.push(
+        <Button key={tag} onPress={() => this.addRemoveActiveTag(tag)} transparent>
+          <Badge style={{margin: 5}} primary={this.state.activeTags.indexOf(tag) > -1}>{tag}</Badge>
+        </Button>
+      )
+    })
 
     return(
+      <Content>
         <List>
           <ListItem>
             <Row>
@@ -63,13 +89,7 @@ class FilterDialog extends Component {
           <ListItem>
             <Text>Tags:</Text>
             <Row style={{ flexWrap: "wrap" }}>
-              <Badge primary>EDM</Badge>
-              <Badge>Post-Rock</Badge>
-              <Badge>Ambient</Badge>
-              <Badge>Instrumental</Badge>
-              <Badge>Hip-Hop</Badge>
-              <Badge>Rap</Badge>
-              <Badge>Psychedelic</Badge>
+              {badges}
             </Row>
           </ListItem>
           <ListItem style={{ flexWrap: "wrap" }}>
@@ -84,6 +104,7 @@ class FilterDialog extends Component {
             </Col>
           </ListItem>
         </List>
+      </Content>
     )
   }
 }
