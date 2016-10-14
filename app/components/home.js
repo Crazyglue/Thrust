@@ -21,9 +21,28 @@ class Home extends Component {
     const goToMoviePage = () => Actions.moviepage();
     const goToAppSettings = () => Actions.appsettings();
 
+    let whatcdSpinner;
+
+    if (this.props.whatcd.isLoggedIn) {
+      whatcdSpinner = (
+        <Button transparent>
+          <Thumbnail style={{ backgroundColor: "black" }} source={require('../assets/images/whatcd.svg')} size={30} square />
+        </Button>
+      )
+    }
+    else {
+      whatcdSpinner = (
+        <Button transparent>
+          <Icon name="ios-close" style={{color: "red"}} />
+        </Button>
+      )
+    }
+
+
     return (
       <Container>
-        <Header style={{flexDirection: 'row-reverse'}}>
+        <Header>
+          {whatcdSpinner}
           <Title>Home</Title>
           <Button transparent>
             <Icon name='ios-menu' />

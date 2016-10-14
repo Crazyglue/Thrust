@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="244px" height="255px" viewBox="0 0 244 255" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#FFFFFF" stop-opacity="0.5" offset="0%"></stop>
+            <stop stop-color="#000000" stop-opacity="0.5" offset="100%"></stop>
+        </linearGradient>
+        <path d="M105.002172,0 L144,0 L144,79 L110.995522,79 C94.4361122,79 81,92.42991 81,108.996543 L81,145.003457 C81,161.575827 94.4294528,175 110.995522,175 L144,175 L144,255 L105.002172,255 L66.0043445,255 C29.5511516,255 0,225.452345 0,188.999539 L0,66.0004611 C0,29.5494129 29.551075,0 66.0043445,0 L105.002172,0 Z" id="path-2"></path>
+        <linearGradient x1="51.5939951%" y1="100%" x2="51.5939976%" y2="0%" id="linearGradient-4">
+            <stop stop-color="#FFFFFF" stop-opacity="0.5" offset="0%"></stop>
+            <stop stop-color="#000000" stop-opacity="0.5" offset="100%"></stop>
+        </linearGradient>
+        <path d="M281.002172,-1.13686838e-13 L320,-1.13686838e-13 L320,79 L286.995522,79 C270.436112,79 257,92.42991 257,108.996543 L257,145.003457 C257,161.575827 270.429453,175 286.995522,175 L320,175 L320,255 L281.002172,255 L242.004344,255 C205.551152,255 176,225.452345 176,188.999539 L176,66.0004611 C176,29.5494129 205.551075,-1.13686838e-13 242.004344,-1.13686838e-13 L281.002172,-1.13686838e-13 Z" id="path-5"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group">
+            <mask id="mask-3" fill="white">
+                <use xlink:href="#path-2"></use>
+            </mask>
+            <g id="Combined-Shape">
+                <use fill="#E4E2E4" xlink:href="#path-2"></use>
+                <use fill="url(#linearGradient-1)" xlink:href="#path-2"></use>
+            </g>
+            <mask id="mask-6" fill="white">
+                <use xlink:href="#path-5"></use>
+            </mask>
+            <g id="Combined-Shape" transform="translate(248.000000, 127.500000) rotate(180.000000) translate(-248.000000, -127.500000) ">
+                <use fill="#E4E2E4" xlink:href="#path-5"></use>
+                <use fill="url(#linearGradient-4)" xlink:href="#path-5"></use>
+            </g>
+        </g>
+    </g>
+</svg>
