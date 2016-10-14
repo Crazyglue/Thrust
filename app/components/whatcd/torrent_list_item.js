@@ -3,12 +3,16 @@
 import React, { Component } from 'react';
 import * as actionCreators from '../../actions/whatcd';
 import { connect } from 'react-redux';
-import { Button, Icon, Text, CardItem } from 'native-base';
+import { Button, Icon, Text, CardItem, Thumbnail, Title, List, ListItem, Card } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 
 class TorrentListItem extends Component {
   constructor(params) {
     super(params);
+
+    this.state = {
+      isCollapsed: true,
+    };
   }
 
   transformEncoding(encoding) {
@@ -20,34 +24,73 @@ class TorrentListItem extends Component {
     }
   }
 
-  setNativeProps (nativeProps) {
-    this._root.setNativeProps(nativeProps);
-  }
-
   render() {
-    return(
-      <CardItem cardBody>
+    let rows = [];
+    data = this.props.data;
+
+    img = data.cover ? { uri: data.cover } : null;
+
+    header = (
+      <CardItem onPress={() => this.setState({ isCollapsed: !this.state.isCollapsed})} style={{height:60}} header>
         <Grid>
           <Col size={1}>
-            <Text style={{color: 'blue'}}>Format</Text>
-            <Text>{this.props.data.format}</Text>
+            <Thumbnail size={40} source={img} square/>
           </Col>
-          <Col size={1}>
-            <Text style={{color: 'blue'}}>Encoding</Text>
-            <Text>{this.transformEncoding(this.props.data.encoding)}</Text>
-          </Col>
-          <Col size={1}>
-            <Text style={{color: 'blue'}}>Size</Text>
-            <Text>{(this.props.data.size / 1000000).toFixed(2)}MB</Text>
-          </Col>
-          <Col size={1}>
-            <Button onPress={this.props.downloadTorrent.bind(this, this.props.data.torrentId)} transparent>
-              <Icon size={24} name="ios-download" />
-            </Button>
+          <Col size={5}>
+            <Row>
+              <Title left>{data.artist} - {data.groupName}</Title>
+            </Row>
+            <Row>
+              <Text size={5}>{data.torrents.length} results</Text>
+            </Row>
           </Col>
         </Grid>
       </CardItem>
-    )
+    );
+    rows.push(header);
+    if (this.state.isCollapsed == false) {
+      data.torrents.forEach((result) => {
+        rows.push(
+          <CardItem key={result.torrentId} cardBody>
+            <Grid>
+              <Col size={3}>
+                <Text style={{color: 'blue'}}>Format</Text>
+                <Text>{result.format}</Text>
+              </Col>
+              <Col size={3}>
+                <Text style={{color: 'blue'}}>Encoding</Text>
+                <Text>{this.transformEncoding.bind(this, result.encoding)}</Text>
+              </Col>
+              <Col size={3}>
+                <Text style={{color: 'blue'}}>Size</Text>
+                <Text>{(result.size / 1000000).toFixed(2)}MB</Text>
+              </Col>
+              <Col size={3}>
+                <Text style={{color: "green"}}>S: {result.seeders}</Text>
+                <Text style={{color: "red"}}>L: {result.leechers}</Text>
+              </Col>
+              <Col size={1}>
+                <Button onPress={this.props.downloadTorrent.bind(this, result.torrentId)} transparent>
+                  <Icon size={24} name="ios-download" />
+                </Button>
+              </Col>
+            </Grid>
+          </CardItem>
+        );
+      });
+    }
+
+    content = (
+      <ListItem key={data.groupId}>
+        <Card>
+          {rows}
+        </Card>
+      </ListItem>
+    );
+
+    return (
+      content
+    );
   }
 }
 
