@@ -33,10 +33,18 @@ class WhatCDPage extends Component {
     };
   }
 
+  compareResults(a, b) {
+    if (a.torrents.length < b.torrents.length)
+      return 1;
+    if (a.torrents.length > b.torrents.length)
+      return -1;
+    return 0;
+  }
+
   componentWillReceiveProps(nextProps) {
     if(nextProps.searchResult.results) {
       this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(nextProps.searchResult.results)
+        dataSource: this.state.dataSource.cloneWithRows(nextProps.searchResult.results.sort(this.compareResults))
       });
     }
   }
