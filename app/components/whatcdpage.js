@@ -18,6 +18,8 @@ import store from 'react-native-simple-store';
 import WhatCDResultList from './whatcd/whatcd_result_list';
 import Accordion from 'react-native-accordion';
 import { Container, Header, Content, Title, Button, Icon, Text, Card, CardItem, Thumbnail, InputGroup, Input } from 'native-base';
+import { Col, Row, Grid } from 'react-native-easy-grid';
+import PopupDialog, { SlideAnimation } from 'react-native-popup-dialog';
 
 class WhatCDPage extends Component {
   constructor(params) {
@@ -95,6 +97,10 @@ class WhatCDPage extends Component {
     this.setState({ filter: filter })
   }
 
+  openDialog() {
+    this.popupFilter.openDialog();
+  }
+
   render() {
     console.log("WhatCDPage Props:");
     console.log(this.props);
@@ -121,17 +127,33 @@ class WhatCDPage extends Component {
           </Button>
         </Header>
         <Content>
-          <InputGroup borderType='rounded' style={{margin: 10}} disabled={!this.props.isLoggedIn  && !this.props.isLoggingIn}>
-            <Icon name='ios-search' style={{color:'#384850'}}/>
-            <Input
-              onSubmitEditing={() => this.search(this.state.searchText)}
-              placeholder='Search WhatCD'
-              value={this.state.searchText}
-              onChangeText={(searchText) => this.setState({searchText})}
-              blurOnSubmit={true}
-              />
-            {notLoggedIn}
-          </InputGroup>
+          <PopupDialog
+            ref={(popupFilter) => { this.popupFilter = popupFilter; }}
+            >
+            <Text> FIlters!!! </Text>
+          </PopupDialog>
+
+          <Grid>
+            <Row>
+              <Col size={9}>
+                <InputGroup borderType='rounded' style={{margin: 10}} disabled={!this.props.isLoggedIn  && !this.props.isLoggingIn}>
+                  <Icon name='ios-search' style={{color:'#384850'}}/>
+                  <Input
+                    onSubmitEditing={() => this.search(this.state.searchText)}
+                    placeholder='Search WhatCD'
+                    value={this.state.searchText}
+                    onChangeText={(searchText) => this.setState({searchText})}
+                    blurOnSubmit={true}
+                    />
+                  {notLoggedIn}
+
+                  <Button onPress={() => {this.openDialog()}}style={{width: 25, height: 25}} transparent>
+                    <Icon name="ios-funnel-outline" style={{ marginRight: 10, color: "blue"}} />
+                  </Button>
+                </InputGroup>
+              </Col>
+            </Row>
+          </Grid>
 
           <WhatCDResultList
             data={this.props.searchResult.results}

@@ -15,6 +15,7 @@
     "react-native-easy-grid": "^0.1.6",
     "react-native-gifted-listview": "0.0.15",
     "react-native-loading-spinner-overlay": "^0.3.0",
+    "react-native-popup-dialog": "0.0.7",
     "react-native-router-flux": "^3.35.0",
     "react-native-simple-store": "^1.1.0",
     "react-native-svg": "^4.3.1",
