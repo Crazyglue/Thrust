@@ -24,6 +24,14 @@ class TorrentListItem extends Component {
     }
   }
 
+  sortTorrents(a, b) {
+    if (a.seeders < b.seeders)
+      return 1;
+    if (a.seeders > b.seeders)
+      return -1;
+    return 0;
+  }
+
   render() {
     let rows = [];
     data = this.props.data;
@@ -48,8 +56,10 @@ class TorrentListItem extends Component {
       </CardItem>
     );
     rows.push(header);
+    torrents = data.torrents.sort(this.sortTorrents);
+
     if (this.state.isCollapsed == false) {
-      data.torrents.forEach((result) => {
+      torrents.forEach((result) => {
         rows.push(
           <CardItem key={result.torrentId} cardBody>
             <Grid>
@@ -59,11 +69,11 @@ class TorrentListItem extends Component {
               </Col>
               <Col size={3}>
                 <Text style={{color: 'blue'}}>Encoding</Text>
-                <Text>{this.transformEncoding.bind(this, result.encoding)}</Text>
+                <Text>{result.encoding}</Text>
               </Col>
               <Col size={3}>
                 <Text style={{color: 'blue'}}>Size</Text>
-                <Text>{(result.size / 1000000).toFixed(2)}MB</Text>
+                <Text>{(result.size / 1000000).toFixed(1)}MB</Text>
               </Col>
               <Col size={3}>
                 <Text style={{color: "green"}}>S: {result.seeders}</Text>
