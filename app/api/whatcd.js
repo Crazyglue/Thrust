@@ -50,8 +50,8 @@ export default class WhatCDAPI {
     params = {
       method: 'POST',
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Accept': 'multipart/form-data',
+        'Content-Type': 'multipart/form-data'
       },
       body: form,
       credentials: 'same-origin'
