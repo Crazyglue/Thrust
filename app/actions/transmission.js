@@ -6,6 +6,7 @@ export const GET_STATS = 'GET_STATS';
 
 export function pingTransmission() {
   return(dispatch, getState) => {
+    console.log("Dispatching ping...");
     getState().transmission.api.getSessionId()
       .then((response) => {
           console.log("Ping response:");
@@ -17,7 +18,11 @@ export function pingTransmission() {
           else
             throw new Error("Failed to ping");
         })
-      .catch((error) => console.warn(error))
+      .catch((error) => {
+        console.log("Error pinging");
+        console.log(error);
+        console.warn(error);
+      })
       .done(() => console.log(getState().transmission.api.sessionId));
   };
 }

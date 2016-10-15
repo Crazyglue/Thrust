@@ -71,9 +71,11 @@ export function downloadTorrent(torrentResult) {
         console.log(response);
       })
       .catch((error) => {
+        console.log("Error adding torrent");
+        console.log(error);
         console.warn(error);
       })
-      .done(() => console.log("DONE!"));
+      .done(() => console.log(""));
   };
 }
 
