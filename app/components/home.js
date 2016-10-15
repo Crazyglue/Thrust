@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import * as actionCreators from '../actions/index';
-import { Container, Header, Content, Title, Button, Icon, Text, Card, CardItem, Thumbnail } from 'native-base';
+import { Container, Header, Content, Title, Button, Icon, Text, Card, CardItem, Thumbnail, Spinner } from 'native-base';
 
 class Home extends Component {
   componentWillMount() {
@@ -26,7 +26,14 @@ class Home extends Component {
     if (this.props.whatcd.isLoggedIn) {
       whatcdSpinner = (
         <Button transparent>
-          <Thumbnail style={{ backgroundColor: "black" }} source={require('../assets/images/whatcd.svg')} size={30} square />
+          <Icon name="ios-checkmark" style={{fontSize: 36, color: 'green' }} />
+        </Button>
+      )
+    }
+    else if (this.props.whatcd.isLoggingIn) {
+      whatcdSpinner = (
+        <Button style={{ height: 20, width: 20 }} transparent>
+          <Spinner color="orange" />
         </Button>
       )
     }
