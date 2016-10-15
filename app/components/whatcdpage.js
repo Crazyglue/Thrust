@@ -123,7 +123,7 @@ class WhatCDPage extends Component {
         </Header>
         <Content>
           <InputGroup borderType='rounded' style={{margin: 10}} disabled={!this.props.isLoggedIn  && !this.props.isLoggingIn}>
-            <Icon name='ios-search' style={{color:'#384850'}}/>
+            <Icon onPress={() => this.props.getTorrent(this.state.searchText, this.state.searchOptions)} name='ios-search' style={{ marginLeft: 10, color:'#384850'}}/>
             <Input
               onSubmitEditing={() => this.props.getTorrent(this.state.searchText, this.state.searchOptions)}
               placeholder='Search WhatCD'
