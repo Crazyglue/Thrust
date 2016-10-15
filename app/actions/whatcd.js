@@ -146,7 +146,7 @@ export function login() {
 export function loadOfflineCredentials() {
   console.log("Loading offline credentials...");
   return (dispatch, getState) => {
-    Promise.all([
+    return Promise.all([
       offline.get('username').then(username => {
         dispatch({
           type: SET_USERNAME,
@@ -171,7 +171,6 @@ export function loadOfflineCredentials() {
       })
     ]).then(() => {
       console.log("Credentials set");
-      login();
     });
   };
 }

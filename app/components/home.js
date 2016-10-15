@@ -7,9 +7,12 @@ import { Container, Header, Content, Title, Button, Icon, Text, Card, CardItem, 
 
 class Home extends Component {
   componentWillMount() {
-    this.props.loadOfflineCredentials();
+    this.props.loadOfflineCredentials()
+      .then((crendtialsSet) => {
+        this.props.login();
+      });
     this.props.pingTransmission();
-    this.props.login();
+
   }
 
   render() {
