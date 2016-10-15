@@ -162,6 +162,12 @@ export function loadOfflineCredentials() {
             password: (password || "")
           }
         });
+      }),
+      offline.get('transmission:localUrl').then(url => {
+        getState().transmission.api.setLocalUrl(url);
+      }),
+      offline.get('transmission:localPort').then(port => {
+        getState().transmission.api.setLocalPort(port);
       })
     ]).then(() => {
       console.log("Credentials set");
