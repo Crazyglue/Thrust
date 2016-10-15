@@ -50,7 +50,7 @@ class TorrentListItem extends Component {
               <Title left>{data.artist} - {data.groupName}</Title>
             </Row>
             <Row>
-              <Text size={5}>{data.torrents.length} results</Text>
+              <Text size={5}>{(data.torrents) ? data.torrents.length : '0'} results</Text>
             </Row>
           </Col>
         </Grid>

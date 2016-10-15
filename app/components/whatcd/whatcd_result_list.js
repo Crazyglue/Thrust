@@ -15,8 +15,6 @@ class WhatCDResultList extends Component {
   }
 
   _renderRow(data) {
-    console.log("Rendering row data...");
-    console.log(data);
     return(
       <TorrentListItem data={data} />
     )
@@ -29,7 +27,7 @@ class WhatCDResultList extends Component {
     return(
       <Content>
         <List
-          dataArray={this.props.data}
+          dataArray={this.props.searchResult.results}
           renderRow={this._renderRow.bind(this)}
           />
       </Content>
