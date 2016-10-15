@@ -118,7 +118,7 @@ class WhatCDPage extends Component {
           </Button>
           <Title>What CD</Title>
           <Button transparent>
-            <Icon name='ios-menu' />
+            <Icon name="ios-stats" style={{ marginRight: 10, color: "blue"}} />
           </Button>
         </Header>
         <Content>
@@ -136,6 +136,7 @@ class WhatCDPage extends Component {
             <Button onPress={() => {this.openDialog()}}style={{width: 25, height: 25}} transparent>
               <Icon name="ios-funnel-outline" style={{ marginRight: 10, color: "blue"}} />
             </Button>
+
           </InputGroup>
 
           <WhatCDResultList
