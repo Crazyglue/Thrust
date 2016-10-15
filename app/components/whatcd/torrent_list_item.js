@@ -5,6 +5,7 @@ import * as actionCreators from '../../actions/whatcd';
 import { connect } from 'react-redux';
 import { Button, Icon, Text, CardItem, Thumbnail, Title, List, ListItem, Card } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
+import whatcd_icon from '../../assets/images/what_icon.png';
 
 class TorrentListItem extends Component {
   constructor(params) {
@@ -36,7 +37,7 @@ class TorrentListItem extends Component {
     let rows = [];
     data = this.props.data;
 
-    img = data.cover ? { uri: data.cover } : null;
+    img = (data.cover !== "") ? { uri: data.cover } : whatcd_icon;
 
     header = (
       <CardItem onPress={() => this.setState({ isCollapsed: !this.state.isCollapsed})} style={{height:60}} header>
