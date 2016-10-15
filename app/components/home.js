@@ -15,6 +15,8 @@ class Home extends Component {
   render() {
     console.log("Home props:");
     console.log(this.props);
+    console.log("Home State:");
+    console.log(this.props.appState);
 
     const goToWhatCD = () => Actions.whatcdpage();
     const goToTransmission = () => Actions.transmissionpage();
@@ -84,6 +86,7 @@ class Home extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    appState: state,
     whatcd: state.whatcd,
     username: state.whatcd.username,
     password: state.whatcd.password,
