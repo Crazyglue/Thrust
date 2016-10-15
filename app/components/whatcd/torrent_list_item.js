@@ -16,6 +16,11 @@ class TorrentListItem extends Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.data != nextProps.data)
+      this.setState({ isCollapsed: true });
+  }
+
   transformEncoding(encoding) {
     switch(encoding) {
       case '24bit Lossless':
