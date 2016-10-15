@@ -22,7 +22,7 @@ class FilterDialog extends Component {
     super(params);
 
     this.state = {
-      activeTags: params.searchOptions.tags || [],
+      activeTags: params.searchOptions.taglist || [],
     };
   }
 
@@ -35,7 +35,7 @@ class FilterDialog extends Component {
     else
       currentTags.push(tag);
     this.setState({activeTags: currentTags});
-    this.props.updateSearchOptions({ tags: currentTags });
+    this.props.updateSearchOptions({ taglist: currentTags });
   }
 
   render() {
@@ -59,10 +59,6 @@ class FilterDialog extends Component {
         <List>
           <ListItem>
             <Row>
-              <Col>
-                <CheckBox checked={true} />
-                <Text>FreeLeech</Text>
-              </Col>
               <Col>
                 <CheckBox checked={true} />
                 <Text>FreeLeech</Text>

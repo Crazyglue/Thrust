@@ -32,7 +32,7 @@ class WhatCDPage extends Component {
       artistName: "",
       searchText: "",
       searchOptions: {
-        tags: []
+        taglist: []
       },
       dataSource: ds.cloneWithRows([]),
     };
@@ -140,7 +140,7 @@ class WhatCDPage extends Component {
           <PopupDialog
             ref={(popupFilter) => { this.popupFilter = popupFilter; }}
             >
-            <FilterDialog updateSearchOptions={() => this.updateSearchOptions} searchOptions={this.state.searchOptions} />
+            <FilterDialog updateSearchOptions={(options) => this.updateSearchOptions(options)} searchOptions={this.state.searchOptions} />
           </PopupDialog>
         </Content>
       </Container>

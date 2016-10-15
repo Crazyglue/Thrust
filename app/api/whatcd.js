@@ -64,7 +64,7 @@ export default class WhatCDAPI {
   }
 
   getTorrent(searchString, options) {
-    url = this.baseEndpoint + this.torrentEndpoint + searchString + "&" + querystring.stringify(options);
+    url = this.baseEndpoint + this.torrentEndpoint + searchString + "&group_results=1&" + querystring.stringify(options);
 
     console.log("Stringified torrent search options:");
     console.log(querystring.stringify(options));
