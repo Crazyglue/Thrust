@@ -13,6 +13,8 @@ export default class WhatCDAPI {
     this.userEndpoint = "/ajax.php?action=user&id=";
     this.userSearchEndpoint = "/ajax.php?action=usersearch";
     this.artistEndpoint = '/ajax.php?action=artist';
+    this.username = '';
+    this.password = '';
 
     this.downloadEndpoint = '/torrents.php?action=download';
     this.downloadId = '&id=';
@@ -38,13 +40,8 @@ export default class WhatCDAPI {
 
     form = new FormData();
 
-    store.get('username').then((uname) => {
-      form.append('username', uname);
-    });
-    store.get('password').then((pword) => {
-      form.append('password', pword);
-    });
-
+    form.append('username', this.username);
+    form.append('password', this.password);
     form.append('keeplogged', true);
 
     params = {
@@ -59,6 +56,7 @@ export default class WhatCDAPI {
 
     console.log("Logging into whatcd using params:");
     console.log(params);
+    console.log(endpoint);
 
     return fetch(endpoint, params);
   }
@@ -120,4 +118,7 @@ export default class WhatCDAPI {
 
     return url;
   }
+
+  setUsername(username) { this.username = username; }
+  setPassword(password) { this.password = password; }
 }

@@ -12,17 +12,23 @@ import GET_STATS from './transmission';
 
 export function setUsername(username) {
   console.log("Setting username: " + username);
-  return {
-    type: SET_USERNAME,
-    payload: { username: username }
+  return(dispatch, getState) => {
+    getState().whatcd.whatcd.setUsername(username);
+    dispatch({
+      type: SET_USERNAME,
+      payload: { username: username }
+    });
   };
 }
 
 export function setPassword(password) {
   console.log("Setting password: " + password);
-  return {
-    type: SET_PASSWORD,
-    payload: { password: password }
+  return(dispatch, getState) => {
+    getState().whatcd.whatcd.setPassword(password);
+    dispatch({
+      type: SET_PASSWORD,
+      payload: { password: password }
+    });
   };
 }
 
