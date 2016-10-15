@@ -40,7 +40,7 @@ class TorrentListItem extends Component {
     img = (data.cover !== "") ? { uri: data.cover } : whatcd_icon;
 
     header = (
-      <CardItem onPress={() => this.setState({ isCollapsed: !this.state.isCollapsed})} style={{height:60}} header>
+      <CardItem key={data.groupId + "-header"} onPress={() => this.setState({ isCollapsed: !this.state.isCollapsed})} style={{height:60}} header>
         <Grid>
           <Col size={1}>
             <Thumbnail size={40} source={img} square/>
