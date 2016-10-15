@@ -69,7 +69,7 @@ class WhatCDPage extends Component {
   }
 
   getUser() {
-    this.props.whatcd.whatcd.getUser();
+    this.props.whatcd.api.getUser();
   }
 
   printUserData() {

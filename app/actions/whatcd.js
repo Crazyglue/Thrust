@@ -13,7 +13,7 @@ import GET_STATS from './transmission';
 export function setUsername(username) {
   console.log("Setting username: " + username);
   return(dispatch, getState) => {
-    getState().whatcd.whatcd.setUsername(username);
+    getState().whatcd.api.setUsername(username);
     dispatch({
       type: SET_USERNAME,
       payload: { username: username }
@@ -24,7 +24,7 @@ export function setUsername(username) {
 export function setPassword(password) {
   console.log("Setting password: " + password);
   return(dispatch, getState) => {
-    getState().whatcd.whatcd.setPassword(password);
+    getState().whatcd.api.setPassword(password);
     dispatch({
       type: SET_PASSWORD,
       payload: { password: password }
@@ -34,7 +34,7 @@ export function setPassword(password) {
 
 export function getTorrent(searchText, options) {
   return(dispatch, getState) => {
-    getState().whatcd.whatcd.getTorrent(searchText, options)
+    getState().whatcd.api.getTorrent(searchText, options)
       .then((response) => {
         return response.json();
       })
@@ -62,7 +62,7 @@ export function downloadTorrent(torrentResult) {
     id = torrentResult;
     authkey = getState().whatcd.userData.authkey;
     passkey = getState().whatcd.userData.passkey;
-    url = getState().whatcd.whatcd.getDownloadUrl(id, authkey, passkey);
+    url = getState().whatcd.api.getDownloadUrl(id, authkey, passkey);
     console.log("downloadTorrent URL");
     console.log(url);
     getState().transmission.api.addTorrent(url)
@@ -86,7 +86,7 @@ export function login() {
       payload: { isLoggingIn: true }
     });
 
-    getState().whatcd.whatcd.login()
+    getState().whatcd.api.login()
       .then((response) => {
         console.log("WhatCD Login response:");
         console.log(response);
@@ -101,7 +101,7 @@ export function login() {
             payload: { isLoggingIn: false }
           });
 
-          getState().whatcd.whatcd.getIndex()
+          getState().whatcd.api.getIndex()
             .then((response) => {
               return response.json();
             })

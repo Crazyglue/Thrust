@@ -18,7 +18,7 @@ const initialState = {
   userData: {},
   isLoggedIn: false,
   isLoggingIn: false,
-  whatcd: new WhatCDAPI(),
+  api: new WhatCDAPI(),
   searchResult: {}
 };
 

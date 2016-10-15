@@ -107,7 +107,7 @@ class TorrentListItem extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    downloadTorrent: state.whatcd.whatcd.downloadTorrent
+    downloadTorrent: state.whatcd.api.downloadTorrent
   }
 }
 

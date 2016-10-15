@@ -22,7 +22,7 @@ class AppSettings extends Component {
   }
 
   login() {
-    this.props.whatcd.whatcd.login();
+    this.props.whatcd.api.login();
   }
 
   render() {
