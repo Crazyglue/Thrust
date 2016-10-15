@@ -8,6 +8,7 @@ export const SET_USER_DATA = 'SET_USER_DATA';
 export const SET_LOGGED_IN = 'SET_LOGGED_IN';
 export const SET_LOGIN_PENDING = 'SET_LOGIN_PENDING';
 export const SET_WHATCD_SEARCH_RESULT = 'SET_WHATCD_SEARCH_RESULT';
+export const SET_WHATCD_SEARCH_PENDING = 'SET_WHATCD_SEARCH_PENDING';
 import GET_STATS from './transmission';
 
 export function setUsername(username) {
@@ -34,6 +35,13 @@ export function setPassword(password) {
 
 export function getTorrent(searchText, options) {
   return(dispatch, getState) => {
+    dispatch({
+      type: SET_WHATCD_SEARCH_PENDING,
+      payload: {
+        whatcdSearchPending: true
+      }
+    });
+
     getState().whatcd.api.getTorrent(searchText, options)
       .then((response) => {
         return response.json();
@@ -52,6 +60,12 @@ export function getTorrent(searchText, options) {
         }
       })
       .done((data) => {
+        dispatch({
+          type: SET_WHATCD_SEARCH_PENDING,
+          payload: {
+            whatcdSearchPending: false
+          }
+        });
         return data;
       });
   };

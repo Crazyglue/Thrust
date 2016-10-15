@@ -18,7 +18,7 @@ import store from 'react-native-simple-store';
 import WhatCDResultList from './whatcd/whatcd_result_list';
 import FilterDialog from './whatcd/filter_dialog';
 import Accordion from 'react-native-accordion';
-import { Container, Header, Content, Title, Button, Icon, Text, Card, CardItem, Thumbnail, InputGroup, Input } from 'native-base';
+import { Container, Header, Content, Title, Button, Icon, Text, Card, CardItem, Thumbnail, InputGroup, Input, Spinner } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import PopupDialog, { SlideAnimation } from 'react-native-popup-dialog';
 
@@ -103,12 +103,15 @@ class WhatCDPage extends Component {
     console.log("searchOptions:");
     console.log(this.state.searchOptions);
     let notLoggedIn;
+    let searchSpinner;
 
     if (!this.props.isLoggedIn && !this.props.isLoggingIn) {
       notLoggedIn = (
         <Icon name="ios-alert" style={{color: "red"}} />
       )
     }
+
+    searchSpinner = this.props.whatcdSearchPending ? (<Spinner active={!this.props.whatcdSearchPending} />) : null
 
     return(
       <Container>
@@ -139,6 +142,7 @@ class WhatCDPage extends Component {
 
           </InputGroup>
 
+          {searchSpinner}
           <WhatCDResultList
             data={this.props.searchResult.results}
             />
@@ -163,6 +167,7 @@ const mapStateToProps = (state) => {
     isLoggedIn: state.whatcd.isLoggedIn,
     isLoggingIn: state.whatcd.isLoggingIn,
     searchResult: state.whatcd.searchResult,
+    whatcdSearchPending: state.whatcd.whatcdSearchPending
   }
 }
 
