@@ -84,6 +84,8 @@ class WhatCDPage extends Component {
   }
 
   updateSearchOptions(searchOptions) {
+    console.log("Updating search options..");
+    console.log(searchOptions);
     this.setState({ searchOptions: searchOptions });
   }
 
@@ -97,6 +99,9 @@ class WhatCDPage extends Component {
 
     console.log("searchResult:");
     console.log(this.props.searchResult);
+
+    console.log("searchOptions:");
+    console.log(this.state.searchOptions);
     let notLoggedIn;
 
     if (!this.props.isLoggedIn && !this.props.isLoggingIn) {
