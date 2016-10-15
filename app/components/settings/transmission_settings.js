@@ -15,7 +15,7 @@ class TransmissionSettings extends Component {
 
   ping(){
     console.log("pinging...");
-    this.props.ping();
+    this.props.pingTransmission();
   }
 
   render() {
@@ -54,7 +54,9 @@ class TransmissionSettings extends Component {
               </InputGroup>
             </ListItem>
             <ListItem>
-              <Button onPress={this.props.pingTransmission} transparent>Test Connection</Button>
+              <Button onPress={this.ping.bind(this)} transparent>
+                <Text>Test Connection</Text>
+              </Button>
             </ListItem>
           </List>
         </Col>
