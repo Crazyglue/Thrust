@@ -8,6 +8,7 @@ import styles from '../../stylesheets/default';
 import * as actionCreators from '../../actions/transmission';
 import { connect } from 'react-redux';
 import * as Progress from 'react-native-progress';
+import timer from 'react-native-timer';
 
 class TransmissionPage extends Component {
   constructor(params) {
@@ -16,6 +17,13 @@ class TransmissionPage extends Component {
 
   componentDidMount() {
     this.props.getTorrentInfo([]);
+    timer.setInterval("transmission_ping", () => {
+      this.props.getTorrentInfo([]);
+    }, 200);
+  }
+
+  componentWillUnmount() {
+    timer.clearInterval("transmission_ping");
   }
 
   getStats() {
