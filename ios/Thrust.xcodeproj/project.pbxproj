@@ -38,6 +38,7 @@
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		9214BE3DD7D244C6866123AD /* Arial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 45389BA532BC465D92CBFDF1 /* Arial.ttf */; };
 		9FFDF129FAF848CDA26F7C27 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F3E9EAAEB5F14CCFA6CB01AD /* Octicons.ttf */; };
+		A718BF401DB41014005DC3B2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		B37ADBF4BD6549E0BA5867FE /* Georgia.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F91C7722F044751BB2F86C3 /* Georgia.ttf */; };
 		C19D48C07CB84BCBA219F561 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA1478E6E771414DB14E96B5 /* Entypo.ttf */; };
 		C5D086367C3747E4AA60C6A5 /* SF-UI-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = A34FBE091D9646D3BC407A16 /* SF-UI-Text-Regular.otf */; };
@@ -630,6 +631,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A718BF401DB41014005DC3B2 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
