@@ -58,6 +58,11 @@ class TransmissionSettings extends Component {
                 <Text>Test Connection</Text>
               </Button>
             </ListItem>
+            <ListItem>
+              <Button onPress={() => this.props.getStats()} transparent>
+                <Text>Get Stats</Text>
+              </Button>
+            </ListItem>
           </List>
         </Col>
       </Row>
