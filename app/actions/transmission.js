@@ -68,3 +68,20 @@ export function setLocalPort(port) {
     offline.save("transmission:localPort", port);
   };
 }
+
+export function getTorrentInfo(ids) {
+  return(dispatch, getState) => {
+    console.log("Getting torrent info...");
+    console.log(ids);
+    getState().transmission.api.getTorrentInfo(ids)
+      .then((response) => {
+        console.log("getTorrentInfo response");
+        console.log(response);
+        return response.json();
+      })
+      .then((data) => {
+        console.log("getTorrentInfo data:");
+        console.log(data);
+      });
+  }
+}

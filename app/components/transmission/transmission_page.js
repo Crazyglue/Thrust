@@ -31,6 +31,7 @@ class TransmissionPage extends Component {
     return(
       <View style={styles.container}>
         <Button onPress={this.getStats.bind(this)} >Get Stats</Button>
+        <Button onPress={() => this.props.getTorrentInfo([])}>Get Torrent Info</Button>
       </View>
     )
   }

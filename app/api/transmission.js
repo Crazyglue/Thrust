@@ -11,10 +11,41 @@ export default class TransmissionAPI {
   }
 
   getSessionId() {
-
     this.sessionId = null;
-
     return fetch(this.getBaseUrl());
+  }
+
+  getTorrentInfo(ids) {
+    url = this.getBaseUrl();
+
+    torrentParams = {
+      fields: [
+        'rateDownload',
+        'rateUpload',
+        'status',
+        'totalsize',
+        'name',
+        'addedDate',
+      ]
+    };
+
+
+    body = JSON.stringify({
+      method: "torrent-get",
+      arguments: torrentParams,
+    });
+
+    params = {
+      method: "POST",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        "x-transmission-session-id": this.sessionId
+      },
+      body: body
+    };
+
+    return fetch(url, params);
   }
 
   getTransmissionStats() {
