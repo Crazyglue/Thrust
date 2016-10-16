@@ -3,6 +3,7 @@
 import offline from 'react-native-simple-store';
 
 export const GET_STATS = 'GET_STATS';
+export const SET_DISPLAY_TORRENTS = 'SET_DISPLAY_TORRENTS';
 
 export function pingTransmission() {
   return(dispatch, getState) => {
@@ -82,6 +83,17 @@ export function getTorrentInfo(ids) {
       .then((data) => {
         console.log("getTorrentInfo data:");
         console.log(data);
+        if (data.result == "success") {
+          dispatch({
+            type: SET_DISPLAY_TORRENTS,
+            payload: {
+              displayTorrents: data.arguments.torrents
+            }
+          });
+        }
+        else {
+          console.log("Error getting torrent data.");
+        }
       });
   }
 }

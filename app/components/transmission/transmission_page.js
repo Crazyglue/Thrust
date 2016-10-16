@@ -1,17 +1,9 @@
 /*jshint esversion: 6 */
 
 import React, { Component } from 'react';
-import {
-  Text,
-  View,
-  TextInput,
-  ListView,
-  ScrollView,
-} from 'react-native';
+import { Container, Header, Content, Title, Button, Icon, Text, Card, CardItem, Thumbnail, InputGroup, Input } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import styles from '../../stylesheets/default';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import Button from 'apsl-react-native-button';
 import * as actionCreators from '../../actions/transmission';
 import { connect } from 'react-redux';
 
@@ -28,11 +20,32 @@ class TransmissionPage extends Component {
     console.log("TransmissionPage Props:");
     console.log(this.props);
 
+    rows = [];
+
+    this.props.transmission.displayTorrents.forEach((torrent) => {
+      rows.push(
+        <Text key={torrent.name}>{torrent.name}</Text>
+      )
+    });
+
     return(
-      <View style={styles.container}>
-        <Button onPress={this.getStats.bind(this)} >Get Stats</Button>
-        <Button onPress={() => this.props.getTorrentInfo([])}>Get Torrent Info</Button>
-      </View>
+      <Container>
+        <Header>
+          <Button onPress={Actions.pop} transparent>
+            <Icon name="ios-arrow-back" />
+          </Button>
+          <Title>App Settings</Title>
+          <Button transparent>
+            <Icon name='ios-menu' />
+          </Button>
+        </Header>
+        <Content>
+          <Button onPress={this.getStats.bind(this)} block primary>Get Stats</Button>
+          <Button onPress={() => this.props.getTorrentInfo([])} block warning>Get Torrent Info</Button>
+          {rows}
+
+        </Content>
+      </Container>
     )
   }
 }
