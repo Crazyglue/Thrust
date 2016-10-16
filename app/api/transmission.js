@@ -1,5 +1,15 @@
 /*jshint esversion: 6 */
 
+const torrentStatusMap = [
+    'Stopped', /* Torrent is stopped */
+    'Queued', /* Queued to check files */
+    'Checking', /* Checking files */
+    'Queued for DL', /* Queued to download */
+    'Downloading', /* Downloading */
+    'Queue to seed', /* Queued to seed */
+    'Seeding'  /* Seeding */
+];
+
 export default class TransmissionAPI {
   constructor() {
     this.baseEndpoint = "/transmission/rpc";
@@ -8,6 +18,7 @@ export default class TransmissionAPI {
     this.localPort = '9091';
     this.webUrl = '';
     this.webPort = '';
+    this.statusMap = torrentStatusMap;
   }
 
   getSessionId() {
@@ -26,6 +37,12 @@ export default class TransmissionAPI {
         'totalsize',
         'name',
         'addedDate',
+        'sizeWhenDone',
+        'pieceSize',
+        'eta',
+        'percentDone',
+        'pieceCount',
+        
       ]
     };
 
@@ -107,6 +124,10 @@ export default class TransmissionAPI {
   setWebUrl(url) { this.webUrl = url; }
   setWebPort(port) { this.webPort = port; }
   setSessionId(id) { this.sessionId = id; }
+
+  parseTorrentStatus(status) {
+    return this.statusMap[status];
+  }
 
   getBaseUrl() { return("http://" + this.localUrl + ":" + this.localPort + this.baseEndpoint); }
 
