@@ -11,24 +11,25 @@ export default function(store) {
 
   store.subscribe(() => {
     const state = store.getState();
-    if(state.whatcd.password != syncedPassword || state.whatcd.username != syncedUsername || state.movie.recentResult != recentResult)
+    console.log("updating!");
+
+    if(state.whatcd.api.password != syncedPassword || state.whatcd.api.username != syncedUsername || state.movie.recentResult != recentResult)
       console.log("Syncing offline...");
       console.log(state);
 
-    if(state.whatcd.username != syncedUsername) {
-      console.log("Saving username: " + state.whatcd.username);
-      console.log(state.whatcd.username);
-      syncedUsername = state.whatcd.username;
-      offline.save("username", state.whatcd.username);
+    if(state.whatcd.api.username != syncedUsername) {
+      console.log("Saving username: " + state.whatcd.api.username);
+      console.log(state.whatcd.api.username);
+      syncedUsername = state.whatcd.api.username;
+      offline.save("whatcd:username", state.whatcd.api.username);
     }
 
-    if(state.whatcd.password != syncedPassword) {
-      console.log("Saving password: " + state.whatcd.password);
-      console.log(state.whatcd.password);
-      syncedPassword = state.whatcd.password;
-      offline.save("password", state.whatcd.password);
+    if(state.whatcd.api.password != syncedPassword) {
+      console.log("Saving password: " + state.whatcd.api.password);
+      console.log(state.whatcd.api.password);
+      syncedPassword = state.whatcd.api.password;
+      offline.save("whatcd:password", state.whatcd.api.password);
     }
-
 
     if(state.movie.recentResult != recentResult) {
       console.log("Saving recent result:");

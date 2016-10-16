@@ -85,8 +85,8 @@ class WhatCDSettings extends Component {
 const mapStateToProps = (state) => {
   return {
     whatcd: state.whatcd,
-    username: state.whatcd.username,
-    password: state.whatcd.password,
+    username: state.whatcd.api.username,
+    password: state.whatcd.api.password,
     isLoggedIn: state.whatcd.isLoggedIn,
     isLoggingIn: state.whatcd.isLoggingIn,
   }

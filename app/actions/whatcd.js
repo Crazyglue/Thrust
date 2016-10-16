@@ -15,10 +15,7 @@ export function setUsername(username) {
   console.log("Setting username: " + username);
   return(dispatch, getState) => {
     getState().whatcd.api.setUsername(username);
-    dispatch({
-      type: SET_USERNAME,
-      payload: { username: username }
-    });
+    offline.save("whatcd:username", username);
   };
 }
 
@@ -26,10 +23,7 @@ export function setPassword(password) {
   console.log("Setting password: " + password);
   return(dispatch, getState) => {
     getState().whatcd.api.setPassword(password);
-    dispatch({
-      type: SET_PASSWORD,
-      payload: { password: password }
-    });
+    offline.save("whatcd:password", password);
   };
 }
 
@@ -162,21 +156,11 @@ export function loadOfflineCredentials() {
   console.log("Loading offline credentials...");
   return (dispatch, getState) => {
     return Promise.all([
-      offline.get('username').then(username => {
-        dispatch({
-          type: SET_USERNAME,
-          payload: {
-            username: (username || "")
-          }
-        });
+      offline.get('whatcd:username').then(username => {
+        getState().whatcd.api.setUsername(username || "");
       }),
-      offline.get('password').then(password => {
-        dispatch({
-          type: SET_PASSWORD,
-          payload: {
-            password: (password || "")
-          }
-        });
+      offline.get('whatcd:password').then(password => {
+        getState().whatcd.api.setPassword(password || "");
       }),
       offline.get('transmission:localUrl').then(url => {
         getState().transmission.api.setLocalUrl(url || "");
