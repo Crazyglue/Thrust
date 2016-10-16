@@ -130,6 +130,7 @@ export function login() {
             .done();
         }
         else {
+          console.log("WhatCD login unsuccessful, returned url: (" + response.url + ")");
           dispatch({
             type: SET_LOGGED_IN,
             payload: {isLoggedIn: false}
@@ -178,10 +179,10 @@ export function loadOfflineCredentials() {
         });
       }),
       offline.get('transmission:localUrl').then(url => {
-        getState().transmission.api.setLocalUrl(url);
+        getState().transmission.api.setLocalUrl(url || "");
       }),
       offline.get('transmission:localPort').then(port => {
-        getState().transmission.api.setLocalPort(port);
+        getState().transmission.api.setLocalPort(port || "");
       })
     ]).then(() => {
       console.log("Credentials set");

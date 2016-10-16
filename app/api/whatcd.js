@@ -88,7 +88,7 @@ export default class WhatCDAPI {
   }
 
   getArtist(searchTerm) {
-    console.log("Getting artist")
+    console.log("Getting artist");
     url = this.baseEndpoint + this.artistEndpoint + "&artistname=" + searchTerm;
 
     console.log("URL");
