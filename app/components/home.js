@@ -24,7 +24,6 @@ class Home extends Component {
 
     const goToWhatCD = () => Actions.whatcdpage();
     const goToTransmission = () => Actions.transmissionpage();
-    const goToMoviePage = () => Actions.moviepage();
     const goToAppSettings = () => Actions.appsettings();
 
     let whatcdSpinner;
@@ -57,6 +56,7 @@ class Home extends Component {
         <Content>
 
           <Card>
+
             <CardItem onPress={goToWhatCD} style={{ height: 50 }}>
               <Row style={{ justifyContent: 'space-between' }}>
                 <Thumbnail style={{backgroundColor: 'black'}} source={require('../assets/images/whatcd.png')} size={30} square/>
@@ -66,6 +66,7 @@ class Home extends Component {
                 </Button>
               </Row>
             </CardItem>
+
             <CardItem onPress={goToTransmission}>
               <Row style={{ justifyContent: 'space-between' }}>
                 <Thumbnail source={require('../assets/images/transmission.png')} size={30} square/>
@@ -73,13 +74,7 @@ class Home extends Component {
                 <Icon name="ios-checkmark" style={{fontSize: 36, color: 'green' }} />
               </Row>
             </CardItem>
-            <CardItem onPress={goToMoviePage}>
-              <Row style={{ justifyContent: 'space-between' }}>
-                <Thumbnail source={require('../assets/images/moviedb.png')} size={30} square/>
-                <Text>Movies</Text>
-                <Icon name="ios-checkmark" style={{fontSize: 36, color: 'green' }} />
-              </Row>
-            </CardItem>
+
             <CardItem onPress={goToAppSettings}>
               <Row style={{ justifyContent: 'space-between' }}>
                 <Thumbnail style={{backgroundColor: 'black'}} source={require('../assets/images/whatcd.png')} size={30} square/>
@@ -87,6 +82,7 @@ class Home extends Component {
                 <Icon name="ios-checkmark" style={{fontSize: 36, color: 'green' }} />
               </Row>
             </CardItem>
+            
           </Card>
 
         </Content>
