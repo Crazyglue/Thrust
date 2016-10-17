@@ -12,7 +12,7 @@ import { Actions } from 'react-native-router-flux';
 import * as actionCreators from '../../actions/whatcd';
 import { connect } from 'react-redux';
 import store from 'react-native-simple-store';
-import { Content, Button, Text, Card, CardItem, List, ListItem, Badge, CheckBox, Radio } from 'native-base';
+import { Content, Button, Text, Card, CardItem, List, ListItem, Badge, CheckBox, Radio, Icon } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import PopupDialog, { SlideAnimation } from 'react-native-popup-dialog';
 import WhatCDTags from '../../data/whatcd_filters';
@@ -56,12 +56,19 @@ class FilterDialog extends Component {
     })
 
     return(
-        <List>
+        <List style={{ backgroundColor: "#CFD8DC", marginTop: 65, marginBottom: 100 }}>
           <ListItem>
             <Row>
               <Col>
                 <CheckBox checked={true} />
                 <Text>FreeLeech</Text>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Button onPress={this.props.closeModal} transparent>
+                  <Icon name="ios-close-circle" />
+                </Button>
               </Col>
             </Row>
           </ListItem>
@@ -86,7 +93,7 @@ class FilterDialog extends Component {
               <Text>MP3 320</Text>
             </Col>
           </ListItem>
-          <ListItem style={{height: 100}}>
+          <ListItem style={{height: 300}}>
             <Text>Tags:</Text>
             <Content>
             <Row style={{ flexWrap: "wrap" }}>

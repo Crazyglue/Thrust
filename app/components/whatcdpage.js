@@ -6,7 +6,7 @@ import {
   TextInput,
   ListView,
   ScrollView,
-  TouchableHighlight,
+  Modal,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import styles from '../stylesheets/default';
@@ -35,6 +35,7 @@ class WhatCDPage extends Component {
         taglist: []
       },
       dataSource: ds.cloneWithRows([]),
+      filterModalVisible: false,
     };
   }
 
@@ -89,8 +90,8 @@ class WhatCDPage extends Component {
     this.setState({ searchOptions: searchOptions });
   }
 
-  openDialog() {
-    this.popupFilter.openDialog();
+  toggleModal() {
+    this.setState({ filterModalVisible: !this.state.filterModalVisible });
   }
 
   render() {
@@ -136,7 +137,7 @@ class WhatCDPage extends Component {
               />
             {notLoggedIn}
 
-            <Button onPress={() => {this.openDialog()}}style={{width: 25, height: 25}} transparent>
+            <Button onPress={() => {this.toggleModal()}}style={{width: 25, height: 25}} transparent>
               <Icon name="ios-funnel-outline" style={{ marginRight: 10, color: "blue"}} />
             </Button>
 
@@ -147,11 +148,15 @@ class WhatCDPage extends Component {
             data={this.props.searchResult.results}
             />
 
-          <PopupDialog
+          <Modal
+            animationType={"slide"}
+            visible={this.state.filterModalVisible}
+            transparent={true}
             ref={(popupFilter) => { this.popupFilter = popupFilter; }}
             >
-            <FilterDialog updateSearchOptions={(options) => this.updateSearchOptions(options)} searchOptions={this.state.searchOptions} />
-          </PopupDialog>
+            <FilterDialog closeModal={this.toggleModal.bind(this)} updateSearchOptions={(options) => this.updateSearchOptions(options)} searchOptions={this.state.searchOptions} />
+          </Modal>
+
         </Content>
       </Container>
     )
