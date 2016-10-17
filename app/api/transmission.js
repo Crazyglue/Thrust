@@ -42,7 +42,7 @@ export default class TransmissionAPI {
         'eta',
         'percentDone',
         'pieceCount',
-        
+        'leftUntilDone',
       ]
     };
 

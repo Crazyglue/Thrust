@@ -63,10 +63,15 @@ export function setLocalPort(port) {
   };
 }
 
-export function getTorrentInfo(ids) {
+export function getTorrentInfo(ids = []) {
   return(dispatch, getState) => {
     console.log("Getting torrent info with the following IDs: " + ids);
     getState().transmission.api.getTorrentInfo(ids)
+      .catch((error) => {
+        console.log("Error on gettorrentInfo:");
+        console.log(error);
+        console.warn(error);
+      })
       .then((response) => {
         console.log("getTorrentInfo response.ok: " + response.ok);
         return response.json();
