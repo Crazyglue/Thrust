@@ -13,8 +13,6 @@ export default class TorrentItem extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    console.log("isEqual function");
-    console.log(isEqual(this.props, nextProps));
     return !isEqual(this.props, nextProps);
   }
 
