@@ -20,7 +20,7 @@ class TransmissionPage extends Component {
     this.props.getTorrentInfo([]);
     timer.setInterval("transmission_ping", () => {
       this.props.getTorrentInfo([]);
-    }, 400);
+    }, 1000);
   }
 
   componentWillUnmount() {
