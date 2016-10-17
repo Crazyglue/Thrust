@@ -11,8 +11,10 @@ class Home extends Component {
     this.props.loadOfflineCredentials()
       .then((crendtialsSet) => {
         this.props.login();
+      })
+      .then(() => {
+        this.props.pingTransmission();
       });
-    this.props.pingTransmission();
 
   }
 
