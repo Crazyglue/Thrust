@@ -7,13 +7,11 @@ export default function(store) {
   let syncedUsername;
   let syncedPassword;
 
-  let recentResult;
-
   store.subscribe(() => {
     const state = store.getState();
     console.log("updating!");
 
-    if(state.whatcd.api.password != syncedPassword || state.whatcd.api.username != syncedUsername || state.movie.recentResult != recentResult)
+    if(state.whatcd.api.password != syncedPassword || state.whatcd.api.username != syncedUsername)
       console.log("Syncing offline...");
       console.log(state);
 
@@ -31,11 +29,5 @@ export default function(store) {
       offline.save("whatcd:password", state.whatcd.api.password);
     }
 
-    if(state.movie.recentResult != recentResult) {
-      console.log("Saving recent result:");
-      console.log(state.movie.recentResult);
-      recentResult = state.movie.recentResult;
-      offline.save('recent_result', state.movie.recentResult);
-    }
   });
 }
