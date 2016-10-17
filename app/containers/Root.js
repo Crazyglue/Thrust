@@ -7,9 +7,6 @@ import Home from '../components/home';
 import WhatCDPage from '../components/whatcdpage';
 import TransmissionPage from '../components/transmission/transmission_page';
 import AppSettings from '../components/settings';
-import configureStore from '../stores/configure_store';
-
-const store = configureStore();
 
 class Root extends Component {
   constructor(props){
@@ -17,17 +14,18 @@ class Root extends Component {
   }
 
   render() {
+    console.log("Root props:");
+    console.log(this.props);
+
     return(
-      <Provider store={store}>
-        <Router>
-          <Scene key="root" hideNavBar={true} passProps={true}>
-            <Scene key="home" component={Home} title="Home" initial={true} />
-            <Scene key="whatcdpage" component={WhatCDPage} title="WhatCD" />
-            <Scene key="transmissionpage" component={TransmissionPage} title="Transmission" />
-            <Scene key="appsettings" component={AppSettings} title="App Settings" />
-          </Scene>
-        </Router>
-      </Provider>
+      <Router>
+        <Scene key="root" hideNavBar={true} passProps={true}>
+          <Scene key="home" component={Home} title="Home" initial={true} />
+          <Scene key="whatcdpage" component={WhatCDPage} title="WhatCD" />
+          <Scene key="transmissionpage" component={TransmissionPage} title="Transmission" />
+          <Scene key="appsettings" component={AppSettings} title="App Settings" />
+        </Scene>
+      </Router>
     )
   }
 }
