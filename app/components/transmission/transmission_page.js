@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import * as Progress from 'react-native-progress';
 import timer from 'react-native-timer';
 import TorrentItem from './torrent_item';
+import isEqual from 'lodash/isEqual'
 
 class TransmissionPage extends Component {
   constructor(params) {
@@ -27,18 +28,32 @@ class TransmissionPage extends Component {
     timer.clearInterval("transmission_ping");
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log("shouldComponentUpdate: " + !isEqual(this.props.transmission.displayTorrents, nextProps.transmission.displayTorrents));
+    console.log(this.props.transmission.displayTorrents);
+    console.log(nextProps.transmission.displayTorrents);
+    return !isEqual(this.props.transmission.displayTorrents, nextProps.transmission.displayTorrents);
+  }
+
   getStats() {
     this.props.getStats();
   }
 
   renderTorrent(data) {
     data.status = this.props.transmission.api.parseTorrentStatus(data.status);
-    return (<TorrentItem data={data} />)
+    return (
+      <TorrentItem
+        data={data}
+      />
+    )
   }
 
   render() {
     console.log("TransmissionPage Props:");
     console.log(this.props);
+
+    const renderTorrent = (data) => this.renderTorrent(data);
+
     return(
       <Container>
         <Header>
@@ -55,7 +70,7 @@ class TransmissionPage extends Component {
           <Button onPress={() => this.props.getTorrentInfo([])} block warning>Get Torrent Info</Button>
           <List
             dataArray={this.props.transmission.displayTorrents}
-            renderRow={this.renderTorrent.bind(this)}
+            renderRow={renderTorrent}
             />
 
         </Content>
