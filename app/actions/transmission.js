@@ -1,5 +1,3 @@
-
-
 import offline from 'react-native-simple-store';
 
 export const GET_STATS = 'GET_STATS';

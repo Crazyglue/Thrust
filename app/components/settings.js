@@ -1,6 +1,3 @@
-
-
-
 import React, { Component } from 'react';
 import { Container, Header, Content, Title, Button, Icon, Text, Card, CardItem, Thumbnail, InputGroup, Input } from 'native-base';
 import { Actions } from 'react-native-router-flux';

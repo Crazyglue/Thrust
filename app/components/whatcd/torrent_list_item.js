@@ -1,5 +1,3 @@
-
-
 import React, { Component } from 'react';
 import * as actionCreators from '../../actions/whatcd';
 import { connect } from 'react-redux';

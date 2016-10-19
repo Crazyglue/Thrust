@@ -1,5 +1,3 @@
-
-
 import {
   GET_STATS,
   SET_DISPLAY_TORRENTS,

@@ -1,5 +1,3 @@
-
-
 const torrentStatusMap = [
     'Stopped', /* Torrent is stopped */
     'Queued', /* Queued to check files */

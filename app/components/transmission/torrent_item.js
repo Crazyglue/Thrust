@@ -1,5 +1,3 @@
-
-
 import React, { Component } from 'react';
 import { Container, Header, Content, Title, Button, Icon, Text, Card, CardItem, Thumbnail, InputGroup, Input, List, ListItem } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
