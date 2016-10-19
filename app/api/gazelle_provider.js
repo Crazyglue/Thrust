@@ -1,4 +1,4 @@
-/*jshint esversion: 6 */
+
 
 import store from 'react-native-simple-store';
 import querystring from 'query-string';

@@ -1,4 +1,4 @@
-/*jshint esversion: 6 */
+
 
 const SET_USERNAME = 'SET_USERNAME';
 const SET_PASSWORD = 'SET_PASSWORD';

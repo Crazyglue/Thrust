@@ -1,4 +1,4 @@
-/*jshint esversion: 6 */
+
 
 import offline from 'react-native-simple-store';
 

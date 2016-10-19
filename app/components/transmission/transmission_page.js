@@ -1,4 +1,4 @@
-/*jshint esversion: 6 */
+
 
 import React, { Component } from 'react';
 import { Container, Header, Content, Title, Button, Icon, Text, Card, CardItem, Thumbnail, InputGroup, Input, List, ListItem } from 'native-base';
