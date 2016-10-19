@@ -11,7 +11,7 @@ import {
   SET_WHATCD_SEARCH_RESULT,
   SET_WHATCD_SEARCH_PENDING,
 } from '../actions/whatcd';
-import WhatCDAPI from '../api/whatcd';
+import GazelleProvider from '../api/provider';
 
 const initialState = {
   username: "",
@@ -19,7 +19,7 @@ const initialState = {
   userData: {},
   isLoggedIn: false,
   isLoggingIn: false,
-  api: new WhatCDAPI(),
+  api: new GazelleProvider('https://what.cd'),
   searchResult: {},
   whatcdSearchPending: false
 };

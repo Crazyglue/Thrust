@@ -55,10 +55,6 @@ class WhatCDPage extends Component {
     }
   }
 
-  getArtist() {
-    this.setState({ text: this.props.whatcd.getArtist() });
-  }
-
   getTorrent() {
     this.props.getTorrent(this.state.searchText);
   }
