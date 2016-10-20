@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import * as actionCreators from '../actions/index';
 import { Container, Header, Content, Title, Button, Icon, Text, Card, CardItem, Thumbnail, Spinner } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
+import Drawer from 'react-native-drawer'
 
 class Home extends Component {
   componentWillMount() {
@@ -26,6 +28,8 @@ class Home extends Component {
     const goToWhatCD = () => Actions.whatcdpage();
     const goToTransmission = () => Actions.transmissionpage();
     const goToAppSettings = () => Actions.appsettings();
+    const openDrawer = () => this._drawer.open()
+    const closeDrawer = () => this._drawer.close()
 
     let whatcdSpinner;
 
@@ -45,15 +49,22 @@ class Home extends Component {
       )
     }
 
+    let content;
+    content = (<View style={{marginTop: 20}}><Text>Hello</Text><Button onPress={closeDrawer} primary>Close</Button></View>);
+
 
     return (
+      <Drawer
+        ref={(ref) => this._drawer = ref}
+        content={content}
+        >
       <Container>
         <Header>
           <Button transparent>
             {""}
           </Button>
           <Title>Home</Title>
-          <Button transparent>
+          <Button onPress={openDrawer} transparent>
             <Icon name='ios-menu' />
           </Button>
         </Header>
@@ -91,6 +102,7 @@ class Home extends Component {
 
         </Content>
       </Container>
+      </Drawer>
     );
   }
 }
