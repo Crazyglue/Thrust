@@ -9,7 +9,7 @@ import {
   SET_WHATCD_SEARCH_RESULT,
   SET_WHATCD_SEARCH_PENDING,
 } from '../actions/whatcd';
-import GazelleProvider from '../api/provider';
+import GazelleProvider from '../api/gazelle_provider';
 
 const initialState = {
   username: "",

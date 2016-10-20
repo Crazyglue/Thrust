@@ -49,6 +49,9 @@ class Home extends Component {
     return (
       <Container>
         <Header>
+          <Button transparent>
+            {""}
+          </Button>
           <Title>Home</Title>
           <Button transparent>
             <Icon name='ios-menu' />
