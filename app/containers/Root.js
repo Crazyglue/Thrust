@@ -12,8 +12,8 @@ class Root extends Component {
   }
 
   render() {
-    console.log("Root props:");
-    console.log(this.props);
+    // console.log("Root props:");
+    // console.log(this.props);
 
     return(
       <Router>

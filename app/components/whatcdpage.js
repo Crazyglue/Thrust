@@ -89,14 +89,14 @@ class WhatCDPage extends Component {
   }
 
   render() {
-    console.log("WhatCDPage Props:");
-    console.log(this.props);
+    // console.log("WhatCDPage Props:");
+    // console.log(this.props);
 
-    console.log("searchResult:");
-    console.log(this.props.searchResult);
+    // console.log("searchResult:");
+    // console.log(this.props.searchResult);
 
-    console.log("searchOptions:");
-    console.log(this.state.searchOptions);
+    // console.log("searchOptions:");
+    // console.log(this.state.searchOptions);
     let notLoggedIn;
     let searchSpinner;
 

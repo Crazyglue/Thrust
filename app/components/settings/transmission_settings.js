@@ -18,8 +18,8 @@ class TransmissionSettings extends Component {
   }
 
   render() {
-    console.log("Transmission Settings Props");
-    console.log(this.props);
+    // console.log("Transmission Settings Props");
+    // console.log(this.props);
 
     return(
       <Row>
@@ -71,8 +71,8 @@ class TransmissionSettings extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log("mapStateToProps:");
-  console.log(state);
+  // console.log("mapStateToProps:");
+  // console.log(state);
   return {
     api: state.transmission.api,
   }

@@ -31,8 +31,8 @@ export default function reducer(state = initialState, action) {
   let searchResult;
   let whatcdSearchPending;
 
-  console.log("Dispatching action:");
-  console.log(action);
+  // console.log("Dispatching action:");
+  // console.log(action);
   switch (action.type) {
 
     case SET_USERNAME:

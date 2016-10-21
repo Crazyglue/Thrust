@@ -27,9 +27,9 @@ class TransmissionPage extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    console.log("shouldComponentUpdate: " + !isEqual(this.props.transmission.displayTorrents, nextProps.transmission.displayTorrents));
-    console.log(this.props.transmission.displayTorrents);
-    console.log(nextProps.transmission.displayTorrents);
+    // console.log("shouldComponentUpdate: " + !isEqual(this.props.transmission.displayTorrents, nextProps.transmission.displayTorrents));
+    // console.log(this.props.transmission.displayTorrents);
+    // console.log(nextProps.transmission.displayTorrents);
     return !isEqual(this.props.transmission.displayTorrents, nextProps.transmission.displayTorrents);
   }
 
@@ -47,8 +47,8 @@ class TransmissionPage extends Component {
   }
 
   render() {
-    console.log("TransmissionPage Props:");
-    console.log(this.props);
+    // console.log("TransmissionPage Props:");
+    // console.log(this.props);
 
     const renderTorrent = (data) => this.renderTorrent(data);
 

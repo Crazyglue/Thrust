@@ -13,7 +13,7 @@ export default function reducer(state = initialState, action) {
   let api;
   let displayTorrents;
 
-  console.log(action);
+  // console.log(action);
   switch (action.type) {
 
     case GET_STATS:

@@ -37,11 +37,11 @@ class FilterDialog extends Component {
   }
 
   render() {
-    console.log("Filter Dialog Props:");
-    console.log(this.props);
+    // console.log("Filter Dialog Props:");
+    // console.log(this.props);
 
-    console.log("Tag list:");
-    console.log(WhatCDTags.tags);
+    // console.log("Tag list:");
+    // console.log(WhatCDTags.tags);
 
     badges = [];
 

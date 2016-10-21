@@ -32,8 +32,8 @@ class TorrentList extends Component {
   }
 
   _renderRow(data) {
-    console.log("Rendering row data...");
-    console.log(data);
+    // console.log("Rendering row data...");
+    // console.log(data);
 
     rows = [];
 
@@ -52,8 +52,8 @@ class TorrentList extends Component {
   }
 
   render() {
-    console.log("WhatCD Result List props:");
-    console.log(this.props);
+    // console.log("WhatCD Result List props:");
+    // console.log(this.props);
 
     return(
       <ListView

@@ -19,8 +19,8 @@ class WhatCDResultList extends Component {
   }
 
   render() {
-    console.log("WhatCD Result List props:");
-    console.log(this.props);
+    // console.log("WhatCD Result List props:");
+    // console.log(this.props);
 
     return(
       <Content>

@@ -30,10 +30,10 @@ class WhatCDSettings extends Component {
   }
 
   render() {
-    console.log("WhatCD Settings props");
-    console.log(this.props);
-    console.log("ButtonState: ");
-    console.log(this.state.buttonState);
+    // console.log("WhatCD Settings props");
+    // console.log(this.props);
+    // console.log("ButtonState: ");
+    // console.log(this.state.buttonState);
 
     let loginStatus;
 
