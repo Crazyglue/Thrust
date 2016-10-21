@@ -34,7 +34,7 @@ export function getTorrent(searchText, options) {
       }
     });
 
-    getState().whatcd.api.getTorrent(searchText, options)
+    getState().whatcd.api.searchTorrent(searchText, options)
       .then((response) => {
         return response.json();
       })

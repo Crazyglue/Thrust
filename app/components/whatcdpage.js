@@ -162,7 +162,6 @@ const mapStateToProps = (state) => {
   return {
     whatcd: state.whatcd,
     getUser: state.whatcd.getUser,
-    getTorrent: state.whatcd.getTorrent,
     getArtist: state.whatcd.getArtist,
     isLoggedIn: state.whatcd.isLoggedIn,
     isLoggingIn: state.whatcd.isLoggingIn,
