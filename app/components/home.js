@@ -50,13 +50,19 @@ class Home extends Component {
     }
 
     let content;
-    content = (<View style={{marginTop: 20}}><Text>Hello</Text><Button onPress={closeDrawer} primary>Close</Button></View>);
+    content = (<View style={{backgroundColor: "black", marginTop: 20, width: 200}}><Text style={{color: "white"}}>Hello</Text><Button onPress={closeDrawer} primary>Close</Button></View>);
 
 
     return (
       <Drawer
+        type="displace"
+        side="right"
+        tapToClose={true}
+        openDrawerOffset={200}
+        tweenHandler={Drawer.tweenPresets.parallax}
         ref={(ref) => this._drawer = ref}
         content={content}
+        style={{drawer: { shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius: 3},main: {paddingLeft: 3},}}
         >
       <Container>
         <Header>
