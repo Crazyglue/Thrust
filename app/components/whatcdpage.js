@@ -148,6 +148,7 @@ class WhatCDPage extends Component {
             visible={this.state.filterModalVisible}
             transparent={true}
             ref={(popupFilter) => { this.popupFilter = popupFilter; }}
+            onRequestClose={() => {this.toggleModal()}}
             >
             <FilterDialog closeModal={this.toggleModal.bind(this)} updateSearchOptions={(options) => this.updateSearchOptions(options)} searchOptions={this.state.searchOptions} />
           </Modal>
