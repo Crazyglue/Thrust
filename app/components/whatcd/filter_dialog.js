@@ -15,12 +15,19 @@ import { Col, Row, Grid } from 'react-native-easy-grid';
 import PopupDialog, { SlideAnimation } from 'react-native-popup-dialog';
 import WhatCDTags from '../../data/whatcd_filters';
 
+const supportedFormats = [
+  "Any",
+  "MP3",
+  "FLAC"
+]
+
 class FilterDialog extends Component {
   constructor(params) {
     super(params);
 
     this.state = {
       activeTags: params.searchOptions.taglist || [],
+      selectedFormat: supportedFormats[0]
     };
   }
 
@@ -34,6 +41,11 @@ class FilterDialog extends Component {
       currentTags.push(tag);
     this.setState({activeTags: currentTags});
     this.props.updateSearchOptions({ taglist: currentTags });
+  }
+
+  setFormatFilter(format) {
+    this.setState({selectedFormat: format})
+    this.props.updateSearchOptions({ format: format })
   }
 
   render() {
@@ -52,6 +64,17 @@ class FilterDialog extends Component {
         </Button>
       );
     })
+
+    let radioButtons = []
+
+    supportedFormats.forEach((format, index) => {
+      radioButtons.push(
+        <Col key={index}>
+          <Radio selected={this.state.selectedFormat == format} onPress={this.setFormatFilter.bind(this, format)} />
+          <Text>{format}</Text>
+        </Col>
+      );
+    });
 
     return(
         <List style={{ backgroundColor: "#CFD8DC", marginTop: 65, marginBottom: 100 }}>
@@ -74,22 +97,7 @@ class FilterDialog extends Component {
             <Col size={1}>
               <Text>Format</Text>
             </Col>
-            <Col>
-              <Radio selected={true} />
-              <Text>Any</Text>
-            </Col>
-            <Col>
-              <Radio selected={false} />
-              <Text>MP3 V0</Text>
-            </Col>
-            <Col>
-              <Radio selected={false} />
-              <Text>FLAC</Text>
-            </Col>
-            <Col>
-              <Radio selected={false} />
-              <Text>MP3 320</Text>
-            </Col>
+            {radioButtons}
           </ListItem>
           <ListItem style={{height: 300}}>
             <Text>Tags:</Text>

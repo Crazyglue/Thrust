@@ -19,6 +19,7 @@ import Accordion from 'react-native-accordion';
 import { Container, Header, Content, Title, Button, Icon, Text, Card, CardItem, Thumbnail, InputGroup, Input, Spinner } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import PopupDialog, { SlideAnimation } from 'react-native-popup-dialog';
+import merge from 'lodash/merge';
 
 class WhatCDPage extends Component {
   constructor(params) {
@@ -80,8 +81,8 @@ class WhatCDPage extends Component {
 
   updateSearchOptions(searchOptions) {
     console.log("Updating search options..");
-    console.log(searchOptions);
-    this.setState({ searchOptions: searchOptions });
+    console.log(merge(this.state.searchOptions, searchOptions));
+    this.setState({ searchOptions: merge(this.state.searchOptions, searchOptions) });
   }
 
   toggleModal() {
