@@ -27,7 +27,8 @@ class FilterDialog extends Component {
 
     this.state = {
       activeTags: params.searchOptions.taglist || [],
-      selectedFormat: supportedFormats[0]
+      selectedFormat: supportedFormats[0],
+      freeLeech: true
     };
   }
 
@@ -46,6 +47,13 @@ class FilterDialog extends Component {
   setFormatFilter(format) {
     this.setState({selectedFormat: format})
     this.props.updateSearchOptions({ format: format })
+  }
+
+  // TODO:
+  // Take into account the other freeleech statuses; "Freeleech", "Neutral leech", etc
+  setFreeLeech() {
+    this.setState({ freeLeech: !this.state.freeLeech })
+    this.props.updateSearchOptions({ freetorrent: !this.state.freeLeech})
   }
 
   render() {
@@ -81,7 +89,7 @@ class FilterDialog extends Component {
           <ListItem>
             <Row>
               <Col>
-                <CheckBox checked={true} />
+                <CheckBox onPress={this.setFreeLeech.bind(this)} checked={this.state.freeLeech} />
                 <Text>FreeLeech</Text>
               </Col>
             </Row>
