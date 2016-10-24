@@ -36,7 +36,7 @@ class TransmissionSettings extends Component {
                   onChangeText={(localUrl) => this.props.setLocalUrl(localUrl)}
                   blurOnSubmit={true}
                   autoCorrect={false}
-                  defaultValue={this.props.api.localUrl}
+                  defaultValue={this.props.api.getLocalUrl()}
                   />
               </InputGroup>
             </ListItem>
@@ -48,7 +48,19 @@ class TransmissionSettings extends Component {
                   onChangeText={(localPort) => this.props.setLocalPort(localPort)}
                   blurOnSubmit={true}
                   autoCorrect={false}
-                  defaultValue={this.props.api.localPort}
+                  defaultValue={this.props.api.getLocalPort()}
+                  />
+              </InputGroup>
+            </ListItem>
+            <ListItem>
+              <InputGroup borderType='underline' style={{margin: 10}}>
+                <Icon name='ios-folder' style={{color:'black'}}/>
+                <Input
+                  placeholder='Download Directory'
+                  onChangeText={(dir) => this.props.setDownloadDir(dir)}
+                  blurOnSubmit={true}
+                  autoCorrect={false}
+                  defaultValue={this.props.api.getDownloadDir()}
                   />
               </InputGroup>
             </ListItem>
