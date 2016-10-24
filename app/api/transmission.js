@@ -17,6 +17,7 @@ export default class TransmissionAPI {
     this.webUrl = '';
     this.webPort = '';
     this.statusMap = torrentStatusMap;
+    this.downloadDir = '';
   }
 
   getSessionId() {
@@ -97,6 +98,7 @@ export default class TransmissionAPI {
       arguments: {
         filename: torrentBlob,
         paused: true,
+        "download-dir": this.downloadDir
       }
     });
 
@@ -122,6 +124,12 @@ export default class TransmissionAPI {
   setWebUrl(url) { this.webUrl = url; }
   setWebPort(port) { this.webPort = port; }
   setSessionId(id) { this.sessionId = id; }
+  setDownloadDir(dir) { this.downloadDir = dir; }
+
+  getLocalUrl() { return this.localUrl; }
+  getLocalPort() { return this.localPort; }
+  getDownloadDir() { return this.downloadDir; }
+
 
   parseTorrentStatus(status) {
     return this.statusMap[status];

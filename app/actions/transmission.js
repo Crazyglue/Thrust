@@ -61,6 +61,15 @@ export function setLocalPort(port) {
   };
 }
 
+export function setDownloadDir(dir) {
+  return(dispatch, getState) => {
+    console.log("Setting Tranmission Download Directory: " + dir);
+
+    getState().transmission.api.setDownloadDir(dir);
+    offline.save("transmission:downloadDir", dir);
+  };
+}
+
 export function getTorrentInfo(ids = []) {
   return(dispatch, getState) => {
     console.log("Getting torrent info with the following IDs: " + ids);

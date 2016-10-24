@@ -165,6 +165,9 @@ export function loadOfflineCredentials() {
       }),
       offline.get('transmission:localPort').then(port => {
         getState().transmission.api.setLocalPort(port || "");
+      }),
+      offline.get('transmission:downloadDir').then(dir => {
+        getState().transmission.api.setDownloadDir(dir || "");
       })
     ]).then(() => {
       console.log("Credentials set");
