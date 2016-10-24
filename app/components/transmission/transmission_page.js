@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Container, Header, Content, Title, Button, Icon, Text, Card, CardItem, Thumbnail, InputGroup, Input, List, ListItem } from 'native-base';
+import { Container, Header, Content, Title, Button, Icon, Text, Card, CardItem, Thumbnail, InputGroup, Input, List, ListItem, Spinner } from 'native-base';
+import { InteractionManager } from 'react-native';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import { Actions } from 'react-native-router-flux';
 import styles from '../../stylesheets/default';
@@ -13,24 +14,24 @@ import isEqual from 'lodash/isEqual'
 class TransmissionPage extends Component {
   constructor(params) {
     super(params);
+
+    this.state = {
+      renderPlaceholderOnly: true
+    }
   }
 
   componentDidMount() {
-    this.props.getTorrentInfo([]);
-    timer.setInterval("transmission_ping", () => {
+    InteractionManager.runAfterInteractions(() => {
+      this.setState({renderPlaceholderOnly: false});
       this.props.getTorrentInfo([]);
-    }, 3000);
+      timer.setInterval("transmission_ping", () => {
+        this.props.getTorrentInfo([]);
+      }, 3000);
+    });
   }
 
   componentWillUnmount() {
     timer.clearInterval("transmission_ping");
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    // console.log("shouldComponentUpdate: " + !isEqual(this.props.transmission.displayTorrents, nextProps.transmission.displayTorrents));
-    // console.log(this.props.transmission.displayTorrents);
-    // console.log(nextProps.transmission.displayTorrents);
-    return !isEqual(this.props.transmission.displayTorrents, nextProps.transmission.displayTorrents);
   }
 
   getStats() {
@@ -39,11 +40,15 @@ class TransmissionPage extends Component {
 
   renderTorrent(data) {
     data.status = this.props.transmission.api.parseTorrentStatus(data.status);
-    return (
-      <TorrentItem
-        data={data}
-      />
-    )
+    if (!this.state.renderPlaceholderOnly) {
+      return (
+        <TorrentItem
+          data={data}
+        />
+      )
+    } else {
+      return null;
+    }
   }
 
   render() {
@@ -51,6 +56,10 @@ class TransmissionPage extends Component {
     // console.log(this.props);
 
     const renderTorrent = (data) => this.renderTorrent(data);
+    let placeHolder;
+
+    if (this.state.renderPlaceholderOnly)
+      placeHolder = (<Spinner />)
 
     return(
       <Container>
@@ -64,13 +73,11 @@ class TransmissionPage extends Component {
           </Button>
         </Header>
         <Content>
-          <Button onPress={this.getStats.bind(this)} block primary>Get Stats</Button>
-          <Button onPress={() => this.props.getTorrentInfo([])} block warning>Get Torrent Info</Button>
+          {placeHolder}
           <List
             dataArray={this.props.transmission.displayTorrents}
             renderRow={renderTorrent}
             />
-
         </Content>
       </Container>
     )
