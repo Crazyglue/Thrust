@@ -6,6 +6,7 @@ import * as actionCreators from '../actions/index';
 import { Container, Header, Content, Title, Button, Icon, Text, Card, CardItem, Thumbnail, Spinner } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import Drawer from 'react-native-drawer'
+import theme from '../themes/thrust';
 
 class Home extends Component {
   componentWillMount() {
@@ -64,7 +65,7 @@ class Home extends Component {
         content={content}
         style={{drawer: { shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius: 3},main: {paddingLeft: 3},}}
         >
-      <Container>
+      <Container theme={theme}>
         <Header>
           <Button transparent>
             {""}
