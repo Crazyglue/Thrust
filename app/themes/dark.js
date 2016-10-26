@@ -7,6 +7,10 @@ var fontSizeBase = 15;
 var borderRadiusBase = 4;
 var contentPadding = 10;
 
+function multiply(a, b) {
+    return a * b;
+}
+
 export default {
     brandPrimary : '#428bca',
     brandInfo: '#5bc0de',
