@@ -141,7 +141,6 @@ class WhatCDPage extends Component {
 
           {searchSpinner}
           <WhatCDResultList
-            data={this.props.searchResult.results}
             />
 
           <Modal
