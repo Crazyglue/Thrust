@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Button, Icon, Text, CardItem, Thumbnail, Title, List, ListItem, Card } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import whatcd_icon from '../../assets/images/what_icon.png';
+import { ScrollView, Image } from 'react-native';
 
 class TorrentListItem extends Component {
   constructor(params) {
@@ -43,23 +44,17 @@ class TorrentListItem extends Component {
     img = (data.cover !== "") ? { uri: data.cover } : whatcd_icon;
 
     header = (
-      <CardItem key={data.groupId + "-header"} onPress={() => this.setState({ isCollapsed: !this.state.isCollapsed})} style={{height:60}} header>
+      <CardItem key={data.groupId + "-header"} >
         <Grid>
-          <Col size={1}>
-            <Thumbnail size={40} source={img} square/>
-          </Col>
-          <Col size={5}>
-            <Row>
-              <Title left>{data.artist} - {data.groupName}</Title>
-            </Row>
-            <Row>
-              <Text size={5}>{(data.torrents) ? data.torrents.length : '0'} results</Text>
-            </Row>
-          </Col>
+          <Row>
+            <Title left>{data.artist}</Title>
+          </Row>
+          <Row>
+            <Text style={{fontSize: 12}}>{data.groupName}</Text>
+          </Row>
         </Grid>
       </CardItem>
     );
-    rows.push(header);
     torrents = data.torrents.sort(this.sortTorrents);
 
     if (this.state.isCollapsed == false) {
@@ -68,15 +63,12 @@ class TorrentListItem extends Component {
           <CardItem key={result.torrentId} cardBody>
             <Grid>
               <Col size={3}>
-                <Text style={{color: 'blue'}}>Format</Text>
                 <Text>{result.format}</Text>
               </Col>
               <Col size={5}>
-                <Text style={{color: 'blue'}}>Encoding</Text>
                 <Text>{result.encoding}</Text>
               </Col>
               <Col size={4}>
-                <Text style={{color: 'blue'}}>Size</Text>
                 <Text>{(result.size / 1000000).toFixed(1)}MB</Text>
               </Col>
               <Col size={3}>
@@ -94,16 +86,43 @@ class TorrentListItem extends Component {
       });
     }
 
-    content = (
-      <ListItem key={data.groupId}>
-        <Card>
-          {rows}
-        </Card>
-      </ListItem>
-    );
+    groupDetail = [
+      (<CardItem key="year-type">
+          <Text>{data.releaseType} ({data.groupYear})</Text>
+          <Text>Some other data</Text>
+      </CardItem>),
+      (<CardItem style={{height: 80}} key="tags">
+        <Text style={{fontSize: 12}}>Tags</Text>
+        <Text style={{fontSize: 8, lineHeight: 8}}>{data.tags.join(", ")}</Text>
+      </CardItem>)
+    ]
+
+    torrentResult = (
+      <ScrollView style={{height: 75}}>
+        {rows}
+      </ScrollView>
+    )
+
+    if (this.state.isCollapsed) {
+      headerStyle = {
+        resizeMode: "cover"
+      }
+    }
+    else {
+      headerStyle = {
+        height: 50
+      }
+    }
+
 
     return (
-      content
+      <Card style={{ width: 175, margin: 5 }} key={data.groupId} square>
+        <CardItem onPress={() => this.setState({ isCollapsed: !this.state.isCollapsed})}>
+          <Image style={headerStyle} source={img} square/>
+        </CardItem>
+        {header}
+        {this.state.isCollapsed ? groupDetail : torrentResult}
+      </Card>
     );
   }
 }
