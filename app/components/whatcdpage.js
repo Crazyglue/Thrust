@@ -1,24 +1,13 @@
 import React, { Component } from 'react';
-import {
-  View,
-  TextInput,
-  ListView,
-  ScrollView,
-  Modal,
-} from 'react-native';
+import { Modal } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import styles from '../stylesheets/default';
-import { Fumi } from 'react-native-textinput-effects';
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import * as actionCreators from '../actions/whatcd';
 import { connect } from 'react-redux';
 import store from 'react-native-simple-store';
 import WhatCDResultList from './whatcd/whatcd_result_list';
 import FilterDialog from './whatcd/search/filter_dialog';
-import Accordion from 'react-native-accordion';
-import { Container, Header, Content, Title, Button, Icon, Text, Card, CardItem, Thumbnail, InputGroup, Input, Spinner } from 'native-base';
+import { Container, Header, Content, Title, Button, Icon, Text, Thumbnail, InputGroup, Input, Spinner } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
-import PopupDialog, { SlideAnimation } from 'react-native-popup-dialog';
 import merge from 'lodash/merge';
 
 class WhatCDPage extends Component {
