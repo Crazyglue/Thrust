@@ -5,6 +5,8 @@ import { Button, Icon, Text, CardItem, Thumbnail, Title, List, ListItem, Card } 
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import whatcd_icon from '../../assets/images/what_icon.png';
 import { ScrollView, Image } from 'react-native';
+import MDIcon from 'react-native-vector-icons/MaterialIcons';
+import merge from 'lodash/merge'
 
 class TorrentListItem extends Component {
   constructor(params) {
@@ -50,34 +52,46 @@ class TorrentListItem extends Component {
             <Title left>{data.artist}</Title>
           </Row>
           <Row>
-            <Text style={{fontSize: 12}}>{data.groupName}</Text>
+            <Text style={{fontSize: 12}}>{data.groupName.slice(0, 28)}</Text>
           </Row>
         </Grid>
       </CardItem>
     );
     torrents = data.torrents.sort(this.sortTorrents);
 
+    fontStyle = {
+      fontSize: 12,
+    }
+
+    iconStyle = {
+      fontSize: 16,
+    }
+
     if (this.state.isCollapsed == false) {
       torrents.forEach((result) => {
         rows.push(
+          <CardItem key={result.torrentId + "-header"} style={{height: 10, padding: 0}} header>
+            <Text style={{fontSize: 2, lineHeight: 2}}> </Text>
+          </CardItem>,
           <CardItem key={result.torrentId} cardBody>
             <Grid>
               <Col size={3}>
-                <Text>{result.format}</Text>
-              </Col>
-              <Col size={5}>
-                <Text>{result.encoding}</Text>
-              </Col>
-              <Col size={4}>
-                <Text>{(result.size / 1000000).toFixed(1)}MB</Text>
-              </Col>
-              <Col size={3}>
-                <Text style={{color: "green"}}>S: {result.seeders}</Text>
-                <Text style={{color: "red"}}>L: {result.leechers}</Text>
+                <Row><Text style={fontStyle}>{result.media}</Text></Row>
+                <Row><Text style={fontStyle}>{result.format} ({result.encoding.slice(0,8)})</Text></Row>
+                <Row>
+                  <Text style={fontStyle}>{result.isFreeLeech == true ? "FL" : ""}{result.isNeutralLeech == true ? "NL" : ""}</Text>
+                </Row>
+                <Row><MDIcon name="dns" style={iconStyle} /><Text style={fontStyle}>{(result.size / 1000000).toFixed(1)}MB</Text></Row>
               </Col>
               <Col size={1}>
+                <Row style={{justifyContent: "space-between"}}><Icon name="ios-arrow-round-up" style={iconStyle} /><Text style={fontStyle}>{result.seeders}</Text></Row>
+                <Row style={{justifyContent: "space-between"}}><Icon name="ios-arrow-round-down" style={iconStyle} /><Text style={fontStyle}>{result.leechers}</Text></Row>
+                <Row style={{justifyContent: "space-between"}}><Icon name="ios-checkmark" style={iconStyle} /><Text  style={fontStyle}>{result.snatches}</Text></Row>
+                <Row style={{justifyContent: "space-between"}}><Icon name="ios-disc" style={iconStyle} /><Text style={fontStyle}>{result.fileCount}</Text></Row>
+              </Col>
+              <Col style={{justifyContent: "space-around"}} size={1}>
                 <Button onPress={this.props.downloadTorrent.bind(this, result.torrentId)} transparent>
-                  <Icon size={24} name="ios-download" />
+                  <MDIcon size={24} name="cloud-download" />
                 </Button>
               </Col>
             </Grid>
@@ -87,13 +101,15 @@ class TorrentListItem extends Component {
     }
 
     groupDetail = [
-      (<CardItem key="year-type">
+      (<CardItem style={{height: 75}} key="year-type">
           <Text>{data.releaseType} ({data.groupYear})</Text>
-          <Text>Some other data</Text>
+          <Text style={{fontSize: 8, lineHeight: 12}}>{data.tags.join(", ")}</Text>
       </CardItem>),
-      (<CardItem style={{height: 80}} key="tags">
-        <Text style={{fontSize: 12}}>Tags</Text>
-        <Text style={{fontSize: 8, lineHeight: 8}}>{data.tags.join(", ")}</Text>
+      (<CardItem style={{flex: 1}} key="tags">
+        <Text style={{fontSize: 12}}>Snatched: {data.totalSnatched}</Text>
+        <Text style={{fontSize: 12}}>Seeders: {data.totalSeeders}</Text>
+        <Text style={{fontSize: 12}}>Leechers: {data.totalLeechers}</Text>
+
       </CardItem>)
     ]
 
@@ -116,7 +132,7 @@ class TorrentListItem extends Component {
 
 
     return (
-      <Card style={{ width: 175, margin: 5 }} key={data.groupId} square>
+      <Card style={{ width: 175, margin: 5, height: 535 }} key={data.groupId} square>
         <CardItem onPress={() => this.setState({ isCollapsed: !this.state.isCollapsed})}>
           <Image style={headerStyle} source={img} square/>
         </CardItem>
