@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import * as actionCreators from '../../actions/whatcd';
 import { connect } from 'react-redux';
-import TorrentList from './torrent_list';
 import TorrentListItem from './torrent_list_item';
 import { ListView, ScrollView } from 'react-native';
 import { Container, Header, Content, Title, Button, Icon, List, ListItem, Text, Card, CardItem, Thumbnail, InputGroup, Input } from 'native-base';
