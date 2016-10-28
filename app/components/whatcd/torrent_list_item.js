@@ -93,16 +93,17 @@ class TorrentListItem extends Component {
       })
     }
 
-    groupDetail = [
-      (<ResultDetailHeader key={data.groupId + "-header"} releaseType={data.releaseType} tags={data.tags} groupYear={data.groupYear} />),
-      (<ResultDetailIcons key={data.groupId} totalSnatched={data.totalSnatched} totalSeeders={data.totalSeeders} totalLeechers={data.totalLeechers} />)
-    ]
-
-    torrentResult = (
-      <ScrollView style={{height: 75}}>
-        {rows}
-      </ScrollView>
-    )
+    if (this.state.isCollapsed) {
+      torrentDetails = [(<ResultDetailHeader key={data.groupId + "-header"} releaseType={data.releaseType} tags={data.tags} groupYear={data.groupYear} />),
+      (<ResultDetailIcons key={data.groupId} totalSnatched={data.totalSnatched} totalSeeders={data.totalSeeders} totalLeechers={data.totalLeechers} />)]
+    }
+    else {
+      torrentDetails = (
+        <ScrollView style={{height: 75}}>
+          {rows}
+        </ScrollView>
+      )
+    }
 
     if (this.state.isCollapsed) {
       headerStyle = {
@@ -122,7 +123,7 @@ class TorrentListItem extends Component {
           <Image style={headerStyle} source={img} square/>
         </CardItem>
         {header}
-        {this.state.isCollapsed ? groupDetail : torrentResult}
+        {torrentDetails}
       </Card>
     );
   }
@@ -134,5 +135,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-// upgrade our component to become Redux-aware
 export default connect(mapStateToProps, actionCreators)(TorrentListItem);
