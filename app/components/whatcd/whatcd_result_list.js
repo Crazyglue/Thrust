@@ -6,6 +6,7 @@ import TorrentListItem from './torrent_list_item';
 import { ListView, ScrollView } from 'react-native';
 import { Container, Header, Content, Title, Button, Icon, List, ListItem, Text, Card, CardItem, Thumbnail, InputGroup, Input } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
+import sortBy from 'lodash/sortBy';
 
 class WhatCDResultList extends Component {
   constructor(params) {
@@ -19,7 +20,7 @@ class WhatCDResultList extends Component {
     let items = [];
 
     if (this.props.searchResult && this.props.searchResult.results) {
-      this.props.searchResult.results.forEach((result) => {
+      sortBy(this.props.searchResult.results, 'totalSeeders').reverse().forEach((result) => {
         items.push(
           <TorrentListItem key={result.groupId} data={result} />
         );
