@@ -5,6 +5,7 @@ import WhatCDResult from './whatcd_result';
 import { ScrollView } from 'react-native';
 import { Content } from 'native-base';
 import sortBy from 'lodash/sortBy';
+import filter from 'lodash/filter';
 
 class WhatCDResultList extends Component {
   constructor(params) {
@@ -18,7 +19,10 @@ class WhatCDResultList extends Component {
     let items = [];
 
     if (this.props.searchResult && this.props.searchResult.results) {
-      sortBy(this.props.searchResult.results, 'totalSeeders').reverse().forEach((result) => {
+      sortedTorrents = sortBy(this.props.searchResult.results, 'totalSeeders').reverse();
+      torrents = filter(sortedTorrents, "artist");
+
+      torrents.forEach((result) => {
         items.push(
           <WhatCDResult key={result.groupId} data={result} />
         );

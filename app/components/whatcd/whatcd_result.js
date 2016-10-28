@@ -6,6 +6,7 @@ import { Col, Row, Grid } from 'react-native-easy-grid';
 import whatcd_icon from '../../assets/images/what_icon.png';
 import { ScrollView, Image } from 'react-native';
 import merge from 'lodash/merge'
+import sortBy from 'lodash/sortBy'
 import ResultDetailIcons from './search/result_detail_icons';
 import ResultDetailHeader from './search/result_detail_header';
 import TorrentItem from './search/torrent_item';
@@ -24,14 +25,6 @@ class WhatCDResult extends Component {
       this.setState({ isCollapsed: true });
   }
 
-  sortTorrents(a, b) {
-    if (a.seeders < b.seeders)
-      return 1;
-    if (a.seeders > b.seeders)
-      return -1;
-    return 0;
-  }
-
   render() {
     data = this.props.data;
 
@@ -47,7 +40,7 @@ class WhatCDResult extends Component {
         </Grid>
       </CardItem>
     );
-    torrents = data.torrents.sort(this.sortTorrents);
+    torrents = sortBy(data.torrents, 'seeders').reverse();
 
     fontStyle = {
       fontSize: 12,
