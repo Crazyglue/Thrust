@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
+import { ScrollView, Image, Dimensions, Platform, LayoutAnimation, View, UIManager } from 'react-native';
 import * as actionCreators from '../../actions/whatcd';
 import { connect } from 'react-redux';
 import { Text, CardItem, Title, Card } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import whatcd_icon from '../../assets/images/what_icon.png';
-import { ScrollView, Image, Dimensions, Platform } from 'react-native';
 import merge from 'lodash/merge'
 import sortBy from 'lodash/sortBy'
 import ResultDetailIcons from './search/result_detail_icons';
@@ -20,11 +20,20 @@ class WhatCDResult extends Component {
     this.state = {
       isCollapsed: true,
     };
+
+    if (Platform.OS === 'android') {
+      UIManager.setLayoutAnimationEnabledExperimental(true);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.data != nextProps.data)
       this.setState({ isCollapsed: true });
+  }
+
+  toggleTorrents() {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
+    this.setState({ isCollapsed: !this.state.isCollapsed})
   }
 
   render() {
@@ -108,11 +117,13 @@ class WhatCDResult extends Component {
     console.log("rerendering whatcdResult")
     return (
       <Card style={{ width: 175, margin: 5}} key={data.groupId} square>
-        <CardItem onPress={() => this.setState({ isCollapsed: !this.state.isCollapsed})}>
+        <CardItem onPress={this.toggleTorrents.bind(this)}>
           <Image style={headerStyle} source={img} square/>
         </CardItem>
         {header}
-        {torrentDetails}
+        <View style={{flex:1}}>
+          {torrentDetails}
+        </View>
       </Card>
     );
   }
