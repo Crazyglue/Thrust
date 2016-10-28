@@ -7,6 +7,8 @@ import whatcd_icon from '../../assets/images/what_icon.png';
 import { ScrollView, Image } from 'react-native';
 import MDIcon from 'react-native-vector-icons/MaterialIcons';
 import merge from 'lodash/merge'
+import ResultDetailIcons from './search/result_detail_icons';
+import ResultDetailHeader from './search/result_detail_header';
 
 class TorrentListItem extends Component {
   constructor(params) {
@@ -101,16 +103,8 @@ class TorrentListItem extends Component {
     }
 
     groupDetail = [
-      (<CardItem style={{height: 75}} key="year-type">
-          <Text>{data.releaseType} ({data.groupYear})</Text>
-          <Text style={{fontSize: 8, lineHeight: 12}}>{data.tags.join(", ")}</Text>
-      </CardItem>),
-      (<CardItem style={{flex: 1}} key="tags">
-        <Text style={{fontSize: 12}}>Snatched: {data.totalSnatched}</Text>
-        <Text style={{fontSize: 12}}>Seeders: {data.totalSeeders}</Text>
-        <Text style={{fontSize: 12}}>Leechers: {data.totalLeechers}</Text>
-
-      </CardItem>)
+      (<ResultDetailHeader key={data.groupId + "-header"} releaseType={data.releaseType} tags={data.tags} groupYear={data.groupYear} />),
+      (<ResultDetailIcons key={data.groupId} totalSnatched={data.totalSnatched} totalSeeders={data.totalSeeders} totalLeechers={data.totalLeechers} />)
     ]
 
     torrentResult = (
