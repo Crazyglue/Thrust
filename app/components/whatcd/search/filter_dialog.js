@@ -7,13 +7,13 @@ import {
   TouchableHighlight,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import * as actionCreators from '../../actions/whatcd';
+import * as actionCreators from '../../../actions/whatcd';
 import { connect } from 'react-redux';
 import store from 'react-native-simple-store';
 import { Content, Button, Text, Card, CardItem, List, ListItem, Badge, CheckBox, Radio, Icon } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import PopupDialog, { SlideAnimation } from 'react-native-popup-dialog';
-import WhatCDTags from '../../data/whatcd_filters';
+import WhatCDTags from '../../../data/whatcd_filters';
 
 const supportedFormats = [
   "Any",
