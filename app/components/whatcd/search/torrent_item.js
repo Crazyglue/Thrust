@@ -40,7 +40,7 @@ export default class TorrentItem extends Component {
             <Row style={{justifyContent: "space-between"}}><Icon name="ios-disc" style={iconStyle} /><Text style={fontStyle}>{this.props.fileCount}</Text></Row>
           </Col>
           <Col style={{justifyContent: "space-around"}} size={1}>
-            <Button onPress={this.props.downloadTorrent(this.props.torrentId)} transparent>
+            <Button onPress={() => this.props.downloadTorrent(this.props.torrentId)} transparent>
               <MDIcon size={24} name="cloud-download" />
             </Button>
           </Col>
