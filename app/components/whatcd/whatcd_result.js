@@ -4,12 +4,14 @@ import { connect } from 'react-redux';
 import { Text, CardItem, Title, Card } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import whatcd_icon from '../../assets/images/what_icon.png';
-import { ScrollView, Image } from 'react-native';
+import { ScrollView, Image, Dimensions, Platform } from 'react-native';
 import merge from 'lodash/merge'
 import sortBy from 'lodash/sortBy'
 import ResultDetailIcons from './search/result_detail_icons';
 import ResultDetailHeader from './search/result_detail_header';
 import TorrentItem from './search/torrent_item';
+
+const window = Dimensions.get('window');
 
 class WhatCDResult extends Component {
   constructor(params) {
@@ -28,11 +30,13 @@ class WhatCDResult extends Component {
   render() {
     data = this.props.data;
 
+    console.log("window height: ", window.height);
+
     header = (
-      <CardItem key={data.groupId + "-header"} >
+      <CardItem style={{ height: 70 }} key={data.groupId + "-header"} >
         <Grid>
-          <Row>
-            <Title left>{data.artist}</Title>
+          <Row style={{height: 20}}>
+            <Text style={{ fontSize: 20 }}>{data.artist}</Text>
           </Row>
           <Row>
             <Text style={{fontSize: 12}}>{data.groupName.slice(0, 28)}</Text>
@@ -87,8 +91,10 @@ class WhatCDResult extends Component {
     }
 
     if (this.state.isCollapsed) {
+       height = (Platform.OS === 'ios') ? window.height - 367 : window.height - 390
+
       headerStyle = {
-        resizeMode: "cover"
+        height: height
       }
     }
     else {
@@ -99,8 +105,9 @@ class WhatCDResult extends Component {
 
     img = (data.cover !== "") ? { uri: data.cover } : whatcd_icon;
 
+    console.log("rerendering whatcdResult")
     return (
-      <Card style={{ width: 175, margin: 5, height: 535 }} key={data.groupId} square>
+      <Card style={{ width: 175, margin: 5}} key={data.groupId} square>
         <CardItem onPress={() => this.setState({ isCollapsed: !this.state.isCollapsed})}>
           <Image style={headerStyle} source={img} square/>
         </CardItem>
