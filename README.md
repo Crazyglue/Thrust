@@ -4,7 +4,7 @@ Basic app that sends torrents from your favorite provider(s) to your transmissio
 
 Uses react-native, redux and nativebase.
 
-![send and receive 18](https://cloud.githubusercontent.com/assets/10952529/19730602/5b12b864-9b60-11e6-89ec-347187561808.gif)
+![send and receive 19](https://cloud.githubusercontent.com/assets/10952529/19808643/62e984aa-9ceb-11e6-9db6-5d5887e44c92.gif)
 
 ## Setup
 
