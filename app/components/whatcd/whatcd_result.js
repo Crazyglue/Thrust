@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import { Text, CardItem, Title, Card } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import whatcd_icon from '../../assets/images/what_icon.png';
-import { ScrollView } from 'react-native';
+import { ScrollView, Image } from 'react-native';
 import merge from 'lodash/merge'
 import ResultDetailIcons from './search/result_detail_icons';
 import ResultDetailHeader from './search/result_detail_header';
 import TorrentItem from './search/torrent_item';
 
-class TorrentListItem extends Component {
+class WhatCDResult extends Component {
   constructor(params) {
     super(params);
 
@@ -124,4 +124,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, actionCreators)(TorrentListItem);
+export default connect(mapStateToProps, actionCreators)(WhatCDResult);
