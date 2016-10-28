@@ -9,6 +9,7 @@ import MDIcon from 'react-native-vector-icons/MaterialIcons';
 import merge from 'lodash/merge'
 import ResultDetailIcons from './search/result_detail_icons';
 import ResultDetailHeader from './search/result_detail_header';
+import TorrentItem from './search/torrent_item';
 
 class TorrentListItem extends Component {
   constructor(params) {
@@ -69,37 +70,27 @@ class TorrentListItem extends Component {
       fontSize: 16,
     }
 
-    if (this.state.isCollapsed == false) {
+    if (!this.state.isCollapsed) {
       torrents.forEach((result) => {
         rows.push(
-          <CardItem key={result.torrentId + "-header"} style={{height: 10, padding: 0}} header>
-            <Text style={{fontSize: 2, lineHeight: 2}}> </Text>
-          </CardItem>,
-          <CardItem key={result.torrentId} cardBody>
-            <Grid>
-              <Col size={3}>
-                <Row><Text style={fontStyle}>{result.media}</Text></Row>
-                <Row><Text style={fontStyle}>{result.format} ({result.encoding.slice(0,8)})</Text></Row>
-                <Row>
-                  <Text style={fontStyle}>{result.isFreeLeech == true ? "FL" : ""}{result.isNeutralLeech == true ? "NL" : ""}</Text>
-                </Row>
-                <Row><MDIcon name="dns" style={iconStyle} /><Text style={fontStyle}>{(result.size / 1000000).toFixed(1)}MB</Text></Row>
-              </Col>
-              <Col size={1}>
-                <Row style={{justifyContent: "space-between"}}><Icon name="ios-arrow-round-up" style={iconStyle} /><Text style={fontStyle}>{result.seeders}</Text></Row>
-                <Row style={{justifyContent: "space-between"}}><Icon name="ios-arrow-round-down" style={iconStyle} /><Text style={fontStyle}>{result.leechers}</Text></Row>
-                <Row style={{justifyContent: "space-between"}}><Icon name="ios-checkmark" style={iconStyle} /><Text  style={fontStyle}>{result.snatches}</Text></Row>
-                <Row style={{justifyContent: "space-between"}}><Icon name="ios-disc" style={iconStyle} /><Text style={fontStyle}>{result.fileCount}</Text></Row>
-              </Col>
-              <Col style={{justifyContent: "space-around"}} size={1}>
-                <Button onPress={this.props.downloadTorrent.bind(this, result.torrentId)} transparent>
-                  <MDIcon size={24} name="cloud-download" />
-                </Button>
-              </Col>
-            </Grid>
-          </CardItem>
+          <TorrentItem
+            key={result.torrentId}
+            media={result.media}
+            torrentId={result.torrentId}
+            encoding={result.encoding}
+            format={result.format}
+            isFreeLeech={result.isFreeLeech}
+            isNeutralLeech={result.isNeutralLeech}
+            size={result.size}
+            seeders={result.seeders}
+            leechers={result.seeders}
+            snatches={result.snatches}
+            fileCount={result.fileCount}
+            downloadTorrent={this.props.downloadTorrent}
+            cover={result.cover}
+            />
         );
-      });
+      })
     }
 
     groupDetail = [
