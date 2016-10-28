@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import * as actionCreators from '../../actions/whatcd';
 import { connect } from 'react-redux';
-import { Button, Icon, Text, CardItem, Thumbnail, Title, List, ListItem, Card } from 'native-base';
+import { Text, CardItem, Title, Card } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import whatcd_icon from '../../assets/images/what_icon.png';
-import { ScrollView, Image } from 'react-native';
-import MDIcon from 'react-native-vector-icons/MaterialIcons';
+import { ScrollView } from 'react-native';
 import merge from 'lodash/merge'
 import ResultDetailIcons from './search/result_detail_icons';
 import ResultDetailHeader from './search/result_detail_header';
@@ -25,15 +24,6 @@ class TorrentListItem extends Component {
       this.setState({ isCollapsed: true });
   }
 
-  transformEncoding(encoding) {
-    switch(encoding) {
-      case '24bit Lossless':
-        return '24b Loss.';
-      default:
-        return encoding;
-    }
-  }
-
   sortTorrents(a, b) {
     if (a.seeders < b.seeders)
       return 1;
@@ -43,10 +33,7 @@ class TorrentListItem extends Component {
   }
 
   render() {
-    let rows = [];
     data = this.props.data;
-
-    img = (data.cover !== "") ? { uri: data.cover } : whatcd_icon;
 
     header = (
       <CardItem key={data.groupId + "-header"} >
@@ -70,6 +57,7 @@ class TorrentListItem extends Component {
       fontSize: 16,
     }
 
+    let rows = [];
     if (!this.state.isCollapsed) {
       torrents.forEach((result) => {
         rows.push(
@@ -116,6 +104,7 @@ class TorrentListItem extends Component {
       }
     }
 
+    img = (data.cover !== "") ? { uri: data.cover } : whatcd_icon;
 
     return (
       <Card style={{ width: 175, margin: 5, height: 535 }} key={data.groupId} square>
