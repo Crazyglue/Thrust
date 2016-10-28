@@ -25,33 +25,14 @@ class WhatCDPage extends Component {
   constructor(params) {
     super(params);
 
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-
     this.state = {
       artistName: "",
       searchText: "",
       searchOptions: {
         taglist: []
       },
-      dataSource: ds.cloneWithRows([]),
       filterModalVisible: false,
     };
-  }
-
-  compareResults(a, b) {
-    if (a.torrents.length < b.torrents.length)
-      return 1;
-    if (a.torrents.length > b.torrents.length)
-      return -1;
-    return 0;
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if(nextProps.searchResult.results) {
-      this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(nextProps.searchResult.results.sort(this.compareResults))
-      });
-    }
   }
 
   getTorrent() {
