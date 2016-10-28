@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import { Container, Header, Content, Title, Button, Icon, Text, Card, CardItem, Thumbnail, InputGroup, Input, List, ListItem, Spinner } from 'native-base';
+import { Container, Header, Content, Title, Button, Icon, Text, List, Spinner } from 'native-base';
 import { InteractionManager } from 'react-native';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import { Actions } from 'react-native-router-flux';
-import styles from '../../stylesheets/default';
 import * as actionCreators from '../../actions/transmission';
 import { connect } from 'react-redux';
-import * as Progress from 'react-native-progress';
 import timer from 'react-native-timer';
 import TorrentItem from './torrent_item';
 import isEqual from 'lodash/isEqual'
