@@ -1,4 +1,5 @@
 import offline from 'react-native-simple-store';
+import reject from 'lodash/reject';
 
 export const GET_STATS = 'GET_STATS';
 export const SET_DISPLAY_TORRENTS = 'SET_DISPLAY_TORRENTS';
@@ -80,17 +81,21 @@ export function getTorrentInfo(ids = []) {
         console.warn(error);
       })
       .then((response) => {
-        console.log("getTorrentInfo response.ok: " + response.ok);
+        // console.log("getTorrentInfo response.ok: " + response.ok);
         return response.json();
       })
       .then((data) => {
         if (data.result == "success") {
-          console.log("getTorrentInfo data:");
-          console.log(data.arguments);
+          // console.log("getTorrentInfo data:");
+          // console.log(data.arguments);
+
+          torrents = reject(data.arguments.torrents, { 'status': 6 })
+          // console.log("Torrents filtered", torrents);
+
           dispatch({
             type: SET_DISPLAY_TORRENTS,
             payload: {
-              displayTorrents: data.arguments.torrents
+              displayTorrents: torrents,
             }
           });
         }
