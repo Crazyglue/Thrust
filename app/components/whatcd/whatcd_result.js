@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, Image, Dimensions, Platform, LayoutAnimation, View, UIManager } from 'react-native';
+import { ScrollView, Dimensions, Platform, LayoutAnimation, View, UIManager } from 'react-native';
 import * as actionCreators from '../../actions/whatcd';
 import { connect } from 'react-redux';
 import { Text, CardItem, Title, Card } from 'native-base';
@@ -10,6 +10,8 @@ import sortBy from 'lodash/sortBy'
 import ResultDetailIcons from './search/result_detail_icons';
 import ResultDetailHeader from './search/result_detail_header';
 import TorrentItem from './search/torrent_item';
+import Image from 'react-native-image-progress';
+import ProgressBar from 'react-native-progress/Circle';
 
 const window = Dimensions.get('window');
 
@@ -117,8 +119,8 @@ class WhatCDResult extends Component {
     console.log("rerendering whatcdResult")
     return (
       <Card style={{ width: 175, margin: 5}} key={data.groupId} square>
-        <CardItem onPress={this.toggleTorrents.bind(this)}>
-          <Image style={headerStyle} source={img} square/>
+        <CardItem onPress={this.toggleTorrents.bind(this)} style={{ padding:0 }}>
+          <Image style={headerStyle} source={img} indicator={ProgressBar} square/>
         </CardItem>
         {header}
         <View style={{flex:1}}>
