@@ -3,6 +3,8 @@ import { Title, Text, ListItem } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import * as Progress from 'react-native-progress';
 import isEqual from 'lodash/isEqual';
+import bytes from 'bytes';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export default class TorrentItem extends Component {
   constructor(params) {
@@ -14,32 +16,42 @@ export default class TorrentItem extends Component {
   }
 
   render() {
-    // console.log("TorrentItem Props:");
-    // console.log(this.props);
+    console.log("TorrentItem Props:");
+    console.log(this.props);
     torrent = this.props.data;
 
     return(
       <ListItem key={torrent.name}>
         <Grid>
-          <Row>
-            <Title>{torrent.name}</Title>
-          </Row>
-          <Row style={{ justifyContent: 'space-around'}} >
-            <Progress.Bar height={30} width={300} progress={torrent.percentDone} />
-          </Row>
-          <Row style={{marginTop: 20, marginBottom: 20}}>
-            <Col size={1}>
-              <Text>D: {(torrent.rateDownload / 1000).toFixed(2)} KB/s</Text>
-              <Text>U: {(torrent.rateUpload / 1000).toFixed(2)} KB/s</Text>
+          <Col size={3}>
+            <Row>
+              <Text>{torrent.name}</Text>
+            </Row>
+            <Col>
+              <Row>
+                <Text style={{fontSize: 10, lineHeight: 10}}>{torrent.status}</Text>
+              </Row>
+              <Row>
+                <Text style={{fontSize: 10, lineHeight: 10}}>{(torrent.eta > -1) ? torrent.eta : "" }</Text>
+              </Row>
             </Col>
-            <Col size={1}>
-              <Text>{torrent.eta} seconds</Text>
+            <Col>
               <Text>{((torrent.sizeWhenDone - torrent.leftUntilDone) / 1000000).toFixed(2)} / {(torrent.sizeWhenDone / 1000000).toFixed(2)} MB</Text>
             </Col>
-            <Col size={1}>
-              <Text>Status: {torrent.status}</Text>
-            </Col>
-          </Row>
+          </Col>
+          <Col size={1}>
+            <Row style={{ justifyContent: 'space-between' }}>
+              <Icon name="arrow-upward" style={{ fontSize: 15, lineHeight: 20}} />
+              <Text>{bytes(torrent.rateUpload, {decimalPlaces: 1, unitSeperator: " "})}/s</Text>
+            </Row>
+            <Row>
+              <Progress.Bar height={30} width={87} borderRadius={2} progress={torrent.percentDone} />
+            </Row>
+            <Row style={{ justifyContent: 'space-between' }}>
+              <Icon name="arrow-downward"  style={{ fontSize: 15, lineHeight: 20}} />
+              <Text>{bytes(torrent.rateDownload, {decimalPlaces: 1, unitSeperator: " "})}/s</Text>
+            </Row>
+          </Col>
         </Grid>
       </ListItem>
     )

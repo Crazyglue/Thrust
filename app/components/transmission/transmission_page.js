@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Header, Content, Title, Button, Icon, Text, List, Spinner } from 'native-base';
+import MDIcon from 'react-native-vector-icons/MaterialIcons';
 import { InteractionManager } from 'react-native';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import { Actions } from 'react-native-router-flux';
@@ -78,7 +79,7 @@ class TransmissionPage extends Component {
           </Button>
           <Title>Transmission</Title>
           <Button transparent>
-            <Icon name='ios-menu' />
+            <MDIcon style={{fontSize: 28}} name='view-list' />
           </Button>
         </Header>
         <Content>
