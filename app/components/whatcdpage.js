@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal } from 'react-native';
+import { Modal, Platform } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import * as actionCreators from '../actions/whatcd';
 import { connect } from 'react-redux';
@@ -81,18 +81,9 @@ class WhatCDPage extends Component {
 
     return(
       <Container>
-        <Header>
-          <Button onPress={Actions.pop} transparent>
-            <Icon name="ios-arrow-back" />
-          </Button>
-          <Title>What CD</Title>
-          <Button transparent>
-            <Icon name="ios-stats" style={{ marginRight: 10, color: "blue"}} />
-          </Button>
-        </Header>
-        <Content>
-          <InputGroup borderType='rounded' style={{margin: 10}} disabled={!this.props.isLoggedIn  && !this.props.isLoggingIn}>
-            <Icon onPress={() => this.props.getTorrent(this.state.searchText, this.state.searchOptions)} name='ios-search' style={{ marginLeft: 10, color:'#384850'}}/>
+        <Header searchBar rounded>
+          <InputGroup borderType='rounded' disabled={!this.props.isLoggedIn  && !this.props.isLoggingIn}>
+            <Icon onPress={() => this.props.getTorrent(this.state.searchText, this.state.searchOptions)} name='ios-search' />
             <Input
               autoCorrect={false}
               onSubmitEditing={() => this.props.getTorrent(this.state.searchText, this.state.searchOptions)}
@@ -100,14 +91,21 @@ class WhatCDPage extends Component {
               value={this.state.searchText}
               onChangeText={(searchText) => this.setState({searchText})}
               blurOnSubmit={true}
+              autoFocus={true}
+              returnKeyType='search'
+              style={Platform.OS === 'ios' ? {lineHeight: 15, height: 25} : {}}
               />
             {notLoggedIn}
 
-            <Button onPress={() => {this.toggleModal()}}style={{width: 25, height: 25}} transparent>
-              <Icon name="ios-funnel-outline" style={{ marginRight: 10, color: "blue"}} />
-            </Button>
 
+            <Icon name="ios-funnel-outline" style={{ color: "blue"}} onPress={() => {this.toggleModal()}} />
           </InputGroup>
+          <Button onPress={Actions.pop} transparent>
+            <Icon name="ios-arrow-back" />
+          </Button>
+        </Header>
+        <Content>
+
 
           {searchSpinner}
           <WhatCDResultList

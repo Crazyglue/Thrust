@@ -100,7 +100,7 @@ class WhatCDResult extends Component {
     }
 
     if (this.state.isCollapsed) {
-       height = (Platform.OS === 'ios') ? window.height - 367 : window.height - 390
+       height = (Platform.OS === 'ios') ? window.height - 300 : window.height - 310
 
       headerStyle = {
         height: height
