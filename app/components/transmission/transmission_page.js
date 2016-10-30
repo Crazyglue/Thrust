@@ -57,18 +57,17 @@ class TransmissionPage extends Component {
     const renderTorrent = (data) => this.renderTorrent(data);
     let placeHolder;
 
-    if (this.state.renderPlaceholderOnly)
-      placeHolder = (<Spinner />)
-
-
     let displayItem;
-    if (this.props.transmission.displayTorrents.length > 0) {
+
+    if (this.state.renderPlaceholderOnly)
+      displayItem = (<Spinner />)
+    else if (this.props.transmission.displayTorrents.length > 0) {
       displayItem = (<List
         dataArray={this.props.transmission.displayTorrents}
         renderRow={renderTorrent}
         />)
-      }
-    else if (!this.state.renderPlaceholderOnly)
+    }
+    else
       displayItem = (<Text>No non-seeding torrents.</Text>)
 
     return(
@@ -83,7 +82,6 @@ class TransmissionPage extends Component {
           </Button>
         </Header>
         <Content>
-          {placeHolder}
           {displayItem}
         </Content>
       </Container>
