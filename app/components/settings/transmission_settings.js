@@ -17,6 +17,11 @@ class TransmissionSettings extends Component {
     this.props.pingTransmission();
   }
 
+  setStartPaused() {
+    this.props.setStartPaused(!this.props.api.getStartPaused())
+    this.forceUpdate();
+  }
+
   render() {
     // console.log("Transmission Settings Props");
     // console.log(this.props);
@@ -63,6 +68,12 @@ class TransmissionSettings extends Component {
                   defaultValue={this.props.api.getDownloadDir()}
                   />
               </InputGroup>
+            </ListItem>
+            <ListItem onPress={this.setStartPaused.bind(this)}>
+              <CheckBox
+                checked={this.props.api.startPaused}
+                />
+              <Text>Add torrents paused</Text>
             </ListItem>
             <ListItem>
               <Button onPress={this.ping.bind(this)} transparent>

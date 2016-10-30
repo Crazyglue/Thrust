@@ -168,6 +168,9 @@ export function loadOfflineCredentials() {
       }),
       offline.get('transmission:downloadDir').then(dir => {
         getState().transmission.api.setDownloadDir(dir || "");
+      }),
+      offline.get('transmission:startPaused').then(paused => {
+        getState().transmission.api.setStartPaused(paused || true);
       })
     ]).then(() => {
       console.log("Credentials set");

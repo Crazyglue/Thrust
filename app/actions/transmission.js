@@ -44,6 +44,16 @@ export function getStats() {
   };
 }
 
+export function setStartPaused(paused) {
+  return(dispatch, getState) => {
+
+    console.log("Setting Tranmission startPaused: ", paused);
+
+    getState().transmission.api.setStartPaused(paused);
+    offline.save("transmission:startPaused", paused);
+  }
+}
+
 export function setLocalUrl(url) {
   return(dispatch, getState) => {
     console.log("Setting Tranmission Local URL: " + url);
