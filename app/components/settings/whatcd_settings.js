@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Container, Header, Content, Title, Button, Icon, Text, Card, CardItem, Thumbnail, InputGroup, Input } from 'native-base';
+import { Container, Header, Content, Title, Button, Icon, Text, Card, CardItem, Thumbnail, InputGroup, Input, List, ListItem } from 'native-base';
+import { LayoutAnimation } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import * as actionCreators from '../../actions/whatcd';
@@ -12,7 +13,8 @@ class WhatCDSettings extends Component {
     this.state = {
       usernameText: '',
       passwordText: '',
-      buttonState: 'Log in'
+      buttonState: 'Log in',
+      isCollapsed: true,
     };
   }
 
@@ -29,6 +31,11 @@ class WhatCDSettings extends Component {
     this.setState({ buttonState: buttonState });
   }
 
+  toggleDropdown () {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
+    this.setState({ isCollapsed: !this.state.isCollapsed })
+  }
+
   render() {
     // console.log("WhatCD Settings props");
     // console.log(this.props);
@@ -38,44 +45,61 @@ class WhatCDSettings extends Component {
     let loginStatus;
 
     if (this.props.isLoggedIn) {
-      loginStatus = <Icon name='ios-code-outline' style={{color: 'black'}}/>
+      loginStatus = <Icon name='ios-checkmark' style={{color: 'green'}}/>
     }
     else
-      loginStatus = <Icon name="ios-person" />
+      loginStatus = <Icon name="ios-cancel" style={{color: "red"}} />
 
     return(
-      <Row>
-        <Col>
-          <Text>WhatCD:</Text>
-          <InputGroup borderType='underline' style={{margin: 10}}>
-            <Icon name='ios-person' style={{color:'black'}}/>
-            <Input
-              onSubmitEditing={(usernameText) => this.props.setUsername(usernameText)}
-              placeholder='Username'
-              onChangeText={(usernameText) => this.props.setUsername(usernameText)}
-              blurOnSubmit={true}
-              autoCorrect={false}
-              defaultValue={this.props.username}
-              />
-          </InputGroup>
-          <InputGroup borderType='underline' style={{margin: 10}}>
-            <Icon name='ios-key' style={{color:'black'}}/>
-            <Input
-              onSubmitEditing={(passwordText) => this.props.setPassword(passwordText)}
-              placeholder='Password'
-              onChangeText={(passwordText) => this.props.setPassword(passwordText)}
-              blurOnSubmit={true}
-              autoCorrect={false}
-              secureTextEntry={true}
-              defaultValue={this.props.password}
-              />
-          </InputGroup>
-          <Row>
-            <Button onPress={this.login.bind(this)}>Login</Button>
-            {loginStatus}
+      <List>
+        <ListItem onPress={this.toggleDropdown.bind(this)}>
+          <Row style={{ justifyContent: "space-between"}}>
+            <Text style={{ fontSize: 24, lineHeight: 24 }} >WhatCD</Text>
+            {this.state.isCollapsed ? <Icon name="ios-arrow-down" /> : <Icon name="ios-arrow-up" />}
           </Row>
-        </Col>
-      </Row>
+        </ListItem>
+
+        { !this.state.isCollapsed ? [
+          (
+            <ListItem key="user">
+              <InputGroup borderType='underline' style={{margin: 10}}>
+                <Icon name='ios-person' style={{color:'black'}}/>
+                <Input
+                  onSubmitEditing={(usernameText) => this.props.setUsername(usernameText)}
+                  placeholder='Username'
+                  onChangeText={(usernameText) => this.props.setUsername(usernameText)}
+                  blurOnSubmit={true}
+                  autoCorrect={false}
+                  defaultValue={this.props.username}
+                  />
+              </InputGroup>
+            </ListItem>
+          ),
+          (
+            <ListItem key="pass">
+            <InputGroup borderType='underline' style={{margin: 10}}>
+              <Icon name='ios-key' style={{color:'black'}}/>
+              <Input
+                onSubmitEditing={(passwordText) => this.props.setPassword(passwordText)}
+                placeholder='Password'
+                onChangeText={(passwordText) => this.props.setPassword(passwordText)}
+                blurOnSubmit={true}
+                autoCorrect={false}
+                secureTextEntry={true}
+                defaultValue={this.props.password}
+                />
+            </InputGroup>
+            </ListItem>
+          ),
+          (
+            <ListItem key="login">
+              <Row style={{ justifyContent: "space-between"}}>
+                <Button onPress={this.login.bind(this)}>Login</Button>
+                {loginStatus}
+              </Row>
+            </ListItem>
+          )] : null }
+      </List>
     )
   }
 

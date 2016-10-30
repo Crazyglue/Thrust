@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { Container, Header, Content, Title, Button, Icon, Text, Card, CardItem, Thumbnail, InputGroup, Input } from 'native-base';
+import { ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import * as actionCreators from '../actions/whatcd';
 import WhatCDSettings from './settings/whatcd_settings';
 import TransmissionSettings from './settings/transmission_settings';
+import { Col, Row, Grid } from 'react-native-easy-grid';
 
 import offline from 'react-native-simple-store';
 
@@ -35,8 +37,10 @@ class AppSettings extends Component {
           </Button>
         </Header>
         <Content>
-          <WhatCDSettings />
-          <TransmissionSettings />
+          <ScrollView>
+            <WhatCDSettings />
+            <TransmissionSettings />
+          </ScrollView>
         </Content>
       </Container>
     )
