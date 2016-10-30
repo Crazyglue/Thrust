@@ -41,7 +41,7 @@ class WhatCDResult extends Component {
   render() {
     data = this.props.data;
 
-    console.log("window height: ", window.height);
+    // console.log("window height: ", window.height);
 
     header = (
       <CardItem style={{ height: 70 }} key={data.groupId + "-header"} >
@@ -116,7 +116,6 @@ class WhatCDResult extends Component {
 
     img = (data.cover !== "") ? { uri: data.cover } : whatcd_icon;
 
-    console.log("rerendering whatcdResult")
     return (
       <Card style={{ width: 175, margin: 5}} key={data.groupId} square>
         <CardItem onPress={this.toggleTorrents.bind(this)} style={{ padding:0 }}>
