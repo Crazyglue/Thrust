@@ -25,7 +25,7 @@ export default class TorrentItem extends Component {
         <Grid>
           <Col size={3}>
             <Row>
-              <Text>{torrent.name}</Text>
+              <Text>{torrent.name.slice(0,36)}</Text>
             </Row>
             <Col>
               <Row>
