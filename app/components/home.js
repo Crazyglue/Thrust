@@ -36,17 +36,17 @@ class Home extends Component {
 
     if (this.props.whatcd.isLoggedIn) {
       whatcdSpinner = (
-        <Icon name="ios-checkmark" style={{fontSize: 36, color: 'green' }} />
+        <Icon name="ios-checkmark" style={{ fontSize: 36, color: 'green' }} />
       )
     }
     else if (this.props.whatcd.isLoggingIn) {
       whatcdSpinner = (
-        <Spinner color="orange" />
+        <Icon name="ios-information-outline" style={{ fontSize: 36 }} />
       )
     }
     else {
       whatcdSpinner = (
-        <Icon name="ios-close" style={{color: "red"}} />
+        <Icon name="ios-close" style={{fontSize: 36, color: "red"}} />
       )
     }
 
@@ -83,9 +83,7 @@ class Home extends Component {
               <Row style={{ justifyContent: 'space-between' }}>
                 <Thumbnail style={{backgroundColor: 'black'}} source={require('../assets/images/whatcd.png')} size={30} square/>
                 <Text>WhatCD</Text>
-                <Button style={{ height: 20, width: 20 }} transparent>
-                  {whatcdSpinner}
-                </Button>
+                {whatcdSpinner}
               </Row>
             </CardItem>
 
