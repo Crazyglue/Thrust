@@ -13,7 +13,7 @@
     "native-base": "^0.5.9",
     "query-string": "^4.2.3",
     "react": "15.3.2",
-    "react-native": "0.34.1",
+    "react-native": "^0.36.0",
     "react-native-accordion": "^1.0.1",
     "react-native-awesome-button": "^1.6.0",
     "react-native-drawer": "^2.3.0",
