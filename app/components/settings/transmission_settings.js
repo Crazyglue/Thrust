@@ -84,6 +84,7 @@ class TransmissionSettings extends Component {
           (
             <ListItem key="paused" onPress={this.setStartPaused.bind(this)}>
               <CheckBox
+                onPress={this.setStartPaused.bind(this)}
                 checked={this.props.api.startPaused}
                 />
               <Text>Add torrents paused</Text>
