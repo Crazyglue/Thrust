@@ -1,3 +1,4 @@
+// DO NOT EDIT
 const torrentStatusMap = [
     'Stopped', /* Torrent is stopped */
     'Queued', /* Queued to check files */
@@ -12,7 +13,7 @@ export default class TransmissionAPI {
   constructor() {
     this.baseEndpoint = "/transmission/rpc";
     this.sessionId = null;
-    this.localUrl = '127.0.0.1';
+    this.localUrl = '192.168.1.160';
     this.localPort = '9091';
     this.webUrl = '';
     this.webPort = '';

@@ -161,10 +161,10 @@ export function loadOfflineCredentials() {
         getState().whatcd.api.setPassword(password || "");
       }),
       offline.get('transmission:localUrl').then(url => {
-        getState().transmission.api.setLocalUrl(url || "");
+        getState().transmission.api.setLocalUrl(url || "192.168.1.160");
       }),
       offline.get('transmission:localPort').then(port => {
-        getState().transmission.api.setLocalPort(port || "");
+        getState().transmission.api.setLocalPort(port || "9091");
       }),
       offline.get('transmission:downloadDir').then(dir => {
         getState().transmission.api.setDownloadDir(dir || "");
