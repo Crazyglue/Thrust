@@ -1,5 +1,7 @@
 import offline from 'react-native-simple-store';
 import reject from 'lodash/reject';
+import filter from 'lodash/filter';
+import _ from 'lodash';
 
 export const GET_STATS = 'GET_STATS';
 export const SET_DISPLAY_TORRENTS = 'SET_DISPLAY_TORRENTS';
@@ -81,7 +83,7 @@ export function setDownloadDir(dir) {
   };
 }
 
-export function getTorrentInfo(ids = []) {
+export function getTorrentInfo(ids = [], status) {
   return(dispatch, getState) => {
     console.log("Getting torrent info with the following IDs: " + ids);
     getState().transmission.api.getTorrentInfo(ids)
@@ -98,9 +100,9 @@ export function getTorrentInfo(ids = []) {
         if (data.result == "success") {
           // console.log("getTorrentInfo data:");
           // console.log(data.arguments);
+          let torrents = [];
+          torrents = filter(data.arguments.torrents, { 'status': status })
 
-          torrents = reject(data.arguments.torrents, { 'status': 6 })
-          // console.log("Torrents filtered", torrents);
 
           dispatch({
             type: SET_DISPLAY_TORRENTS,

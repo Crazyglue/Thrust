@@ -16,8 +16,8 @@ export default class TorrentItem extends Component {
   }
 
   render() {
-    console.log("TorrentItem Props:");
-    console.log(this.props);
+    // console.log("TorrentItem Props:");
+    // console.log(this.props);
     torrent = this.props.data;
 
     return(

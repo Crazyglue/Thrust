@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Header, Content, Title, Button, Icon, Text, List, Spinner } from 'native-base';
+import { Container, Header, Content, Title, Button, Icon, Text, List, Spinner, Card } from 'native-base';
 import MDIcon from 'react-native-vector-icons/MaterialIcons';
 import { InteractionManager } from 'react-native';
 import { Col, Row, Grid } from 'react-native-easy-grid';
@@ -9,22 +9,24 @@ import { connect } from 'react-redux';
 import timer from 'react-native-timer';
 import TorrentItem from './torrent_item';
 import isEqual from 'lodash/isEqual'
+import ModalDropdown from 'react-native-modal-dropdown';
 
 class TransmissionPage extends Component {
   constructor(params) {
     super(params);
 
     this.state = {
-      renderPlaceholderOnly: true
+      renderPlaceholderOnly: true,
+      statusFilter: 0
     }
   }
 
   componentDidMount() {
     InteractionManager.runAfterInteractions(() => {
       this.setState({renderPlaceholderOnly: false});
-      this.props.getTorrentInfo([]);
+      this.props.getTorrentInfo([], this.state.statusFilter);
       timer.setInterval("transmission_ping", () => {
-        this.props.getTorrentInfo([]);
+        this.props.getTorrentInfo([], this.state.statusFilter);
       }, 3000);
     });
   }
@@ -48,6 +50,12 @@ class TransmissionPage extends Component {
     } else {
       return null;
     }
+  }
+
+  setStatusFilter(index, value) {
+    this.setState({
+      statusFilter: index
+    });
   }
 
   render() {
@@ -82,6 +90,14 @@ class TransmissionPage extends Component {
           </Button>
         </Header>
         <Content>
+          <ModalDropdown
+            options={this.props.transmission.api.statusMap}
+            onSelect={this.setStatusFilter.bind(this)}
+            >
+            <Card style={{ alignItems: 'center', width:100, height: 30}}>
+              <Text>Choose filter</Text>
+            </Card>
+          </ModalDropdown>
           {displayItem}
         </Content>
       </Container>
