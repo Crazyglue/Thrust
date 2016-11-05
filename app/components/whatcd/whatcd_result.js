@@ -23,9 +23,9 @@ class WhatCDResult extends Component {
       isCollapsed: true,
     };
 
-    if (Platform.OS === 'android') {
-      UIManager.setLayoutAnimationEnabledExperimental(true);
-    }
+    // if (Platform.OS === 'android') {
+    //   UIManager.setLayoutAnimationEnabledExperimental(true);
+    // }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -47,10 +47,10 @@ class WhatCDResult extends Component {
       <CardItem style={{ height: 70 }} key={data.groupId + "-header"} >
         <Grid>
           <Row style={{height: 20}}>
-            <Text style={{ fontSize: 20 }}>{data.artist}</Text>
+            <Text style={{ fontSize: 20, lineHeight: 20 }}>{data.artist}</Text>
           </Row>
           <Row>
-            <Text style={{fontSize: 12}}>{data.groupName.slice(0, 28)}</Text>
+            <Text style={{fontSize: 12, lineHeight: 12}}>{data.groupName.slice(0, 28)}</Text>
           </Row>
         </Grid>
       </CardItem>
@@ -102,7 +102,7 @@ class WhatCDResult extends Component {
     }
 
     if (this.state.isCollapsed) {
-       height = (Platform.OS === 'ios') ? window.height - 300 : window.height - 310
+       height = (Platform.OS === 'ios') ? window.height - 300 : window.height - 330
 
       headerStyle = {
         height: height
