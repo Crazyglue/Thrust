@@ -8,9 +8,9 @@ import * as actionCreators from '../../actions/transmission';
 import { connect } from 'react-redux';
 import timer from 'react-native-timer';
 import TorrentItem from './torrent_item';
+import TransmissionDropdown from './transmission_dropdown';
 import isEqual from 'lodash/isEqual';
 import filter from 'lodash/filter';
-import ModalDropdown from 'react-native-modal-dropdown';
 
 class TransmissionPage extends Component {
   constructor(params) {
@@ -54,12 +54,6 @@ class TransmissionPage extends Component {
     }
   }
 
-  setStatusFilter(index, value) {
-    this.setState({
-      statusFilter: index
-    });
-  }
-
   render() {
     // console.log("TransmissionPage Props:");
     // console.log(this.props);
@@ -94,14 +88,13 @@ class TransmissionPage extends Component {
           </Button>
         </Header>
         <Content>
-          <ModalDropdown
+          <TransmissionDropdown
             options={this.props.transmission.api.statusMap}
-            onSelect={this.setStatusFilter.bind(this)}
-            >
-            <Card style={{ alignItems: 'center', width:100, height: 30}}>
-              <Text>Choose filter</Text>
-            </Card>
-          </ModalDropdown>
+            sessionStats={this.props.transmission.sessionStats}
+            onSelect={(index, value) => this.setState({ statusFilter: index })}
+            statusFilter={this.state.statusFilter}
+            />
+
           {displayItem}
         </Content>
       </Container>
