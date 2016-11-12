@@ -8,7 +8,8 @@ import * as actionCreators from '../../actions/transmission';
 import { connect } from 'react-redux';
 import timer from 'react-native-timer';
 import TorrentItem from './torrent_item';
-import isEqual from 'lodash/isEqual'
+import isEqual from 'lodash/isEqual';
+import filter from 'lodash/filter';
 import ModalDropdown from 'react-native-modal-dropdown';
 
 class TransmissionPage extends Component {
@@ -61,6 +62,8 @@ class TransmissionPage extends Component {
   render() {
     // console.log("TransmissionPage Props:");
     // console.log(this.props);
+    rawTorrents = this.props.transmission.displayTorrents
+    torrents = filter(rawTorrents, { 'status': parseInt(this.state.statusFilter) })
 
     const renderTorrent = (data) => this.renderTorrent(data);
     let placeHolder;
@@ -71,7 +74,7 @@ class TransmissionPage extends Component {
       displayItem = (<Spinner />)
     else if (this.props.transmission.displayTorrents.length > 0) {
       displayItem = (<List
-        dataArray={this.props.transmission.displayTorrents}
+        dataArray={torrents}
         renderRow={renderTorrent}
         />)
     }

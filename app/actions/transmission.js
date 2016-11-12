@@ -100,14 +100,11 @@ export function getTorrentInfo(ids = [], status) {
         if (data.result == "success") {
           // console.log("getTorrentInfo data:");
           // console.log(data.arguments);
-          let torrents = [];
-          torrents = filter(data.arguments.torrents, { 'status': status })
-
 
           dispatch({
             type: SET_DISPLAY_TORRENTS,
             payload: {
-              displayTorrents: torrents,
+              displayTorrents: data.arguments.torrents,
             }
           });
         }
