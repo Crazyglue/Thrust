@@ -91,6 +91,28 @@ export default class TransmissionAPI {
     return fetch(url, params);
   }
 
+  getSessionStats() {
+    console.log("Getting session stats...");
+
+    url = this.getBaseUrl();
+
+    body = JSON.stringify({
+      method: "session-stats"
+    });
+
+    params = {
+      method: "POST",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        "x-transmission-session-id": this.sessionId
+      },
+      body: body
+    };
+
+    return fetch(url, params);
+  }
+
   addTorrent(torrentBlob) {
 
     url = this.getBaseUrl();

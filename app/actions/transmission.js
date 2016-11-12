@@ -5,6 +5,7 @@ import _ from 'lodash';
 
 export const GET_STATS = 'GET_STATS';
 export const SET_DISPLAY_TORRENTS = 'SET_DISPLAY_TORRENTS';
+export const SET_SESSION_STATS = 'SET_SESSION_STATS';
 
 export function pingTransmission() {
   return(dispatch, getState) => {
@@ -44,6 +45,31 @@ export function getStats() {
         console.log(data);
       });
   };
+}
+
+export function getSessionStats() {
+  return(dispatch, getState) => {
+    getState().transmission.api.getSessionStats()
+      .then((response) => {
+        console.log("Transmission getSessionStats response:", response);
+        return response.json();
+      })
+      .catch((error) => {
+        console.warn(error);
+      })
+      .done((responseJson) => {
+        console.log("Transmission getSessionStats data:", responseJson);
+
+        if (responseJson.result == "success") {
+          dispatch({
+            type: SET_SESSION_STATS,
+            payload: {
+              sessionStats: responseJson.arguments
+            }
+          });
+        }
+      });
+  }
 }
 
 export function setStartPaused(paused) {
@@ -98,8 +124,8 @@ export function getTorrentInfo(ids = [], status) {
       })
       .then((data) => {
         if (data.result == "success") {
-          // console.log("getTorrentInfo data:");
-          // console.log(data.arguments);
+          console.log("getTorrentInfo data:");
+          console.log(data);
 
           dispatch({
             type: SET_DISPLAY_TORRENTS,

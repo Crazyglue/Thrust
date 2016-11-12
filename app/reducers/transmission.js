@@ -1,12 +1,14 @@
 import {
   GET_STATS,
   SET_DISPLAY_TORRENTS,
+  SET_SESSION_STATS
 } from '../actions/transmission';
 import TransmissionAPI from '../api/transmission';
 
 const initialState = {
   api: new TransmissionAPI(),
   displayTorrents: [],
+  sessionStats: []
 };
 
 export default function reducer(state = initialState, action) {
@@ -26,6 +28,12 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         displayTorrents: action.payload.displayTorrents
+      }
+
+    case SET_SESSION_STATS:
+      return {
+        ...state,
+        sessionStats: action.payload.sessionStats
       }
 
     default:

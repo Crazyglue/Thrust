@@ -27,6 +27,7 @@ class TransmissionPage extends Component {
       this.setState({renderPlaceholderOnly: false});
       this.props.getTorrentInfo([], this.state.statusFilter);
       timer.setInterval("transmission_ping", () => {
+        this.props.getSessionStats();
         this.props.getTorrentInfo([], this.state.statusFilter);
       }, 3000);
     });
