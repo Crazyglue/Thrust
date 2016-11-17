@@ -24,8 +24,8 @@ export default class TorrentItem extends Component {
       <ListItem key={torrent.name}>
         <Grid>
           <Col size={3}>
-            <Row>
-              <Text>{torrent.name.slice(0,36)}</Text>
+            <Row style={{ flexDirection: "row" }}>
+              <Text numberOfLines={1} >{torrent.name}</Text>
             </Row>
             <Col>
               <Row>

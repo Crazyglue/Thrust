@@ -7,8 +7,8 @@ import { Actions } from 'react-native-router-flux';
 import * as actionCreators from '../../actions/transmission';
 import { connect } from 'react-redux';
 import timer from 'react-native-timer';
-import TorrentItem from './torrent_item';
 import TransmissionDropdown from './transmission_dropdown';
+import TransmissionTorrentList from './transmission_torrent_list';
 import isEqual from 'lodash/isEqual';
 import filter from 'lodash/filter';
 
@@ -26,55 +26,12 @@ class TransmissionPage extends Component {
     InteractionManager.runAfterInteractions(() => {
       this.setState({renderPlaceholderOnly: false});
       this.props.getTorrentInfo([], this.state.statusFilter);
-      timer.setInterval("transmission_ping", () => {
-        this.props.getSessionStats();
-        this.props.getTorrentInfo([], this.state.statusFilter);
-      }, 3000);
     });
-  }
-
-  componentWillUnmount() {
-    timer.clearInterval("transmission_ping");
-  }
-
-  getStats() {
-    this.props.getStats();
-  }
-
-  renderTorrent(data) {
-    data.status = this.props.transmission.api.parseTorrentStatus(data.status);
-    if (!this.state.renderPlaceholderOnly) {
-      return (
-        <TorrentItem
-          data={data}
-        />
-      )
-    } else {
-      return null;
-    }
   }
 
   render() {
     // console.log("TransmissionPage Props:");
     // console.log(this.props);
-    rawTorrents = this.props.transmission.displayTorrents
-    torrents = filter(rawTorrents, { 'status': parseInt(this.state.statusFilter) })
-
-    const renderTorrent = (data) => this.renderTorrent(data);
-    let placeHolder;
-
-    let displayItem;
-
-    if (this.state.renderPlaceholderOnly)
-      displayItem = (<Spinner />)
-    else if (this.props.transmission.displayTorrents.length > 0) {
-      displayItem = (<List
-        dataArray={torrents}
-        renderRow={renderTorrent}
-        />)
-    }
-    else
-      displayItem = (<Text>No non-seeding torrents.</Text>)
 
     return(
       <Container>
@@ -95,7 +52,12 @@ class TransmissionPage extends Component {
             statusFilter={this.state.statusFilter}
             />
 
-          {displayItem}
+          <TransmissionTorrentList
+            torrents={this.props.displayTorrents}
+            statusFilter={this.state.statusFilter}
+            renderPlaceholder={this.state.renderPlaceholderOnly}
+            statusMap={this.props.transmission.api.statusMap}
+            />
         </Content>
       </Container>
     )
@@ -105,6 +67,7 @@ class TransmissionPage extends Component {
 const mapStateToProps = (state) => {
   return {
     transmission: state.transmission,
+    displayTorrents: state.transmission.displayTorrents,
   }
 }
 

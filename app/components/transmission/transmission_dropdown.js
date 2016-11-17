@@ -2,12 +2,28 @@ import React, { Component } from 'react';
 import { Container, Header, Content, Title, Button, Icon, Text, List, Spinner, Card } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import ModalDropdown from 'react-native-modal-dropdown';
+import { InteractionManager } from 'react-native';
+import { connect } from 'react-redux';
 import bytes from 'bytes';
+import timer from 'react-native-timer';
+import * as actionCreators from '../../actions/transmission';
 
-export default class TransmissionDropdown extends Component {
+class TransmissionDropdown extends Component {
 
   constructor(params) {
     super(params);
+  }
+
+  componentDidMount() {
+    InteractionManager.runAfterInteractions(() => {
+      timer.setInterval("transmission_ping_session_stats", () => {
+        this.props.getSessionStats();
+      }, 3000);
+    });
+  }
+
+  componentWillUnmount() {
+    timer.clearInterval("transmission_ping_session_stats");
   }
 
   render() {
@@ -30,3 +46,11 @@ export default class TransmissionDropdown extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    transmission: state.transmission,
+  }
+}
+
+export default connect(mapStateToProps, actionCreators)(TransmissionDropdown);
