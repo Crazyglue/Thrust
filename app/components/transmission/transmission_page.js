@@ -23,6 +23,7 @@ class TransmissionPage extends Component {
   }
 
   componentDidMount() {
+    this.props.getTorrentInfo([], this.props.transmission.statusFilter);
     InteractionManager.runAfterInteractions(() => {
       this.setState({renderPlaceholderOnly: false});
       timer.setInterval("transmission_ping_session_stats", () => {

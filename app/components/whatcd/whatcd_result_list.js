@@ -19,7 +19,7 @@ class WhatCDResultList extends Component {
     let items = [];
 
     if (this.props.searchResult && this.props.searchResult.results) {
-      sortedTorrents = sortBy(this.props.searchResult.results, 'totalSeeders').reverse();
+      sortedTorrents = sortBy(this.props.searchResult.results, ['totalSeeders', 'totalSnatched']).reverse();
       torrents = filter(sortedTorrents, "artist");
 
       torrents.forEach((result) => {

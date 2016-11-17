@@ -41,7 +41,7 @@ class TransmissionTorrentList extends Component {
       return (<Text>No non-seeding torrents.</Text>)
     else {
       return (<List
-        dataArray={torrents}
+        dataArray={_.sortBy(torrents, 'name')}
         renderRow={renderTorrent}
         />)
     }
