@@ -25,8 +25,14 @@ class TransmissionPage extends Component {
   componentDidMount() {
     InteractionManager.runAfterInteractions(() => {
       this.setState({renderPlaceholderOnly: false});
-      this.props.getTorrentInfo([], this.state.statusFilter);
+      timer.setInterval("transmission_ping_session_stats", () => {
+        this.props.getTorrentInfo([], this.props.transmission.statusFilter);
+      }, 5000);
     });
+  }
+
+  componentWillUnmount() {
+    timer.clearInterval("transmission_ping_session_stats");
   }
 
   render() {
@@ -48,13 +54,13 @@ class TransmissionPage extends Component {
           <TransmissionDropdown
             options={this.props.transmission.api.statusMap}
             sessionStats={this.props.transmission.sessionStats}
-            onSelect={(index, value) => this.setState({ statusFilter: index })}
-            statusFilter={this.state.statusFilter}
+            onSelect={(index, value) => this.props.setStatusFilter(index)}
+            statusFilter={this.props.transmission.statusFilter}
             />
 
           <TransmissionTorrentList
             torrents={this.props.displayTorrents}
-            statusFilter={this.state.statusFilter}
+            statusFilter={this.props.transmission.statusFilter}
             renderPlaceholder={this.state.renderPlaceholderOnly}
             statusMap={this.props.transmission.api.statusMap}
             />

@@ -13,25 +13,9 @@ class TransmissionTorrentList extends Component {
     super(params);
   }
 
-  componentDidMount() {
-    InteractionManager.runAfterInteractions(() => {
-      this.props.getTorrentInfo([], 0);
-      timer.setInterval("transmission_ping_torrent_info", () => {
-        this.props.getTorrentInfo([], 0);
-      }, 5000);
-    });
-  }
-
-  componentWillUnmount() {
-    timer.clearInterval("transmission_ping_torrent_info");
-  }
-
-  shouldCompontentUpdate(nextProps, nextState) {
-    return !_.isEqual(this.props.torrents, nextProps.torrents) || this.props.statusFilter != nextProps.statusFilter;
-  }
-
   renderTorrent(data) {
-    data.status = this.props.statusMap[data.status];
+    torrent = data;
+    torrent.status = this.props.statusMap[torrent.status];
     if (!this.props.renderPlaceholder) {
       return (
         <TorrentItem

@@ -58,7 +58,6 @@ export function getTorrent(searchText, options) {
             whatcdSearchPending: false
           }
         });
-        return data;
       });
   };
 }

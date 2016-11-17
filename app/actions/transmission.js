@@ -6,6 +6,7 @@ import _ from 'lodash';
 export const GET_STATS = 'GET_STATS';
 export const SET_DISPLAY_TORRENTS = 'SET_DISPLAY_TORRENTS';
 export const SET_SESSION_STATS = 'SET_SESSION_STATS';
+export const SET_STATUS_FILTER = 'SET_STATUS_FILTER';
 
 export function pingTransmission() {
   return(dispatch, getState) => {
@@ -106,6 +107,17 @@ export function setDownloadDir(dir) {
 
     getState().transmission.api.setDownloadDir(dir);
     offline.save("transmission:downloadDir", dir);
+  };
+}
+
+export function setStatusFilter(statusFilter) {
+  return(dispatch, getState) => {
+    dispatch({
+      type: SET_STATUS_FILTER,
+      payload: {
+        statusFilter: statusFilter
+      }
+    });
   };
 }
 
