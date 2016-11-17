@@ -11,7 +11,7 @@ export default function(store) {
 
     if(state.whatcd.api.password != syncedPassword || state.whatcd.api.username != syncedUsername)
       console.log("Syncing offline...");
-      console.log(state);
+      // console.log(state);
 
     if(state.whatcd.api.username != syncedUsername) {
       console.log("Saving username: " + state.whatcd.api.username);

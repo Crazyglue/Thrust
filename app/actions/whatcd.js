@@ -40,8 +40,7 @@ export function getTorrent(searchText, options) {
       })
       .then((data) => {
         if(data.status === "success") {
-          console.log("WhatCD getTorrent result:");
-          console.log(data.response);
+          // console.log("WhatCD getTorrent result:", data.response;
 
           dispatch({
             type: SET_WHATCD_SEARCH_RESULT,
