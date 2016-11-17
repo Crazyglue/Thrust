@@ -35,14 +35,10 @@ export default class TransmissionAPI {
         'rateDownload',
         'rateUpload',
         'status',
-        'totalsize',
         'name',
-        'addedDate',
         'sizeWhenDone',
-        'pieceSize',
         'eta',
         'percentDone',
-        'pieceCount',
         'leftUntilDone',
       ]
     };
