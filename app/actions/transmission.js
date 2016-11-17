@@ -51,14 +51,14 @@ export function getSessionStats() {
   return(dispatch, getState) => {
     getState().transmission.api.getSessionStats()
       .then((response) => {
-        console.log("Transmission getSessionStats response:", response);
+        // console.log("Transmission getSessionStats response:", response);
         return response.json();
       })
       .catch((error) => {
         console.warn(error);
       })
       .done((responseJson) => {
-        console.log("Transmission getSessionStats data:", responseJson);
+        // console.log("Transmission getSessionStats data:", responseJson);
 
         if (responseJson.result == "success") {
           dispatch({

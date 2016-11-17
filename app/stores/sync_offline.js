@@ -7,7 +7,7 @@ export default function(store) {
 
   store.subscribe(() => {
     const state = store.getState();
-    console.log("updating!");
+    // console.log("updating!");
 
     if(state.whatcd.api.password != syncedPassword || state.whatcd.api.username != syncedUsername)
       console.log("Syncing offline...");

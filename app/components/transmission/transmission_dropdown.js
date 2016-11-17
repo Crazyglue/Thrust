@@ -12,7 +12,7 @@ export default class TransmissionDropdown extends Component {
 
   render() {
     const onSelect = (index, value) => this.props.onSelect(index, value);
-    console.log("onSelect", this.props.onSelect);
+    // console.log("onSelect", this.props.onSelect);
 
     return(
       <Row>
