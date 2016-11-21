@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import Home from '../components/home';
 import WhatCDPage from '../components/whatcdpage';
 import TransmissionPage from '../components/transmission/transmission_page';
+import SickRage from '../components/sickrage/';
 import AppSettings from '../components/settings';
 
 class Root extends Component {
@@ -20,6 +21,7 @@ class Root extends Component {
         <Scene key="root" hideNavBar={true} passProps={true}>
           <Scene key="home" component={Home} title="Home" initial={true} />
           <Scene key="whatcdpage" component={WhatCDPage} title="WhatCD" />
+          <Scene key="sickrage" component={SickRage} title="Sick Rage" />
           <Scene key="transmissionpage" component={TransmissionPage} title="Transmission" />
           <Scene key="appsettings" component={AppSettings} title="App Settings" />
         </Scene>
