@@ -11,9 +11,11 @@ import theme from '../themes/thrust';
 class Home extends Component {
   componentWillMount() {
     this.props.loadOfflineCredentials()
-      .then((crendtialsSet) => {
-        this.props.login();
-      })
+      // Login to WhatCD (now dead)
+      //
+      // .then((crendtialsSet) => {
+      //   this.props.login();
+      // })
       .then(() => {
         this.props.pingTransmission();
       });
@@ -28,6 +30,7 @@ class Home extends Component {
 
     const goToWhatCD = () => Actions.whatcdpage();
     const goToTransmission = () => Actions.transmissionpage();
+    const goToSickRage = () => Actions.sickrage();
     const goToAppSettings = () => Actions.appsettings();
     const openDrawer = () => this._drawer.open()
     const closeDrawer = () => this._drawer.close()
@@ -91,6 +94,14 @@ class Home extends Component {
               <Row style={{ justifyContent: 'space-between' }}>
                 <Thumbnail source={require('../assets/images/transmission.png')} size={30} square/>
                 <Text>Transmission</Text>
+                <Icon name="ios-checkmark" style={{fontSize: 36, color: 'green' }} />
+              </Row>
+            </CardItem>
+
+            <CardItem onPress={goToSickRage}>
+              <Row style={{ justifyContent: 'space-between' }}>
+                <Thumbnail source={require('../assets/images/sickrage.png')} size={30} square/>
+                <Text>SickRage</Text>
                 <Icon name="ios-checkmark" style={{fontSize: 36, color: 'green' }} />
               </Row>
             </CardItem>
