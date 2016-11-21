@@ -1,6 +1,7 @@
 package com.thrust;
 
 import com.facebook.react.ReactActivity;
+import com.RNFetchBlob.RNFetchBlobPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.horcrux.svg.RNSvgPackage;
 import com.horcrux.svg.RNSvgPackage;

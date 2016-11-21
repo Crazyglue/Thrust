@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "apsl-react-native-button": "^3.0.1",
+    "base64-img": "^1.0.3",
     "bytes": "^2.4.0",
     "lodash": "^4.16.4",
     "native-base": "^0.5.9",
@@ -18,6 +19,7 @@
     "react-native-awesome-button": "^1.6.0",
     "react-native-drawer": "^2.3.0",
     "react-native-easy-grid": "^0.1.6",
+    "react-native-fetch-blob": "^0.10.0",
     "react-native-gifted-listview": "0.0.15",
     "react-native-image-progress": "^0.6.0",
     "react-native-loading-spinner-overlay": "^0.3.0",
