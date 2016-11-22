@@ -25,8 +25,6 @@ class Home extends Component {
   render() {
     // console.log("Home props:");
     // console.log(this.props);
-    // console.log("Home State:");
-    // console.log(this.props.appState);
 
     const goToWhatCD = () => Actions.whatcdpage();
     const goToTransmission = () => Actions.transmissionpage();

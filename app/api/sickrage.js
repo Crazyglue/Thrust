@@ -44,11 +44,11 @@ export default class SickRage {
   }
 
   getShows() {
-    console.log(this.getEndpoint() + this.actions.shows);
+    // console.log(this.getEndpoint() + this.actions.shows);
     return fetch(this.getEndpoint() + this.actions.shows);
   }
   getShowBanner(id) {
-    console.log("show banner endpoint:", this.getEndpoint() + this.actions.showBanner + "&indexerid=" + id, {});
+    // console.log("show banner endpoint:", this.getEndpoint() + this.actions.showBanner + "&indexerid=" + id, {});
     return RNFetchBlob.config({
       fileCache : true,
       // by adding this option, the temp files will have a file extension
