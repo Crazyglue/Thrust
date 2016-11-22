@@ -22,12 +22,14 @@ const FORM_HEADERS = {
 };
 
 export default class SickRage {
-  constructor(baseUrl, apiKey) {
+  constructor() {
     console.log("Constructing SickRage API...");
-    this.baseEndpoint = "http://" + baseUrl + "/api/" + apiKey + "/?cmd=";
+    this.baseUrl = "";
+    this.apiKey = "";
+
     this.showsEndpoint = "shows";
     this.actions = {
-      shows: "shows",
+      shows: "shows&sort=name",
       showBanner: "show.getbanner"
     }
 
@@ -37,11 +39,26 @@ export default class SickRage {
     console.log("Endpoint:", this.baseEndpoint);
   }
 
-  getShows() { return fetch(this.baseEndpoint + this.actions.shows); }
+  getEndpoint() {
+    return "http://" + this.baseUrl + "/api/" + this.apiKey + "/?cmd=";
+  }
+
+  getShows() {
+    console.log(this.getEndpoint() + this.actions.shows);
+    return fetch(this.getEndpoint() + this.actions.shows);
+  }
   getShowBanner(id) {
+    console.log("show banner endpoint:", this.getEndpoint() + this.actions.showBanner + "&indexerid=" + id, {});
     return RNFetchBlob.config({
       fileCache : true,
       // by adding this option, the temp files will have a file extension
-      appendExt : 'png'
-    }).fetch('GET', this.baseEndpoint + this.actions.showBanner + "&indexerid=" + id, {}) }
+      appendExt : 'jpg'
+    }).fetch('GET', this.getEndpoint() + this.actions.showBanner + "&indexerid=" + id, {}) }
+
+  setUrl(url) { this.baseUrl = url; }
+  getUrl() { return this.baseUrl; }
+
+  setApiKey(key) { this.apiKey = key; }
+  getApiKey() { return this.apiKey; }
+
 }

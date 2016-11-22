@@ -7,7 +7,6 @@ import store from 'react-native-simple-store';
 import { Container, Header, Content, Title, Button, Icon, Text, Thumbnail, InputGroup, Input, Spinner, List, ListItem, Card, CardItem } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import _ from 'lodash';
-import SearchHeader from '../shared/nav/search_header';
 
 class SickRage extends Component {
   constructor(params) {

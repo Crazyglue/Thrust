@@ -51,3 +51,17 @@ export function getShows() {
       })
   };
 }
+
+export function setSickrageUrl(url) {
+  return(dispatch, getState) => {
+    offline.save("sickrage:url", url);
+    getState().sickrage.api.setUrl(url);
+  }
+}
+
+export function setSickrageApiKey(key) {
+  return(dispatch, getState) => {
+    offline.save("sickrage:apiKey", key);
+    getState().sickrage.api.setUrl(key);
+  }
+}

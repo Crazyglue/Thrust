@@ -4,28 +4,24 @@ export default function(store) {
   console.log("Creating syncOffline store...");
   let syncedUsername;
   let syncedPassword;
+  let sickrageUrl;
+  let sickrageApiKey;
 
   store.subscribe(() => {
+    console.log("updating!");
+
     const state = store.getState();
-    // console.log("updating!");
 
-    if(state.whatcd.api.password != syncedPassword || state.whatcd.api.username != syncedUsername)
-      console.log("Syncing offline...");
-      // console.log(state);
-
-    if(state.whatcd.api.username != syncedUsername) {
-      console.log("Saving username: " + state.whatcd.api.username);
-      console.log(state.whatcd.api.username);
-      syncedUsername = state.whatcd.api.username;
-      offline.save("whatcd:username", state.whatcd.api.username);
+    if (state.sickrage.api.getUrl() != sickrageUrl) {
+      sickrageUrl = state.sickrage.api.baseUrl
+      offline.save("sickrage:url", sickrageUrl);
+      console.log("Saved sickrage url:", sickrageUrl);
     }
 
-    if(state.whatcd.api.password != syncedPassword) {
-      console.log("Saving password: " + state.whatcd.api.password);
-      console.log(state.whatcd.api.password);
-      syncedPassword = state.whatcd.api.password;
-      offline.save("whatcd:password", state.whatcd.api.password);
+    if (state.sickrage.api.getApiKey() != sickrageApiKey) {
+      sickrageApiKey = state.sickrage.api.apiKey
+      offline.save("sickrage:apiKey", sickrageApiKey);
+      console.log("Saved sickrage api key:", sickrageApiKey);
     }
-
   });
 }

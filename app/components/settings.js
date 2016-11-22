@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import * as actionCreators from '../actions/whatcd';
 import WhatCDSettings from './settings/whatcd_settings';
 import TransmissionSettings from './settings/transmission_settings';
+import SickrageSettings from './settings/sickrage_settings';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 
 import offline from 'react-native-simple-store';
@@ -40,6 +41,7 @@ class AppSettings extends Component {
           <ScrollView>
             <WhatCDSettings />
             <TransmissionSettings />
+            <SickrageSettings />
           </ScrollView>
         </Content>
       </Container>

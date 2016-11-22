@@ -7,7 +7,7 @@ import _ from 'lodash';
 
 const initialState = {
   shows: [],
-  api: new SickRage('192.168.1.155:8081', '6c80a6496ea33840bd8d21284da277f3'),
+  api: new SickRage(),
 };
 
 export default function reducer(state = initialState, action) {
