@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Modal, Platform, ScrollView, Image } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
@@ -9,6 +9,10 @@ import { Col, Row, Grid } from 'react-native-easy-grid';
 import _ from 'lodash';
 
 class SickRage extends Component {
+  static contextTypes = {
+    routes: PropTypes.object.isRequired,
+  };
+
   constructor(params) {
     super(params);
 
@@ -19,10 +23,15 @@ class SickRage extends Component {
     this.props.getShows();
   }
 
+  // TODO: fix the width and height to use layout sizing
   renderRow(show) {
+    const goToShow = (show) => Actions.sickrage_0_sickrageShow(show);
+    // console.log(goToShow);
     return(
       <ListItem>
-        <Image style={{ width: 758/2.2, height: 140/2.2 }} source={{uri: show.image}} />
+        <Button onPress={() => Actions.sickrageShow()} transparent>
+          <Image  style={{ width: 758/2.2, height: 140/2.2 }} source={{uri: show.image}} />
+        </Button>
       </ListItem>
     )
   }
@@ -33,10 +42,6 @@ class SickRage extends Component {
     // console.log(this.props);
 
     let shows = this.props.sickrage.shows || [];
-
-    const getShows = () => this.props.getShows();
-
-    console.log("shows", shows);
 
     return (
       <Container>
@@ -49,7 +54,7 @@ class SickRage extends Component {
         <Content>
           <ScrollView>
             <List
-              dataArray={this.props.sickrage.shows}
+              dataArray={shows}
               renderRow={this.renderRow}
               />
           </ScrollView>
