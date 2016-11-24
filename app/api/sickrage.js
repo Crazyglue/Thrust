@@ -29,8 +29,11 @@ export default class SickRage {
 
     this.showsEndpoint = "shows";
     this.actions = {
-      shows: "shows&sort=name",
-      showBanner: "show.getbanner"
+      shows: {
+        index: "shows&sort=name",
+        banner: "show.getbanner",
+        seasons: "show.seasons"
+      }
     }
 
     this.postJsonHeaders = POST_HEADERS;
@@ -45,15 +48,20 @@ export default class SickRage {
 
   getShows() {
     // console.log(this.getEndpoint() + this.actions.shows);
-    return fetch(this.getEndpoint() + this.actions.shows);
+    return fetch(this.getEndpoint() + this.actions.shows.index);
   }
+
+  getSeasons(id) {
+    return fetch(this.getEndpoint() + this.actions.shows.seasons + "&indexerid=" + id);
+  }
+
   getShowBanner(id) {
     // console.log("show banner endpoint:", this.getEndpoint() + this.actions.showBanner + "&indexerid=" + id, {});
     return RNFetchBlob.config({
       fileCache : true,
       // by adding this option, the temp files will have a file extension
       appendExt : 'jpg'
-    }).fetch('GET', this.getEndpoint() + this.actions.showBanner + "&indexerid=" + id, {}) }
+    }).fetch('GET', this.getEndpoint() + this.actions.shows.banner + "&indexerid=" + id, {}) }
 
   setUrl(url) { this.baseUrl = url; }
   getUrl() { return this.baseUrl; }
