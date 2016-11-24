@@ -25,11 +25,10 @@ class SickRage extends Component {
 
   // TODO: fix the width and height to use layout sizing
   renderRow(show) {
-    const goToShow = (show) => Actions.sickrage_0_sickrageShow(show);
-    // console.log(goToShow);
+    const goToShow = () => Actions.show({show: show});
     return(
       <ListItem>
-        <Button onPress={() => Actions.sickrageShow()} transparent>
+        <Button onPress={goToShow} transparent>
           <Image  style={{ width: 758/2.2, height: 140/2.2 }} source={{uri: show.image}} />
         </Button>
       </ListItem>
