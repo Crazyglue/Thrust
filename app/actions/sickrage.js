@@ -41,7 +41,6 @@ export function getShows() {
         else
           console.warn("Bad response, json.result != success", json);
       })
-      // getBanners
       .then(showIds => {
         let updates = {};
         _.map(showIds, id => {
@@ -73,7 +72,20 @@ export function getShows() {
               .then(seasons => {
                 updates[id].seasons = seasons.data
               })
+          })),
+
+          // get show posters
+          Promise.all(_.map(showIds, id => {
+            return getState().sickrage.api.getPoster(id)
+              .then(response => {
+                console.log("posterData:", response);
+                return response.path()
+              })
+              .then(image => {
+                updates[id].poster = image
+              })
           }))
+
         ])
         .done(() => {
           dispatch({

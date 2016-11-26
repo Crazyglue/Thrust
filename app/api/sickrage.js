@@ -13,23 +13,26 @@ export default class SickRage {
       shows: {
         index: "shows&sort=name",
         banner: "show.getbanner",
-        seasons: "show.seasons"
+        seasons: "show.seasons",
+        poster: "show.getposter",
       }
     }
-    console.log("Endpoint:", this.baseEndpoint);
+    console.log("Sickrage endpoint:", this.baseEndpoint);
   }
 
-  getEndpoint() {
-    return "http://" + this.baseUrl + "/api/" + this.apiKey + "/?cmd=";
+  getEndpoint() { return "http://" + this.baseUrl + "/api/" + this.apiKey + "/?cmd="; }
+
+  getShows() { return fetch(this.getEndpoint() + this.actions.shows.index); }
+  getSeasons(id) { return fetch(this.getEndpoint() + this.actions.shows.seasons + "&indexerid=" + id); }
+
+  getPoster(id) {
+    return RNFetchBlob.config({
+      fileCache : true,
+      // by adding this option, the temp files will have a file extension
+      appendExt : 'jpg'
+    }).fetch('GET', this.getEndpoint() + this.actions.shows.poster + "&indexerid=" + id, {})
   }
 
-  getShows() {
-    // console.log(this.getEndpoint() + this.actions.shows);
-    return fetch(this.getEndpoint() + this.actions.shows.index);
-  }
-
-  getSeasons(id) {
-    return fetch(this.getEndpoint() + this.actions.shows.seasons + "&indexerid=" + id);
   }
 
   getShowBanner(id) {
@@ -38,7 +41,8 @@ export default class SickRage {
       fileCache : true,
       // by adding this option, the temp files will have a file extension
       appendExt : 'jpg'
-    }).fetch('GET', this.getEndpoint() + this.actions.shows.banner + "&indexerid=" + id, {}) }
+    }).fetch('GET', this.getEndpoint() + this.actions.shows.banner + "&indexerid=" + id, {})
+  }
 
   setUrl(url) { this.baseUrl = url; }
   getUrl() { return this.baseUrl; }
