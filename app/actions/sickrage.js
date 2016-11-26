@@ -2,13 +2,15 @@ import offline from 'react-native-simple-store';
 import _ from 'lodash';
 
 export const SET_SHOWS = 'SET_SHOWS';
+export const SET_SEASONS = 'SET_SEASONS';
+export const UPDATE_SHOWS = 'UPDATE_SHOWS';
 
 export function getShows() {
-  return(dispatch, getState) => {
+  return (dispatch, getState) => {
 
     getState().sickrage.api.getShows()
       .then((response) => {
-        console.log("Sickrage repsonse: ", response);
+        // console.log("Sickrage repsonse: ", response);
         if (response.status == 200 && response.ok == true)
           return response.json();
         else
@@ -17,37 +19,47 @@ export function getShows() {
       .then((json) => {
         console.log("Sickrage data: ", json);
         if (json.result == "success") {
+          // console.log("data:", json.data);
 
-          shows = _.flatMap(json.data)
-          console.log("shows", shows);
-          showIds = _.map(shows, 'indexerid');
-          console.log("showIds", showIds);
-          let banners = [];
+          let showIds = []
 
-          Promise.all(_.map(showIds, id => getState().sickrage.api.getShowBanner(id)))
-            .then(responses => {
-              Promise.all(_.map(responses, response => response.path()))
-                .then(images => {
-                  console.log("images", images);
-                  showIds.forEach(id => {
-                    index = _.findIndex(shows, function(o) { return o.indexerid == id; });
-                    shows[index].image = images[index];
-                  })
-                  return shows;
-                })
-                .then((shows) => {
-                  console.log("shows", shows);
-                  dispatch({
-                    type: SET_SHOWS,
-                    payload: {
-                      shows: shows
-                    }
-                  });
-                });
-            })
+          // Change mapping from "Show name": { object }
+          // to "indexerid": { object }
+          mappedKeys = _.mapKeys(json.data, (key, value, object) => {
+            showIds.push(key.indexerid);
+            return key.indexerid;
+          })
+          // console.log("Mapping Keys:", mappedKeys);
+          dispatch({
+            type: SET_SHOWS,
+            payload: {
+              shows: mappedKeys
+            }
+          });
+          return showIds;
         }
         else
-          console.warn("Bad response, json.result != success");
+          console.warn("Bad response, json.result != success", json);
+      })
+      .then(showIds => {
+        let updates = {};
+        Promise.all(_.map(showIds, id => {
+          return getState().sickrage.api.getShowBanner(id)
+            .then(response => {
+              return response.data
+            })
+            .then(image => {
+              updates[id] = { image: image }
+            })
+        }))
+        .done(() => {
+          dispatch({
+            type: UPDATE_SHOWS,
+            payload: {
+              shows: updates
+            }
+          })
+        })
       })
   };
 }

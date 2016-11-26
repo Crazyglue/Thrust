@@ -1,5 +1,7 @@
 import {
-  SET_SHOWS
+  SET_SHOWS,
+  SET_SEASONS,
+  UPDATE_SHOWS,
 } from '../actions/sickrage';
 import SickRage from '../api/sickrage';
 
@@ -20,6 +22,13 @@ export default function reducer(state = initialState, action) {
         ...state,
         shows: action.payload.shows
       }
+
+
+    case UPDATE_SHOWS:
+      return {
+        ...state,
+        shows: _.merge({}, state.shows, action.payload.shows)
+      };
 
     default:
       return state
