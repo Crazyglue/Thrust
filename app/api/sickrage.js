@@ -3,31 +3,12 @@ import querystring from 'query-string';
 import merge from 'lodash/merge'
 import RNFetchBlob from 'react-native-fetch-blob'
 
-const POST_HEADERS = {
-  method: 'POST',
-  headers: {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json'
-  },
-  credentials: 'same-origin'
-};
-
-const FORM_HEADERS = {
-  method: 'POST',
-  headers: {
-    'Accept': 'multipart/form-data',
-    'Content-Type': 'multipart/form-data'
-  },
-  credentials: 'same-origin'
-};
-
 export default class SickRage {
   constructor() {
     console.log("Constructing SickRage API...");
     this.baseUrl = "";
     this.apiKey = "";
 
-    this.showsEndpoint = "shows";
     this.actions = {
       shows: {
         index: "shows&sort=name",
@@ -35,10 +16,6 @@ export default class SickRage {
         seasons: "show.seasons"
       }
     }
-
-    this.postJsonHeaders = POST_HEADERS;
-    this.postFormHeaders = FORM_HEADERS;
-
     console.log("Endpoint:", this.baseEndpoint);
   }
 
