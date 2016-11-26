@@ -41,17 +41,40 @@ export function getShows() {
         else
           console.warn("Bad response, json.result != success", json);
       })
+      // getBanners
       .then(showIds => {
         let updates = {};
-        Promise.all(_.map(showIds, id => {
-          return getState().sickrage.api.getShowBanner(id)
-            .then(response => {
-              return response.data
-            })
-            .then(image => {
-              updates[id] = { image: image }
-            })
-        }))
+        _.map(showIds, id => {
+          updates[id] = {}
+        })
+
+        Promise.all([
+          // get show banners
+          Promise.all(_.map(showIds, id => {
+            return getState().sickrage.api.getShowBanner(id)
+              .then(response => {
+                return response.data
+              })
+              .then(image => {
+                updates[id].image = image
+              })
+          })),
+
+          // get show seasons
+          Promise.all(_.map(showIds, id => {
+            return getState().sickrage.api.getSeasons(id)
+              .then(response => {
+                console.log("seasonData:", response);
+                if (response.ok == true && response.status == 200)
+                  return response.json()
+                else
+                  console.warn("BAD RESPONSE", response);
+              })
+              .then(seasons => {
+                updates[id].seasons = seasons.data
+              })
+          }))
+        ])
         .done(() => {
           dispatch({
             type: UPDATE_SHOWS,
