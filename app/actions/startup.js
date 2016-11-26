@@ -8,11 +8,12 @@ export function loadOfflineCredentials() {
     state = getState()
     return Promise.all([
       offline.get('sickrage:url').then(url => {
-        state.sickrage.api.setUrl(url || "");
+        console.log("Getting url", url);
+        state.sickrage.api.setUrl(url || "192.168.1.155:8081");
       }),
       offline.get('sickrage:apiKey').then(key => {
         console.log("Getting apikey", key);
-        state.sickrage.api.setApiKey(key || "");
+        state.sickrage.api.setApiKey(key || "6c80a6496ea33840bd8d21284da277f3");
       }),
       offline.get('transmission:localUrl').then(url => {
         state.transmission.api.setLocalUrl(url || "192.168.1.160");
