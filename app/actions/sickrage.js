@@ -1,12 +1,21 @@
 import offline from 'react-native-simple-store';
 import _ from 'lodash';
+import moment from 'moment';
 
 export const SET_SHOWS = 'SET_SHOWS';
 export const SET_SEASONS = 'SET_SEASONS';
 export const UPDATE_SHOWS = 'UPDATE_SHOWS';
+export const SET_IS_GETTING_SHOWS = 'SET_IS_GETTING_SHOWS';
+export const SET_LAST_UPDATE = 'SET_LAST_UPDATE';
 
 export function getShows() {
   return (dispatch, getState) => {
+    dispatch({
+      type: SET_IS_GETTING_SHOWS,
+      payload: {
+        isGettingShows: true
+      }
+    })
 
     getState().sickrage.api.getShows()
       .then((response) => {
@@ -87,11 +96,28 @@ export function getShows() {
           }))
 
         ])
-        .done(() => {
+        .then(() => {
           dispatch({
             type: UPDATE_SHOWS,
             payload: {
               shows: updates
+            }
+          })
+        })
+        .done(() => {
+          console.log("offline saving shows:", getState().sickrage.shows);
+          offline.save("sickrage:shows", getState().sickrage.shows);
+          console.log("moment:", moment().format());
+          dispatch({
+            type: SET_IS_GETTING_SHOWS,
+            payload: {
+              isGettingShows: false,
+            }
+          })
+          dispatch({
+            type: SET_LAST_UPDATE,
+            payload: {
+              lastUpdate: moment()
             }
           })
         })

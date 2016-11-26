@@ -19,10 +19,6 @@ class SickRage extends Component {
     this.state = {};
   }
 
-  componentDidMount() {
-    this.props.getShows();
-  }
-
   // TODO: fix the width and height to use layout sizing
   renderRow(show) {
     const goToShow = () => Actions.show({show: show});

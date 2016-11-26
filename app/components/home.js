@@ -7,6 +7,7 @@ import { Container, Header, Content, Title, Button, Icon, Text, Card, CardItem, 
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import Drawer from 'react-native-drawer'
 import theme from '../themes/thrust';
+import moment from 'moment';
 
 class Home extends Component {
   componentWillMount() {
@@ -18,7 +19,12 @@ class Home extends Component {
       // })
       .then(() => {
         this.props.pingTransmission();
-      });
+      })
+      .then(() => {
+        if (this.props.sickrage.lastUpdate.add(30, 'minutes') > moment()) {
+          this.props.getShows();
+        }
+      })
 
   }
 
@@ -127,6 +133,7 @@ const mapStateToProps = (state) => {
     whatcd: state.whatcd,
     username: state.whatcd.username,
     password: state.whatcd.password,
+    sickrage: state.sickrage,
   }
 }
 
