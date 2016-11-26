@@ -49,7 +49,7 @@ class SickrageSettings extends Component {
                 <Icon name='ios-key' style={{color:'black'}}/>
                 <Input
                   placeholder='API key'
-                  onChangeText={(key) => this.props.setSickrageApiKey(key)}
+                  onChangeText={(apiKey) => this.props.setSickrageApiKey(apiKey)}
                   blurOnSubmit={true}
                   autoCorrect={false}
                   defaultValue={this.props.api.getApiKey()}

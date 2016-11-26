@@ -3,6 +3,7 @@ import { Image } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { Container, Header, Content, Title, Button, Icon, Text, Thumbnail, InputGroup, Input, Spinner, List, ListItem, Card, CardItem } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
+import _ from 'lodash';
 
 export default class Show extends Component {
   constructor(params) {
@@ -14,6 +15,12 @@ export default class Show extends Component {
   render() {
     console.log("Show Props:");
     console.log(this.props);
+
+    seasons = _.map(this.props.show.seasons, (season, index) => {
+      return <Text>Season {index}</Text>
+    })
+
+    console.log("seasons:", seasons);
 
     return (
       <Container>
@@ -27,6 +34,7 @@ export default class Show extends Component {
           <Image source={{uri: this.props.show.image}} style={{ width: 758/2.2, height: 140/2.2 }} />
           <Text>{this.props.show.show_name}</Text>
           <Text>{this.props.show.status}</Text>
+          {seasons}
         </Content>
       </Container>
     )
