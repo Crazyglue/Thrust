@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Image, StyleSheet, View, Dimensions } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { Container, Header, Content, Title, Button, Icon, Text, Thumbnail, InputGroup, Input, Spinner, List, ListItem, Card, CardItem } from 'native-base';
+import { Container, Header, Content, Badge, Title, Button, Icon, Text, Thumbnail, InputGroup, Input, Spinner, List, ListItem, Card, CardItem } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import _ from 'lodash';
 import ParallaxView from 'react-native-parallax-view';
@@ -16,11 +16,23 @@ export default class Season extends Component {
   }
 
   _renderRow(episode, index, rowID, highlightRow) {
+    let badge;
+
+    if (episode.status == "Snatched"){
+      badge = <Badge info fontSize={16} >{episode.status}</Badge>
+    } else if (episode.status == "Downloaded") {
+      badge = <Badge success fontSize={16} >{episode.status}</Badge>
+    } else if (episode.status == "Wanted") {
+      badge = <Badge danger fontSize={16} >{episode.status}</Badge>
+    } else {
+      badge = <Badge warning fontSize={16} >{episode.status}</Badge>
+    }
+
     return (
       <ListItem>
         <Col>
           <Row><Title>{episode.name}</Title></Row>
-          <Row><Text>Status: {episode.status}</Text></Row>
+          <Row>{badge}</Row>
           <Row><Text>{episode.quality}</Text></Row>
         </Col>
       </ListItem>
