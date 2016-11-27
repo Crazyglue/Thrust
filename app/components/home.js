@@ -39,24 +39,6 @@ class Home extends Component {
     const openDrawer = () => this._drawer.open()
     const closeDrawer = () => this._drawer.close()
 
-    let whatcdSpinner;
-
-    if (this.props.whatcd.isLoggedIn) {
-      whatcdSpinner = (
-        <Icon name="ios-checkmark" style={{ fontSize: 36, color: 'green' }} />
-      )
-    }
-    else if (this.props.whatcd.isLoggingIn) {
-      whatcdSpinner = (
-        <Icon name="ios-information-outline" style={{ fontSize: 36 }} />
-      )
-    }
-    else {
-      whatcdSpinner = (
-        <Icon name="ios-close" style={{fontSize: 36, color: "red"}} />
-      )
-    }
-
     let content;
     content = (<View style={{backgroundColor: "black", marginTop: 20, width: 200}}><Text style={{color: "white"}}>Hello</Text><Button onPress={closeDrawer} primary>Close</Button></View>);
 
@@ -85,14 +67,6 @@ class Home extends Component {
         <Content>
 
           <Card>
-
-            <CardItem onPress={goToWhatCD} style={{ height: 50 }}>
-              <Row style={{ justifyContent: 'space-between' }}>
-                <Thumbnail style={{backgroundColor: 'black'}} source={require('../assets/images/whatcd.png')} size={30} square/>
-                <Text>WhatCD</Text>
-                {whatcdSpinner}
-              </Row>
-            </CardItem>
 
             <CardItem onPress={goToTransmission}>
               <Row style={{ justifyContent: 'space-between' }}>

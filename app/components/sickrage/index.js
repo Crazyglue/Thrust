@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Modal, Platform, ScrollView, Image } from 'react-native';
+import { Modal, Platform, ScrollView, Image, InteractionManager } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import * as actionCreators from '../../actions/sickrage';
@@ -16,7 +16,15 @@ class SickRage extends Component {
   constructor(params) {
     super(params);
 
-    this.state = {};
+    this.state = {
+      renderPlaceholderOnly: true,
+    };
+  }
+
+  componentDidMount() {
+    InteractionManager.runAfterInteractions(() => {
+      this.setState({renderPlaceholderOnly: false});
+    })
   }
 
   // TODO: fix the width and height to use layout sizing
@@ -37,31 +45,38 @@ class SickRage extends Component {
   }
 
 
+
+
   render() {
     // console.log("SickRage Props:");
     // console.log(this.props);
 
     let shows = this.props.sickrage.shows || [];
 
-    return (
-      <Container>
-        <Header>
-          <Title>{this.props.title}</Title>
-          <Button onPress={Actions.pop} transparent>
-            <Icon name="ios-arrow-back" />
-          </Button>
-        </Header>
-        <Content>
-          <ScrollView>
-            <List
-              dataArray={shows}
-              renderRow={this.renderRow}
-              />
-          </ScrollView>
-        </Content>
-      </Container>
+    if (this.state.renderPlaceholderOnly) {
+      return (<Spinner />)
+    }
+    else {
+      return (
+        <Container>
+          <Header>
+            <Title>{this.props.title}</Title>
+            <Button onPress={Actions.pop} transparent>
+              <Icon name="ios-arrow-back" />
+            </Button>
+          </Header>
+          <Content>
+            <ScrollView>
+              <List
+                dataArray={shows}
+                renderRow={this.renderRow}
+                />
+            </ScrollView>
+          </Content>
+        </Container>
 
-    )
+      )
+    }
   }
 }
 
