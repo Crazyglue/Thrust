@@ -1,6 +1,7 @@
 import offline from 'react-native-simple-store';
 import _ from 'lodash';
 import moment from 'moment';
+import querystring from 'query-string';
 
 export const SET_SHOWS = 'SET_SHOWS';
 export const SET_SEASONS = 'SET_SEASONS';
@@ -136,5 +137,12 @@ export function setSickrageApiKey(key) {
   return(dispatch, getState) => {
     offline.save("sickrage:apiKey", key);
     getState().sickrage.api.setUrl(key);
+  }
+}
+
+export function addNewShow(params) {
+  return(dispatch, getState) => {
+    console.log("params", querystring.stringify(params));
+    getState().sickrage.api.addNewShow(querystring.stringify(params));
   }
 }

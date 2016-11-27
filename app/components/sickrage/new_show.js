@@ -3,8 +3,9 @@ import { Modal, Platform, ScrollView, Image, InteractionManager, StyleSheet } fr
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import * as actionCreators from '../../actions/sickrage';
+import * as tvActionCreators from '../../actions/the_tv_db';
 import store from 'react-native-simple-store';
-import { Container, Header, Content, Fab, Title, CheckBox, Button, Picker, Icon, Text, Item, Thumbnail, InputGroup, Input, Spinner, List, ListItem, Card, CardItem } from 'native-base';
+import { Container, Header, Content, Radio, Fab, Title, CheckBox, Button, Picker, Icon, Text, Item, Thumbnail, InputGroup, Input, Spinner, List, ListItem, Card, CardItem } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import _ from 'lodash';
 
@@ -16,15 +17,29 @@ class NewShow extends Component {
       status: 'skipped',
       future_status: 'skipped',
       subtitles: false,
-      initial: 'fullhdtv'
+      initial: 'fullhdtv',
+      searchString: "",
+      id: 0
     };
   }
 
+  _renderRow(result) {
+    // console.log("Rendering result: ", result);
+    onPress = () => this.setState({ id: result.id })
+    return (
+      <ListItem onPress={onPress}>
+        <Radio selected={this.state.id == result.id} />
+        <Text>{result.seriesName}</Text>
+      </ListItem>
+    )
+  }
+
   render() {
-    // console.log("SickRage Props:");
-    // console.log(this.props);
+    console.log("New Show Props:");
+    console.log(this.props);
     let qualityOptions;
     const qualities = ['sdtv', 'sddvd', 'hdtv', 'rawhdtv', 'fullhdtv', 'hdwebdl', 'fullhdwebdl', 'hdbluray', 'fullhdbluray', 'unknown']
+    const onUpdateSubtitles = (value) => this.setState({ subtitles: !this.state.subtitles })
 
     qualityOptions = _.map(qualities, quality => {
       return <Picker.Item key={quality} label={_.capitalize(quality)} value={quality} />
@@ -33,7 +48,7 @@ class NewShow extends Component {
     return (
       <Container>
         <Header>
-          <Title>{this.props.title}</Title>
+          <Title>Add New Show</Title>
           <Button onPress={Actions.pop} transparent>
             <Icon name="ios-arrow-back" />
           </Button>
@@ -42,15 +57,27 @@ class NewShow extends Component {
           <List>
             <ListItem>
               <InputGroup>
-                <Icon name="ios-search" style={{ color: '#0A69FE' }} />
-                <Input inlineLabel label="Find Show" />
+                <Icon name="ios-search" style={{ color: '#0A69FE' }} onPress={() => this.props.searchSeries(this.state.searchString)} />
+                <Input
+                  inlineLabel
+                  label="Find Show"
+                  placeholder="Find Show"
+                  onChangeText={(text) => this.setState({ searchString: text }) }
+                  />
               </InputGroup>
             </ListItem>
-            <ListItem >
+            <ListItem>
+              <List
+                style={{ height: 200 }}
+                dataArray={this.props.searchResult}
+                renderRow={this._renderRow.bind(this)}
+                />
+            </ListItem>
+            <ListItem>
               <Text>Missing episode status</Text>
               <Picker
                 iosHeader="Select"
-                mode="dropdown"
+                mode="dialog"
                 selectedValue={this.state.status}
                 onValueChange={(value) => this.setState({ status: value })}
                 >
@@ -72,8 +99,8 @@ class NewShow extends Component {
                 <Picker.Item label={"Ignored"} value={"ignored"} />
               </Picker>
             </ListItem>
-            <ListItem onPress={(value) => this.setState({ subtitles: !this.state.subtitles })}>
-              <CheckBox checked={this.state.subtitles} onPress={(value) => this.setState({ subtitles: !this.state.subtitles })} />
+            <ListItem onPress={onUpdateSubtitles}>
+              <CheckBox checked={this.state.subtitles} onPress={onUpdateSubtitles} />
               <Text>Subtitles</Text>
             </ListItem>
             <ListItem >
@@ -88,7 +115,7 @@ class NewShow extends Component {
               </Picker>
             </ListItem>
           </List>
-          <Button style={{ alignSelf: 'center', marginTop: 20, marginBottom: 20 }}>
+          <Button style={{ alignSelf: 'center', marginTop: 20, marginBottom: 20 }} onPress={() => this.props.addNewShow({ status: this.state.status, future_status: this.state.future_status, subtitles: this.state.subtitles, initial: this.state.initial })}>
               Add Show
           </Button>
         </Content>
@@ -99,7 +126,7 @@ class NewShow extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    sickrage: state.sickrage
+    searchResult: state.the_tv_db.searchResult
   }
 }
 
@@ -112,4 +139,4 @@ var styles = StyleSheet.create({
 })
 
 // upgrade our component to become Redux-aware
-export default connect(mapStateToProps, actionCreators)(NewShow);
+export default connect(mapStateToProps, _.merge({}, actionCreators, tvActionCreators))(NewShow);

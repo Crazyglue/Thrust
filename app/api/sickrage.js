@@ -15,6 +15,7 @@ export default class SickRage {
         banner: "show.getbanner",
         seasons: "show.seasons",
         poster: "show.getposter",
+        addNew: "show.addnew",
       }
     }
     console.log("Sickrage endpoint:", this.baseEndpoint);
@@ -49,5 +50,9 @@ export default class SickRage {
 
   setApiKey(key) { this.apiKey = key; }
   getApiKey() { return this.apiKey; }
+
+  addNewShow(params) {
+    fetch(this.getEndpoint() + this.actions.shows.addNew + params)
+  }
 
 }
