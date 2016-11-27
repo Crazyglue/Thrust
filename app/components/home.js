@@ -24,6 +24,11 @@ class Home extends Component {
         if (this.props.sickrage.lastUpdate.add(30, 'minutes') > moment()) {
           this.props.getShows();
         }
+
+        console.log("lastUpdate", this.props.sickrage.lastUpdate);
+      })
+      .then(() => {
+        this.props.login()
       })
 
   }
@@ -36,6 +41,7 @@ class Home extends Component {
     const goToTransmission = () => Actions.transmissionpage();
     const goToSickRage = () => Actions.sickrage();
     const goToAppSettings = () => Actions.appsettings();
+    const goToTheTvDb = () => Actions.the_tv_db();
     const openDrawer = () => this._drawer.open()
     const closeDrawer = () => this._drawer.close()
 
@@ -84,6 +90,14 @@ class Home extends Component {
               </Row>
             </CardItem>
 
+            <CardItem onPress={goToTheTvDb}>
+              <Row style={{ justifyContent: 'space-between' }}>
+                <Thumbnail source={require('../assets/images/default.jpg')} size={30} square/>
+                <Text>The Tv Db</Text>
+                <Icon name="ios-checkmark" style={{fontSize: 36, color: 'green' }} />
+              </Row>
+            </CardItem>
+
             <CardItem onPress={goToAppSettings}>
               <Row style={{ justifyContent: 'space-between' }}>
                 <Thumbnail style={{backgroundColor: 'black'}} source={require('../assets/images/whatcd.png')} size={30} square/>
@@ -108,6 +122,7 @@ const mapStateToProps = (state) => {
     username: state.whatcd.username,
     password: state.whatcd.password,
     sickrage: state.sickrage,
+    the_tv_db: state.the_tv_db
   }
 }
 
