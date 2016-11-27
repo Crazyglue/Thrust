@@ -30,10 +30,8 @@ class SickRage extends Component {
       image = ''
 
     return(
-      <ListItem>
-        <Button onPress={goToShow} transparent>
-          {image}
-        </Button>
+      <ListItem onPress={goToShow}>
+        {image}
       </ListItem>
     )
   }
