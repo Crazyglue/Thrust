@@ -7,6 +7,7 @@ import TransmissionPage from '../components/transmission/transmission_page';
 import SickRage from '../components/sickrage/';
 import Show from '../components/sickrage/show';
 import Season from '../components/sickrage/season';
+import NewShow from '../components/sickrage/new_show';
 import AppSettings from '../components/settings';
 
 const RouterWithRedux = connect()(Router);
@@ -18,6 +19,7 @@ const scenes = Actions.create(
     <Scene key="sickrage" component={SickRage} title="Sick Rage" />
     <Scene key="show" component={Show} />
     <Scene key="season" component={Season} />
+    <Scene key="newShow" component={NewShow} />
     <Scene key="transmissionpage" component={TransmissionPage} title="Transmission" />
     <Scene key="appsettings" component={AppSettings} title="App Settings" />
   </Scene>

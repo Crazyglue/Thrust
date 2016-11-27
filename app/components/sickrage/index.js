@@ -1,18 +1,14 @@
 import React, { Component, PropTypes } from 'react';
-import { Modal, Platform, ScrollView, Image, InteractionManager } from 'react-native';
+import { Modal, Platform, ScrollView, Image, InteractionManager, StyleSheet } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import * as actionCreators from '../../actions/sickrage';
 import store from 'react-native-simple-store';
-import { Container, Header, Content, Title, Button, Icon, Text, Thumbnail, InputGroup, Input, Spinner, List, ListItem, Card, CardItem } from 'native-base';
+import { Container, Header, Content, Fab, Title, Button, Icon, Text, Thumbnail, InputGroup, Input, Spinner, List, ListItem, Card, CardItem } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import _ from 'lodash';
 
 class SickRage extends Component {
-  static contextTypes = {
-    routes: PropTypes.object.isRequired,
-  };
-
   constructor(params) {
     super(params);
 
@@ -66,13 +62,16 @@ class SickRage extends Component {
             </Button>
           </Header>
           <Content>
-            <ScrollView>
-              <List
-                dataArray={shows}
-                renderRow={this.renderRow}
-                />
-            </ScrollView>
+            <List
+              dataArray={shows}
+              renderRow={this.renderRow}
+              />
           </Content>
+          <Fab
+            onPress={Actions.newShow}
+            >
+            <Icon name="md-add" />
+          </Fab>
         </Container>
 
       )
@@ -85,6 +84,14 @@ const mapStateToProps = (state) => {
     sickrage: state.sickrage
   }
 }
+
+var styles = StyleSheet.create({
+  actionButtonIcon: {
+    fontSize: 20,
+    height: 22,
+    color: 'white',
+  }
+})
 
 // upgrade our component to become Redux-aware
 export default connect(mapStateToProps, actionCreators)(SickRage);
