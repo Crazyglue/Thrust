@@ -40,42 +40,36 @@ class SickRage extends Component {
     )
   }
 
-
-
-
   render() {
     // console.log("SickRage Props:");
     // console.log(this.props);
 
     let shows = this.props.sickrage.shows || [];
 
-    if (this.state.renderPlaceholderOnly) {
-      return (<Spinner />)
-    }
-    else {
-      return (
-        <Container>
-          <Header>
-            <Title>{this.props.title}</Title>
-            <Button onPress={Actions.pop} transparent>
-              <Icon name="ios-arrow-back" />
-            </Button>
-          </Header>
-          <Content>
-            <List
-              dataArray={shows}
-              renderRow={this.renderRow}
-              />
-          </Content>
-          <Fab
-            onPress={Actions.newShow}
-            >
-            <Icon name="md-add" />
-          </Fab>
-        </Container>
-
-      )
-    }
+    return (
+      <Container>
+        <Header>
+          <Title>{this.props.title}</Title>
+          <Button onPress={Actions.pop} transparent>
+            <Icon name="ios-arrow-back" />
+          </Button>
+        </Header>
+        <Content>
+          {this.state.renderPlaceholderOnly ?
+          <Spinner /> :
+          <List
+            dataArray={shows}
+            renderRow={this.renderRow}
+            />
+          }
+        </Content>
+        <Fab
+          onPress={Actions.newShow}
+          >
+          <Icon name="md-add" />
+        </Fab>
+      </Container>
+    )
   }
 }
 
