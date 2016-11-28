@@ -2,6 +2,8 @@ import offline from 'react-native-simple-store';
 import _ from 'lodash';
 import moment from 'moment';
 import querystring from 'query-string';
+var MessageBarAlert = require('react-native-message-bar').MessageBar;
+var MessageBarManager = require('react-native-message-bar').MessageBarManager;
 
 export const SET_SHOWS = 'SET_SHOWS';
 export const SET_SEASONS = 'SET_SEASONS';
@@ -155,6 +157,15 @@ export function addNewShow(params) {
       .then(json => {
         console.log("returned json", json)
         if (json.result == "success") {
+          console.log("MessageBarManager:", MessageBarManager);
+          console.log("MessageBarAlert:", MessageBarAlert);
+          MessageBarManager.showAlert({
+            title: 'Your alert title goes here',
+            message: 'Your alert message goes here',
+            alertType: 'success',
+            // See Properties section for full customization
+            // Or check `index.ios.js` or `index.android.js` for a complete example
+          });
           return json.message
         }
         else

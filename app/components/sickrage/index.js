@@ -7,6 +7,9 @@ import store from 'react-native-simple-store';
 import { Container, Header, Content, Fab, Title, Button, Icon, Text, Thumbnail, InputGroup, Input, Spinner, List, ListItem, Card, CardItem } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import _ from 'lodash';
+var MessageBarAlert = require('react-native-message-bar').MessageBar;
+var MessageBarManager = require('react-native-message-bar').MessageBarManager;
+
 
 class SickRage extends Component {
   constructor(params) {
@@ -17,8 +20,14 @@ class SickRage extends Component {
     };
   }
 
+  componentWillUnmount() {
+    // Remove the alert located on this master page from the manager
+    MessageBarManager.unregisterMessageBar();
+  }
+
   componentDidMount() {
     InteractionManager.runAfterInteractions(() => {
+      MessageBarManager.registerMessageBar(this.refs.alert);
       this.setState({renderPlaceholderOnly: false});
     })
   }
@@ -68,6 +77,7 @@ class SickRage extends Component {
           >
           <Icon name="md-add" />
         </Fab>
+        <MessageBarAlert ref="alert" />
       </Container>
     )
   }
