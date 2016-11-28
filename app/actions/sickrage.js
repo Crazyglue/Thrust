@@ -143,6 +143,22 @@ export function setSickrageApiKey(key) {
 export function addNewShow(params) {
   return(dispatch, getState) => {
     console.log("params", querystring.stringify(params));
-    getState().sickrage.api.addNewShow(querystring.stringify(params));
+    getState().sickrage.api.addNewShow(querystring.stringify(params))
+      .then(response => {
+        console.log("addNewShow response:", response);
+        if (response.ok && response.status == 200) {
+          return response.json()
+        }
+        else
+          console.warn("Error sending new show to sickrage:", response)
+      })
+      .then(json => {
+        console.log("returned json", json)
+        if (json.result == "success") {
+          return json.message
+        }
+        else
+          return console.warn("Error adding show", json)
+      })
   }
 }

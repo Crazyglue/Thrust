@@ -40,6 +40,11 @@ class NewShow extends Component {
     let qualityOptions;
     const qualities = ['sdtv', 'sddvd', 'hdtv', 'rawhdtv', 'fullhdtv', 'hdwebdl', 'fullhdwebdl', 'hdbluray', 'fullhdbluray', 'unknown']
     const onUpdateSubtitles = (value) => this.setState({ subtitles: !this.state.subtitles })
+    _submitShow = () => {
+      this.props.addNewShow({ status: this.state.status, future_status: this.state.future_status, subtitles: this.state.subtitles, initial: this.state.initial, indexerid: this.state.id })
+      setTimeout(Actions.pop, 250);
+    }
+
 
     qualityOptions = _.map(qualities, quality => {
       return <Picker.Item key={quality} label={_.capitalize(quality)} value={quality} />
@@ -115,7 +120,7 @@ class NewShow extends Component {
               </Picker>
             </ListItem>
           </List>
-          <Button style={{ alignSelf: 'center', marginTop: 20, marginBottom: 20 }} onPress={() => this.props.addNewShow({ status: this.state.status, future_status: this.state.future_status, subtitles: this.state.subtitles, initial: this.state.initial })}>
+          <Button style={{ alignSelf: 'center', marginTop: 20, marginBottom: 20 }} onPress={_submitShow}>
               Add Show
           </Button>
         </Content>
