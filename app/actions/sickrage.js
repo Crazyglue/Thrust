@@ -75,7 +75,7 @@ export function getShows() {
           Promise.all(_.map(showIds, id => {
             return getState().sickrage.api.getSeasons(id)
               .then(response => {
-                console.log("seasonData:", response);
+                // console.log("seasonData:", response);
                 if (response.ok == true && response.status == 200)
                   return response.json()
                 else
@@ -90,7 +90,7 @@ export function getShows() {
           Promise.all(_.map(showIds, id => {
             return getState().sickrage.api.getPoster(id)
               .then(response => {
-                console.log("posterData:", response);
+                // console.log("posterData:", response);
                 return response.path()
               })
               .then(image => {
