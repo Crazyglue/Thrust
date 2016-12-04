@@ -3,45 +3,64 @@ import querystring from 'query-string';
 import merge from 'lodash/merge'
 import RNFetchBlob from 'react-native-fetch-blob'
 
-const POST_HEADERS = {
-  method: 'POST',
-  headers: {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json'
-  },
-  credentials: 'same-origin'
-};
-
-const FORM_HEADERS = {
-  method: 'POST',
-  headers: {
-    'Accept': 'multipart/form-data',
-    'Content-Type': 'multipart/form-data'
-  },
-  credentials: 'same-origin'
-};
-
 export default class SickRage {
-  constructor(baseUrl, apiKey) {
+  constructor() {
     console.log("Constructing SickRage API...");
-    this.baseEndpoint = "http://" + baseUrl + "/api/" + apiKey + "/?cmd=";
-    this.showsEndpoint = "shows";
+    this.baseUrl = "";
+    this.apiKey = "";
+
     this.actions = {
-      shows: "shows",
-      showBanner: "show.getbanner"
+      shows: {
+        index: "shows&sort=name",
+        banner: "show.getbanner",
+        seasons: "show.seasons",
+        fanArt: "show.getfanart",
+        poster: "show.getposter",
+        addNew: "show.addnew&",
+      }
     }
-
-    this.postJsonHeaders = POST_HEADERS;
-    this.postFormHeaders = FORM_HEADERS;
-
-    console.log("Endpoint:", this.baseEndpoint);
+    console.log("Sickrage endpoint:", this.baseEndpoint);
   }
 
-  getShows() { return fetch(this.baseEndpoint + this.actions.shows); }
-  getShowBanner(id) {
+  getEndpoint() { return "http://" + this.baseUrl + "/api/" + this.apiKey + "/?cmd="; }
+
+  getShows() { return fetch(this.getEndpoint() + this.actions.shows.index); }
+  getSeasons(id) { return fetch(this.getEndpoint() + this.actions.shows.seasons + "&indexerid=" + id); }
+
+  getPoster(id) {
     return RNFetchBlob.config({
       fileCache : true,
       // by adding this option, the temp files will have a file extension
-      appendExt : 'png'
-    }).fetch('GET', this.baseEndpoint + this.actions.showBanner + "&indexerid=" + id, {}) }
+      appendExt : 'jpg'
+    }).fetch('GET', this.getEndpoint() + this.actions.shows.poster + "&indexerid=" + id, {})
+  }
+
+  getFanArt(id) {
+    return RNFetchBlob.config({
+      fileCache : true,
+      // by adding this option, the temp files will have a file extension
+      appendExt : 'jpg'
+    }).fetch('GET', this.getEndpoint() + this.actions.shows.fanArt + "&indexerid=" + id, {})
+  }
+
+  getShowBanner(id) {
+    // console.log("show banner endpoint:", this.getEndpoint() + this.actions.showBanner + "&indexerid=" + id, {});
+    return RNFetchBlob.config({
+      fileCache : true,
+      // by adding this option, the temp files will have a file extension
+      appendExt : 'jpg'
+    }).fetch('GET', this.getEndpoint() + this.actions.shows.banner + "&indexerid=" + id, {})
+  }
+
+  setUrl(url) { this.baseUrl = url; }
+  getUrl() { return this.baseUrl; }
+
+  setApiKey(key) { this.apiKey = key; }
+  getApiKey() { return this.apiKey; }
+
+  addNewShow(params) {
+    console.log("new show params:", params)
+    return fetch(this.getEndpoint() + this.actions.shows.addNew + params)
+  }
+
 }

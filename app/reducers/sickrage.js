@@ -1,5 +1,9 @@
 import {
-  SET_SHOWS
+  SET_SHOWS,
+  SET_SEASONS,
+  UPDATE_SHOWS,
+  SET_IS_GETTING_SHOWS,
+  SET_LAST_UPDATE,
 } from '../actions/sickrage';
 import SickRage from '../api/sickrage';
 
@@ -7,7 +11,9 @@ import _ from 'lodash';
 
 const initialState = {
   shows: [],
-  api: new SickRage('192.168.1.155:8081', '6c80a6496ea33840bd8d21284da277f3'),
+  api: new SickRage(),
+  isGettingShows: false,
+  lastUpdate: ""
 };
 
 export default function reducer(state = initialState, action) {
@@ -19,6 +25,25 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         shows: action.payload.shows
+      }
+
+
+    case UPDATE_SHOWS:
+      return {
+        ...state,
+        shows: _.merge({}, state.shows, action.payload.shows)
+      }
+
+    case SET_IS_GETTING_SHOWS:
+      return {
+        ...state,
+        isGettingShows: action.payload.isGettingShows
+      }
+
+    case SET_LAST_UPDATE:
+      return {
+        ...state,
+        lastUpdate: action.payload.lastUpdate
       }
 
     default:

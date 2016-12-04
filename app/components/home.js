@@ -7,6 +7,7 @@ import { Container, Header, Content, Title, Button, Icon, Text, Card, CardItem, 
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import Drawer from 'react-native-drawer'
 import theme from '../themes/thrust';
+import moment from 'moment';
 
 class Home extends Component {
   componentWillMount() {
@@ -18,40 +19,31 @@ class Home extends Component {
       // })
       .then(() => {
         this.props.pingTransmission();
-      });
+      })
+      .then(() => {
+        if (this.props.sickrage.lastUpdate.add(30, 'minutes') > moment()) {
+          this.props.getShows();
+        }
+
+        console.log("lastUpdate", this.props.sickrage.lastUpdate);
+      })
+      .then(() => {
+        this.props.login()
+      })
 
   }
 
   render() {
     // console.log("Home props:");
     // console.log(this.props);
-    // console.log("Home State:");
-    // console.log(this.props.appState);
 
     const goToWhatCD = () => Actions.whatcdpage();
     const goToTransmission = () => Actions.transmissionpage();
     const goToSickRage = () => Actions.sickrage();
     const goToAppSettings = () => Actions.appsettings();
+    const goToTheTvDb = () => Actions.the_tv_db();
     const openDrawer = () => this._drawer.open()
     const closeDrawer = () => this._drawer.close()
-
-    let whatcdSpinner;
-
-    if (this.props.whatcd.isLoggedIn) {
-      whatcdSpinner = (
-        <Icon name="ios-checkmark" style={{ fontSize: 36, color: 'green' }} />
-      )
-    }
-    else if (this.props.whatcd.isLoggingIn) {
-      whatcdSpinner = (
-        <Icon name="ios-information-outline" style={{ fontSize: 36 }} />
-      )
-    }
-    else {
-      whatcdSpinner = (
-        <Icon name="ios-close" style={{fontSize: 36, color: "red"}} />
-      )
-    }
 
     let content;
     content = (<View style={{backgroundColor: "black", marginTop: 20, width: 200}}><Text style={{color: "white"}}>Hello</Text><Button onPress={closeDrawer} primary>Close</Button></View>);
@@ -82,14 +74,6 @@ class Home extends Component {
 
           <Card>
 
-            <CardItem onPress={goToWhatCD} style={{ height: 50 }}>
-              <Row style={{ justifyContent: 'space-between' }}>
-                <Thumbnail style={{backgroundColor: 'black'}} source={require('../assets/images/whatcd.png')} size={30} square/>
-                <Text>WhatCD</Text>
-                {whatcdSpinner}
-              </Row>
-            </CardItem>
-
             <CardItem onPress={goToTransmission}>
               <Row style={{ justifyContent: 'space-between' }}>
                 <Thumbnail source={require('../assets/images/transmission.png')} size={30} square/>
@@ -102,6 +86,14 @@ class Home extends Component {
               <Row style={{ justifyContent: 'space-between' }}>
                 <Thumbnail source={require('../assets/images/sickrage.png')} size={30} square/>
                 <Text>SickRage</Text>
+                <Icon name="ios-checkmark" style={{fontSize: 36, color: 'green' }} />
+              </Row>
+            </CardItem>
+
+            <CardItem onPress={goToTheTvDb}>
+              <Row style={{ justifyContent: 'space-between' }}>
+                <Thumbnail source={require('../assets/images/default.jpg')} size={30} square/>
+                <Text>The Tv Db</Text>
                 <Icon name="ios-checkmark" style={{fontSize: 36, color: 'green' }} />
               </Row>
             </CardItem>
@@ -129,6 +121,8 @@ const mapStateToProps = (state) => {
     whatcd: state.whatcd,
     username: state.whatcd.username,
     password: state.whatcd.password,
+    sickrage: state.sickrage,
+    the_tv_db: state.the_tv_db
   }
 }
 
