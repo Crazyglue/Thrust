@@ -1,6 +1,7 @@
 import offline from 'react-native-simple-store';
 import { SET_USERNAME, SET_PASSWORD } from './whatcd';
 import { SET_LAST_UPDATE, SET_SHOWS } from './sickrage';
+import { SET_TRANSMISSION_USERNAME, SET_TRANSMISSION_PASSWORD } from './transmission';
 import login from './whatcd';
 import moment from 'moment';
 
@@ -49,6 +50,22 @@ export function loadOfflineCredentials() {
       }),
       offline.get('transmission:startPaused').then(paused => {
         state.transmission.api.setStartPaused(paused || true);
+      }),
+      offline.get('transmission:username').then(username => {
+        dispatch({
+          type: SET_TRANSMISSION_USERNAME,
+          payload: {
+            username: username || ""
+          }
+        })
+      }),
+      offline.get('transmission:password').then(password => {
+        dispatch({
+          type: SET_TRANSMISSION_PASSWORD,
+          payload: {
+            password: password || ""
+          }
+        })
       })
     ]).then(() => {
       console.log("Credentials set");

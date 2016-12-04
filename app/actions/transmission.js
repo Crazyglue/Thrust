@@ -19,8 +19,10 @@ export function pingTransmission() {
             console.log("Setting session id: " + response.headers.map['x-transmission-session-id']);
             getState().transmission.api.setSessionId(response.headers.map['x-transmission-session-id'][0]);
           }
-          else
+          else {
+            console.warn(response);
             throw new Error("Failed to ping. Check URL, port, and transmission availability");
+          }
         })
       .catch((error) => {
         console.log("Error pinging");
@@ -158,6 +160,7 @@ export function getTorrentInfo(ids = [], status) {
 
 export function setTransmissionUsername(username) {
   return(dispatch, getState) => {
+    offline.save("transmission:username", username);
     dispatch({
       type: SET_TRANSMISSION_USERNAME,
       payload: {
@@ -169,6 +172,7 @@ export function setTransmissionUsername(username) {
 
 export function setTransmissionPassword(password) {
   return(dispatch, getState) => {
+    offline.save("transmission:password", password);
     dispatch({
       type: SET_TRANSMISSION_PASSWORD,
       payload: {

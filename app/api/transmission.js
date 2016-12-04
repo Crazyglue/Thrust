@@ -1,12 +1,12 @@
 // DO NOT EDIT
 const torrentStatusMap = [
-    'Stopped', /* Torrent is stopped */
-    'Queued', /* Queued to check files */
-    'Checking', /* Checking files */
-    'Queued for DL', /* Queued to download */
-    'Downloading', /* Downloading */
-    'Queue to seed', /* Queued to seed */
-    'Seeding'  /* Seeding */
+  'Stopped', /* Torrent is stopped */
+  'Queued', /* Queued to check files */
+  'Checking', /* Checking files */
+  'Queued for DL', /* Queued to download */
+  'Downloading', /* Downloading */
+  'Queue to seed', /* Queued to seed */
+  'Seeding'  /* Seeding */
 ];
 
 export default class TransmissionAPI {
@@ -27,7 +27,19 @@ export default class TransmissionAPI {
 
   getSessionId() {
     this.sessionId = null;
-    return fetch(this.getBaseUrl());
+    credentials = this.username + ":" + this.password
+    base = btoa(credentials);
+    params = {};
+    if (this.username.length > 0 && this.password.length > 0) {
+      params = {
+        headers: {
+          'Authorization': 'Basic ' + base
+        }
+      };
+    }
+
+    console.log("SessionId params:", params);
+    return fetch(this.getBaseUrl(), params);
   }
 
   getTorrentInfo(ids) {

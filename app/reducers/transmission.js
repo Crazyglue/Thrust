@@ -47,21 +47,17 @@ export default function reducer(state = initialState, action) {
       }
 
     case SET_TRANSMISSION_USERNAME:
+      newApi = Object.assign(new TransmissionAPI(), state.api, { username: action.payload.username })
       return {
         ...state,
-        api: {
-          ...state.api,
-          username: action.payload.username
-        }
+        api: newApi
       }
 
     case SET_TRANSMISSION_PASSWORD:
+      newApi = Object.assign(new TransmissionAPI(), state.api, { password: action.payload.password })
       return {
         ...state,
-        api: {
-          ...state.api,
-          password: action.payload.password
-        }
+        api: newApi
       }
 
     default:
