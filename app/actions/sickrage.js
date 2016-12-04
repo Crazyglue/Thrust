@@ -99,18 +99,14 @@ export function getShows() {
           }))
 
         ])
-        .then(() => {
+        .done(() => {
+
           dispatch({
             type: UPDATE_SHOWS,
             payload: {
               shows: updates
             }
           })
-        })
-        .done(() => {
-          console.log("offline saving shows:", getState().sickrage.shows);
-          offline.save("sickrage:shows", getState().sickrage.shows);
-          console.log("moment:", moment().format());
           dispatch({
             type: SET_IS_GETTING_SHOWS,
             payload: {
@@ -123,6 +119,9 @@ export function getShows() {
               lastUpdate: moment()
             }
           })
+
+          console.log("offline saving shows:", getState().sickrage.shows);
+          offline.save("sickrage:shows", getState().sickrage.shows);
         })
       })
   };
