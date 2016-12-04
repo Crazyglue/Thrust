@@ -2,7 +2,9 @@ import {
   GET_STATS,
   SET_DISPLAY_TORRENTS,
   SET_SESSION_STATS,
-  SET_STATUS_FILTER
+  SET_STATUS_FILTER,
+  SET_TRANSMISSION_USERNAME,
+  SET_TRANSMISSION_PASSWORD
 } from '../actions/transmission';
 import TransmissionAPI from '../api/transmission';
 
@@ -42,6 +44,24 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         statusFilter: action.payload.statusFilter
+      }
+
+    case SET_TRANSMISSION_USERNAME:
+      return {
+        ...state,
+        api: {
+          ...state.api,
+          username: action.payload.username
+        }
+      }
+
+    case SET_TRANSMISSION_PASSWORD:
+      return {
+        ...state,
+        api: {
+          ...state.api,
+          password: action.payload.password
+        }
       }
 
     default:

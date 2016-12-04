@@ -7,6 +7,8 @@ export const GET_STATS = 'GET_STATS';
 export const SET_DISPLAY_TORRENTS = 'SET_DISPLAY_TORRENTS';
 export const SET_SESSION_STATS = 'SET_SESSION_STATS';
 export const SET_STATUS_FILTER = 'SET_STATUS_FILTER';
+export const SET_TRANSMISSION_USERNAME = 'SET_TRANSMISSION_USERNAME';
+export const SET_TRANSMISSION_PASSWORD = 'SET_TRANSMISSION_PASSWORD';
 
 export function pingTransmission() {
   return(dispatch, getState) => {
@@ -151,5 +153,27 @@ export function getTorrentInfo(ids = [], status) {
           console.log(data);
         }
       });
+  }
+}
+
+export function setTransmissionUsername(username) {
+  return(dispatch, getState) => {
+    dispatch({
+      type: SET_TRANSMISSION_USERNAME,
+      payload: {
+        username: username
+      }
+    })
+  }
+}
+
+export function setTransmissionPassword(password) {
+  return(dispatch, getState) => {
+    dispatch({
+      type: SET_TRANSMISSION_PASSWORD,
+      payload: {
+        password: password
+      }
+    })
   }
 }
