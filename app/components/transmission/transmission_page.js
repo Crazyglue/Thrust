@@ -40,6 +40,13 @@ class TransmissionPage extends Component {
     // console.log("TransmissionPage Props:");
     // console.log(this.props);
 
+    // <TransmissionDropdown
+    //   options={this.props.transmission.api.statusMap}
+    //   sessionStats={this.props.transmission.sessionStats}
+    //   onSelect={(index, value) => this.props.setStatusFilter(index)}
+    //   statusFilter={this.props.transmission.statusFilter}
+    //   />
+
     return(
       <Container>
         <Header>
@@ -52,13 +59,6 @@ class TransmissionPage extends Component {
           </Button>
         </Header>
         <Content>
-          <TransmissionDropdown
-            options={this.props.transmission.api.statusMap}
-            sessionStats={this.props.transmission.sessionStats}
-            onSelect={(index, value) => this.props.setStatusFilter(index)}
-            statusFilter={this.props.transmission.statusFilter}
-            />
-
           <TransmissionTorrentList
             torrents={this.props.displayTorrents}
             statusFilter={this.props.transmission.statusFilter}
