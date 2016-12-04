@@ -14,6 +14,7 @@ export default class SickRage {
         index: "shows&sort=name",
         banner: "show.getbanner",
         seasons: "show.seasons",
+        fanArt: "show.getfanart",
         poster: "show.getposter",
         addNew: "show.addnew&",
       }
@@ -34,6 +35,12 @@ export default class SickRage {
     }).fetch('GET', this.getEndpoint() + this.actions.shows.poster + "&indexerid=" + id, {})
   }
 
+  getFanArt(id) {
+    return RNFetchBlob.config({
+      fileCache : true,
+      // by adding this option, the temp files will have a file extension
+      appendExt : 'jpg'
+    }).fetch('GET', this.getEndpoint() + this.actions.shows.fanArt + "&indexerid=" + id, {})
   }
 
   getShowBanner(id) {
