@@ -14,6 +14,7 @@ class TransmissionSettings extends Component {
 
     this.state = {
       isCollapsed: true,
+      useCredentials: false
     }
   }
 
@@ -27,63 +28,102 @@ class TransmissionSettings extends Component {
     this.forceUpdate();
   }
 
-  renderSettings() {
-  return (
-    <View>
-        <ListItem key="url">
-          <InputGroup borderType='underline' style={{margin: 10}}>
-            <Icon name='ios-wifi' style={{color:'black'}}/>
-            <Input
-              placeholder='URL/IP'
-              onChangeText={(localUrl) => this.props.setLocalUrl(localUrl)}
-              blurOnSubmit={true}
-              autoCorrect={false}
-              defaultValue={this.props.api.getLocalUrl()}
-              />
-          </InputGroup>
-        </ListItem>
-        <ListItem key="port">
-          <InputGroup borderType='underline' style={{margin: 10}}>
-            <Icon name='ios-wifi' style={{color:'black'}}/>
-            <Input
-              placeholder='Port'
-              onChangeText={(localPort) => this.props.setLocalPort(localPort)}
-              blurOnSubmit={true}
-              autoCorrect={false}
-              defaultValue={this.props.api.getLocalPort()}
-              />
-          </InputGroup>
-        </ListItem>
-        <ListItem key="dir">
-          <InputGroup borderType='underline' style={{margin: 10}}>
-            <Icon name='ios-folder' style={{color:'black'}}/>
-            <Input
-              placeholder='Download Directory'
-              onChangeText={(dir) => this.props.setDownloadDir(dir)}
-              blurOnSubmit={true}
-              autoCorrect={false}
-              defaultValue={this.props.api.getDownloadDir()}
-              />
-          </InputGroup>
-        </ListItem>
-        <ListItem key="paused" onPress={this.setStartPaused.bind(this)}>
-          <CheckBox
-            onPress={this.setStartPaused.bind(this)}
-            checked={this.props.api.startPaused}
+  renderCredentialSettings() {
+    return (
+      <View>
+        <InputGroup borderType='underline' style={{margin: 10}}>
+          <Icon name='ios-person' style={{color:'black'}}/>
+          <Input
+            placeholder='Username'
+            onChangeText={(username) => this.props.setTransmissionUsername(username)}
+            blurOnSubmit={true}
+            autoCorrect={false}
+            autoCapitalize={'none'}
+            defaultValue={this.props.api.username}
             />
-          <Text>Add torrents paused</Text>
-        </ListItem>
-        <ListItem key="test">
-          <Button onPress={this.ping.bind(this)} transparent>
-            <Text>Test Connection</Text>
-          </Button>
-        </ListItem>
-        <ListItem key="stats">
-          <Button onPress={() => this.props.getStats()} transparent>
-            <Text>Get Stats</Text>
-          </Button>
-        </ListItem>
-    </View>)
+        </InputGroup>
+        <InputGroup borderType='underline' style={{margin: 10}}>
+          <Icon name='ios-key' style={{color:'black'}}/>
+          <Input
+            placeholder='Password'
+            onChangeText={(password) => this.props.setTransmissionPassword(password)}
+            blurOnSubmit={true}
+            autoCorrect={false}
+            autoCapitalize={'none'}
+            defaultValue={this.props.api.password}
+            />
+        </InputGroup>
+      </View>
+    )
+  }
+
+  renderSettings() {
+    const useCredentials = () => this.setState({ useCredentials: !this.state.useCredentials });
+    return (
+      <View>
+          <ListItem key="url">
+            <InputGroup borderType='underline' style={{margin: 10}}>
+              <Icon name='ios-wifi' style={{color:'black'}}/>
+              <Input
+                placeholder='URL/IP'
+                onChangeText={(localUrl) => this.props.setLocalUrl(localUrl)}
+                blurOnSubmit={true}
+                autoCorrect={false}
+                defaultValue={this.props.api.localUrl}
+                />
+            </InputGroup>
+          </ListItem>
+          <ListItem key="port">
+            <InputGroup borderType='underline' style={{margin: 10}}>
+              <Icon name='ios-wifi' style={{color:'black'}}/>
+              <Input
+                placeholder='Port'
+                onChangeText={(localPort) => this.props.setLocalPort(localPort)}
+                blurOnSubmit={true}
+                autoCorrect={false}
+                defaultValue={this.props.api.localPort}
+                />
+            </InputGroup>
+          </ListItem>
+          <ListItem key="dir">
+            <InputGroup borderType='underline' style={{margin: 10}}>
+              <Icon name='ios-folder' style={{color:'black'}}/>
+              <Input
+                placeholder='Download Directory'
+                onChangeText={(dir) => this.props.setDownloadDir(dir)}
+                blurOnSubmit={true}
+                autoCorrect={false}
+                defaultValue={this.props.api.downloadDir}
+                />
+            </InputGroup>
+          </ListItem>
+          <ListItem key="paused" onPress={this.setStartPaused.bind(this)}>
+            <CheckBox
+              onPress={this.setStartPaused.bind(this)}
+              checked={this.props.api.startPaused}
+              />
+            <Text>Add torrents paused</Text>
+          </ListItem>
+          <ListItem key="test">
+            <Button onPress={this.ping.bind(this)} transparent>
+              <Text>Test Connection</Text>
+            </Button>
+          </ListItem>
+          <ListItem key="stats">
+            <Button onPress={() => this.props.getStats()} transparent>
+              <Text>Get Stats</Text>
+            </Button>
+          </ListItem>
+          <ListItem key="credentials" onPress={useCredentials}>
+            <CheckBox
+              onPress={useCredentials}
+              checked={this.state.useCredentials}
+              />
+            <Text>Use Credentials</Text>
+          </ListItem>
+          { this.state.useCredentials ? this.renderCredentialSettings() : null }
+      </View>
+    )
   }
 
   render() {
