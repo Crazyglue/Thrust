@@ -53,7 +53,7 @@ class SickRage extends Component {
     // console.log("SickRage Props:");
     // console.log(this.props);
 
-    let shows = this.props.sickrage.shows || [];
+    let shows = _.sortBy(this.props.sickrage.shows, 'show_name') || [];
 
     return (
       <Container>
