@@ -74,7 +74,36 @@ export default class TransmissionAPI {
       body: body
     };
 
-    return fetch(url, params);
+    base = btoa(credentials);
+    if (this.username.length > 0 && this.password.length > 0) {
+      params = Object.assign({}, params, {
+        headers: {
+          'Authorization': 'Basic ' + base
+        }
+      });
+    }
+
+    console.log("getInfo params", params);
+    return fetch(url, this.compose("POST"));
+  }
+
+  compose(method) {
+    credentials = this.username + ":" + this.password
+    base = btoa(credentials);
+
+    params = {
+      method: method,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        "x-transmission-session-id": this.sessionId,
+        'Authorization': 'Basic ' + base
+      },
+      body: body
+    };
+
+
+    return params;
   }
 
   getTransmissionStats() {
